@@ -10,6 +10,6 @@ public interface SignupMapper {
 //	@Insert("insert into reply (name, content, refid) values (#{name}, #{content}, #{refid})")
 //	public boolean insertSignup(SignupDTO vo);
 
-	@Select("SELECT MAX(id) FROM book;\n")
+	@Select("select count(myPet_id) from mypet;")
 	public int insertSignup();
 }

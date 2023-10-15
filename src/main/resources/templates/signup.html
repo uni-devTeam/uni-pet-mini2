@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default_layout">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Document</title>
-    <link rel="stylesheet" href="./css/global.css"/>
-    <link rel="stylesheet" href="./css/signup.css"/>
+    <link rel="stylesheet" th:href="@{/css/signup.css}"/>
 </head>
-<script defer src="./css/index.js"></script>
+<th:block layout:fragment="content">
+<script defer src="/js/signup.js"></script>
 <body>
 <div class="black_bg" th:if="${message}"></div>
 <div class="alert" th:if="${message}">
@@ -107,5 +107,6 @@
         </div>
     </form>
 </section>
+</th:block>
 </body>
 </html>
