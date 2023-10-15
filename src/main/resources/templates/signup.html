@@ -14,9 +14,7 @@
     <p th:text="${message}"></p>
     <button class="alert_btn">확인</button>
 </div>
-<section class="signup_header">
-    <h1>Signup</h1>
-</section>
+<div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='signup')"></div>
 <section class="signup_main_container">
     <h1>회원가입</h1>
     <form method="post" action="/signup">
