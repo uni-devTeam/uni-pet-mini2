@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link href="footer.css" rel="stylesheet" type="text/css" />
-
 </head>
 <body>
+<th:block th:fragment="footerFragment">
 <footer>
     <div class="inner">
         <div class="left">
@@ -23,5 +22,6 @@
         </div>
     </div>
 </footer>
+</th:block>
 </body>
 </html>
