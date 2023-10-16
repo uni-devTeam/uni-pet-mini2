@@ -2,7 +2,7 @@ body {
   overflow-x: hidden;
 }
 
-.signup_main_container {
+.sign_main_container {
   font-family: LINESeedKR-Bd;
   padding-top: 96px;
   padding-bottom: 96px;
@@ -11,7 +11,7 @@ body {
   margin: 0 auto;
 }
 
-.signup_main_container h1 {
+.sign_main_container h1 {
   font-size: 38px;
   font-weight: bold;
   margin-bottom: 60px;
@@ -120,7 +120,7 @@ body {
   border: 1px solid #c6c6c6;
 }
 
-.signup_btn {
+.sign_btn {
   width: 100%;
   border: none;
   padding: 20px;
@@ -133,4 +133,8 @@ body {
 }
 .margin90 {
   margin-right: 90px;
+}
+
+.margin_bottom_50{
+margin-bottom : 50px;
 }

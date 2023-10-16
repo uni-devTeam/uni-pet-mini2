@@ -4,7 +4,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Document</title>
-    <link rel="stylesheet" th:href="@{/css/signup.css}"/>
+    <link rel="stylesheet" th:href="@{/css/sign.css}"/>
 </head>
 <th:block layout:fragment="content">
 <script defer src="/js/signup.js"></script>
@@ -15,7 +15,7 @@
     <button class="alert_btn">확인</button>
 </div>
 <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='signup')"></div>
-<section class="signup_main_container">
+<section class="sign_main_container">
     <h1>회원가입</h1>
     <form method="post" action="/signup">
         <div class="info_container">
@@ -101,7 +101,7 @@
                     cols="30"
                     rows="10"
             ></textarea>
-            <button class="signup_btn">회원가입 전송</button>
+            <button class="sign_btn">회원가입 전송</button>
         </div>
     </form>
 </section>
