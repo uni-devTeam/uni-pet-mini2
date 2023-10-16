@@ -1,18 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>나눔 게시판</title>
     <style>
-        h1 {
-            display: inline-block;
+        @font-face {
+            font-family: 'HakgyoansimWoojuR';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimWoojuR.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        * {
+            font-family: 'HakgyoansimWoojuR';
+            margin: 0;
+        }
+
+        body {
+            text-align: center;
+        }
+
+        table {
+            margin: 5px auto;
+        }
+
+        td {
+            border-bottom: 1px dotted black;
+            border-top: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+
+        tr:hover {
+            background-color: lightgreen;
+        }
+
+        div {
+            margin: 10px auto;
+            padding: 50px;
+
+            width: 800px;
+            border-radius: 5px;
+        }
+        #write {
+
+            float: right;
         }
     </style>
 </head>
 <body>
 <h1>나눔 게시판</h1>
-<input type="text"> Search
-<hr>
-
+<div>
+    <button id="write">글쓰기</button>
+    <table th:if="${list}">
+        <thead>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>작성일</th>
+        <th>조회수</th>
+        </thead>
+        <tr th:each="vo : ${list}">
+            <td>[[${vo.title }]]</td>
+            <td>[[${vo.user_id }]]</td>
+            <td>[[${vo.posting_date }]]</td>
+            <td>[[${vo.views }]]</td>
+            <!--      <td><a th:href="@{/vdelete(id=${vo.id})}"> <img src="/images/delete.png" width="38"></a></td>
+                  <td><img src="/images/edit.png" width="38" th:onclick="|displayUpdateForm(${vo.id})|"></td>-->
+        </tr>
+    </table>
+    <h3 th:if="${msg}" th:text="${ msg }"></h3>
+    <a href="/visitorMain.html">
+        <button>메인페이지로 돌아가기</button>
+    </a>
+</div>
 </body>
 </html>
