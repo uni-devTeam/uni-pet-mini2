@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>마이펫</title>
+    <link rel="stylesheet" th:href="@{/css/signup.css}"/>
+</head>
+<body>
+<div th:if="${nopet}">
+    <p th:text="${nopet}"></p>
+    <button onclick="window.location.href='/myaddpet'">등록하러 가기</button>
+</div>
+<th:block th:if="${mypet}">
+    <p th:if="${mypet.pet_pic != null}"><img th:src="@{|${mypet.pet_pic}|}" alt="Pet Image" /></p>
+    <p th:if="${mypet.pet_pic == null}"><img th:src="@{/img/mypage/default-image.png}" alt="No Image" /></p>
+    <p th:text="|이름 : ${mypet.pet_name}|"></p>
+    <p th:text="|생일 : ${#temporals.format(mypet.pet_birth, 'yyyy년 M월 d일')}${age}|"></p>
+    <p th:text="'성별: ' + ${mypet.pet_gender == 'm' ? '남아' : '여아'}"></p>
+    <p th:text="|종류 : ${mypet.pet_kind}|"></p>
+    <p th:text="'중성화 여부: ' + ${mypet.pet_neuter == 'y' ? '유' : '무'}"></p>
+    <p th:text="|색상 : ${mypet.pet_color}|"></p>
+    <p th:text="|체중 : ${mypet.pet_weight}|"></p>
+    <p th:text="|메모 : ${mypet.pet_trait}|"></p>
+    <button onclick="window.location.href='/mypetchange'">수정</button>
+</th:block>
+</body>
+</html>

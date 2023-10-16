@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 정보</title>
+</head>
+<body>
+<p>이름: <span th:text="${me.name}"></span></p>
+<p>이메일: <span th:text="${me.email}"></span></p>
+
+<a th:href="@{/logout}">로그아웃</a>
+</body>
+</html>

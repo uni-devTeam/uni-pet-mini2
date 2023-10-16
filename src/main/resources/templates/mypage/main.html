@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>마이페이지</title>
+    <link rel="stylesheet" th:href="@{/css/signup.css}"/>
+</head>
+<body>
+<div><p th:text="${myname}"></th:text></p></div>
+<div>
+    <div><a th:href="@{/myprofile}">회원 정보</a></div>
+    <div><a th:href="@{/mypet}">나의 펫</a></div>
+    <div><a th:href="@{/mywriting}">나의 게시글</a></div>
+    <div><a th:href="@{/myshare}">나눔 물풀</a></div>
+    <div><a th:href="@{/mysharelikes}">나눔 좋아요</a></div>
+</div>
+</body>
+</html>
