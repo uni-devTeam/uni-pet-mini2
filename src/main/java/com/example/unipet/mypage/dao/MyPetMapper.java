@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.*;
 public interface MyPetMapper {
 
     // 나의 펫
-    @Select("SELECT myPet_id, pet_name, pet_birth, pet_gender, pet_kind, pet_neuter, pet_pic, pet_color, pet_weight, pet_trait " +
+    @Select("SELECT pet_id, pet_name, pet_birth, pet_gender, pet_kind, pet_neuter, pet_pic, pet_color, pet_weight, pet_trait " +
             "FROM mypet " +
             "WHERE user_id = #{sessionId}")
     public MypetDTO showMyPet(@Param("sessionId") String sessionId);

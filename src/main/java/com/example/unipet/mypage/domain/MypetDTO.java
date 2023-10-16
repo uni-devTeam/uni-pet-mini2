@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Data
 public class MypetDTO {
-    private int myPet_id;
+    private int pet_id;
     private String user_id;
     private String pet_name;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
