@@ -16,6 +16,10 @@ footer .inner {
     align-items: flex-end;
 }
 
+footer .left p {
+    margin-bottom: 13px;
+}
+
 footer .left .fLogo {
     width: 12.556rem;
     height: 3.500rem;
@@ -23,6 +27,7 @@ footer .left .fLogo {
     background: url(../image/logo_footer.jpg) no-repeat left top;
     background-position: center;
     background-size: 100% auto;
+    margin-bottom: 10px;
 }
 
 footer .left address {
@@ -51,12 +56,30 @@ footer .left address .space {
 	footer .left address .space {
 		width: 3.7rem;
 	}
+	footer .left p {
+        margin-bottom: 5px; /* 작은 화면에 대한 간격 조절 */
+    }
+    footer .left address {
+        margin-top: 5px; /* 작은 화면에 대한 간격 조절 */
+    }
+    footer .left address p {
+        margin-bottom: 3px; /* 작은 화면에 대한 간격 조절 */
+    }
 }
 
 @media (max-width: 480px) {
 	footer .left address .space {
 		display: none;
 	}
+	footer .left p {
+        margin-bottom: 3px; /* 더 작은 화면에 대한 간격 조절 */
+    }
+    footer .left address {
+        margin-top: 3px; /* 더 작은 화면에 대한 간격 조절 */
+    }
+    footer .left address p {
+        margin-bottom: 2px; /* 더 작은 화면에 대한 간격 조절 */
+    }
 }
 
 /* footer .left address i:nth-child(2){padding-left:0.556rem;} */
