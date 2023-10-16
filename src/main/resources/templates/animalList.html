@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Animal List</title>
+</head>
+<body>
+<div class="card-deck">
+    <div th:each="animal : ${animalList}" class="card" style="width: 18rem;">
+        <img th:src="${animal.popfile}" class="card-img-top" alt="Animal Image">
+        <div class="card-body">
+            <h5 th:text="${animal.noticeNo}" class="card-title"></h5>
+            <p th:text="${animal.kindCd}" class="card-text"></p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" th:text="${animal.processState}"></li>
+            <li class="list-group-item" th:text="${animal.careNm}"></li>
+            <li class="list-group-item" th:text="${animal.happenPlace}"></li>
+            <li class="list-group-item" th:text="${animal.specialMark}"></li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

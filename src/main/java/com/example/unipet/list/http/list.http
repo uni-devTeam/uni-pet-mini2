@@ -1,0 +1,4 @@
+GET http://apis.data.go.kr/1543061/abandonmentPublicSrvc
+Accept: application/json
+
+###
