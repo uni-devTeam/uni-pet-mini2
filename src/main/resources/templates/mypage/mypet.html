@@ -11,7 +11,7 @@
     <button onclick="window.location.href='/myaddpet'">등록하러 가기</button>
 </div>
 <th:block th:if="${mypet}">
-    <p th:if="${mypet.pet_pic != null}"><img th:src="@{|${mypet.pet_pic}|}" alt="Pet Image" /></p>
+    <p th:if="${mypet.pet_pic != null}"><img th:src="@{${mypet.pet_pic}}" alt="Pet Image" /></p>
     <p th:if="${mypet.pet_pic == null}"><img th:src="@{/img/mypage/default-image.png}" alt="No Image" /></p>
     <p th:text="|이름 : ${mypet.pet_name}|"></p>
     <p th:text="|생일 : ${#temporals.format(mypet.pet_birth, 'yyyy년 M월 d일')}${age}|"></p>

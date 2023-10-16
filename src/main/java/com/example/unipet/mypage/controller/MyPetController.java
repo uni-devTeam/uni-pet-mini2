@@ -1,6 +1,6 @@
 package com.example.unipet.mypage.controller;
 
-import com.example.unipet.mypage.dao.MypageMapper;
+import com.example.unipet.mypage.dao.MyPetMapper;
 import com.example.unipet.mypage.domain.MypetDTO;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -20,33 +20,9 @@ import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
-public class MypageController {
+public class MyPetController {
     @Autowired
-    MypageMapper dao;
-
-    // 메인
-    @RequestMapping(value = "/mypage")
-    public String mypage(Model model, HttpSession session) {
-        session.setAttribute("sessionId", "user");
-        String sessionId = (String) session.getAttribute("sessionId");
-        model.addAttribute("myname", dao.getMyName(sessionId));
-        return "/mypage/main";
-    }
-
-    // 회원 정보
-    @RequestMapping(value = "/myprofile")
-    public String myprofile(Model model, HttpSession session) {
-        String sessionId = (String) session.getAttribute("sessionId");
-        model.addAttribute("me", dao.getMyInfo(sessionId));
-        return "/mypage/profile";
-    }
-
-    // 로그아웃
-    @RequestMapping(value = "/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "/index";
-    }
+    MyPetMapper dao;
 
     // 펫 조회
     @RequestMapping(value = "/mypet")
@@ -100,18 +76,7 @@ public class MypageController {
             dto.setPet_pic(originalPet.getPet_pic());
         } else {
             try {
-                String fileName = file.getOriginalFilename();
-                System.out.println(fileName);
-                String currentDirectory = System.getProperty("user.dir");
-                System.out.println(currentDirectory);
-                UUID uuid = UUID.randomUUID();
-                File destinationFile = new File(currentDirectory + "/uni-pet/src/main/resources/static/img/mypage/upload/" + uuid.toString() + fileName);
-                file.transferTo(destinationFile);
-
-                // 이미지 파일 경로를 업데이트합니다.
-                System.out.println("저장성공");
-
-                dto.setPet_pic("/img/mypage/upload/" + uuid.toString() + fileName);
+                uploadImg(dto, file);
             } catch (IOException e) {
                 e.printStackTrace();
                 return "redirect:/mypetchange"; // 업로드 실패 시 리다이렉트
@@ -140,18 +105,7 @@ public class MypageController {
         // 이미지 파일 업로드 처리
         if (!file.isEmpty()) {
             try {
-                String fileName = file.getOriginalFilename();
-                System.out.println(fileName);
-                String currentDirectory = System.getProperty("user.dir");
-                System.out.println(currentDirectory);
-                UUID uuid = UUID.randomUUID();
-                File destinationFile = new File(currentDirectory + "/uni-pet/src/main/resources/static/img/mypage/upload/" + uuid.toString() + fileName);
-                file.transferTo(destinationFile);
-
-                // 이미지 파일 경로를 업데이트합니다.
-                System.out.println("저장성공");
-
-                dto.setPet_pic("/img/mypage/upload/" + uuid.toString() + fileName);
+                uploadImg(dto, file);
             } catch (IOException e) {
                 e.printStackTrace();
                 return "redirect:/myaddpet"; // 업로드 실패 시 리다이렉트
@@ -173,4 +127,25 @@ public class MypageController {
         dao.deletePet(sessionId);
         return "mypage/petAdd";
     }
+
+    // 이미지 업로드 메서드
+    private void uploadImg(MypetDTO dto, MultipartFile file) throws IOException {
+        String fileName = file.getOriginalFilename();
+        System.out.println(fileName);
+        String currentDirectory = System.getProperty("user.dir");
+        System.out.println(currentDirectory);
+        String correctedPath = currentDirectory.replace("\\", "/");
+        UUID uuid = UUID.randomUUID();
+        String path = correctedPath + "/uni-pet/src/main/resources/static/img/mypage/upload/" + uuid.toString() + fileName;
+        System.out.println(path);
+        File destinationFile = new File(path);
+        file.transferTo(destinationFile);
+
+        // 이미지 파일 경로를 업데이트합니다.
+        System.out.println("저장성공");
+
+        dto.setPet_pic("/img/mypage/upload/" + uuid.toString() + fileName);
+    }
+
+
 }

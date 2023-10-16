@@ -6,8 +6,10 @@
 </head>
 <body>
 <p>이름: <span th:text="${me.name}"></span></p>
-<p>이메일: <span th:text="${me.email}"></span></p>
-
+<p>이메일: <span th:text="${me.email}"></span><a th:href="@{/myemail}">&gt;</a></p>
+<p>비밀번호 변경<a th:href="@{/mypasswd(action='changepwd')}">&gt;</a></p>
 <a th:href="@{/logout}">로그아웃</a>
+<span>|</span>
+<a th:href="@{/mypasswd}">회원탈퇴</a>
 </body>
 </html>

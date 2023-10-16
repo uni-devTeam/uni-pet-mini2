@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>비밀번호 확인</title>
+</head>
+<body>
+<p th:if="${action == 'changepwd'}">비밀번호 변경</p>
+<p th:unless="${action == 'changepwd'}">회원탈퇴</p>
+<form method="post" action="/passcheck">
+    <p>비밀번호 확인 : </p><input type="password" name="currentPass">
+    <input type="submit" value="확인">
+</form>
+</body>
+</html>
