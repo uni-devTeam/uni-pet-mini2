@@ -1,13 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default_layout">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/default_layout">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </head>
 <th:block layout:fragment="content">
     <body>
-    <h1>메인페이지입니다요</h1>
+    <main class="main_container">
+        <div class="video_container">
+            <video autoplay loop muted>
+                <source src="/video/main_bg.mp4" type="video/mp4"/>
+            </video>
+        </div>
+        <div class="main_text">
+            <h1>Great Companion</h1>
+            <h1>with Animal</h1>
+            <h2>반려동물의 건강하고 행복한 삶과 함께 합니다</h2>
+        </div>
+        <div class="arrow_down_container">
+            <img src="/image/down_arrow.png" alt="down_arrow_icon"/>
+            <p>SCROLL</p>
+        </div>
+    </main>
     </body>
 </th:block>
 </html>
