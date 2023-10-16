@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.example.unipet", "thymeleaf.exam"})
-@MapperScan(value={"com.example.unipet.mypage.dao"})
+@MapperScan(value={"com.example.unipet.mypage.dao", "com.example.unipet.signup.dao"})
 public class UnipetApplication {
 
     public static void main(String[] args) {

@@ -37,7 +37,7 @@ public class MyController {
     @RequestMapping(value = "/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "/index";
+        return "/main";
     }
 
     // 이메일 변경 페이지
@@ -82,8 +82,8 @@ public class MyController {
                 return "redirect:/mydelaccount";
             }
         }
-        // 비밀번호 틀릴시 js로 유효성 검사 & return 다시 생각해보기
-        return "redirect:/passcheck";
+
+        return "mypage/myerror";
     }
 
     // 비밀번호 변경
@@ -97,7 +97,7 @@ public class MyController {
             System.out.println("비밀번호 변경 완료");
             return "redirect:/myprofile";
         }
-        return "redirect:/passchange";
+        return "mypage/myerror";
     }
 
     // 회원 탈퇴
