@@ -14,22 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequiredArgsConstructor
 public class MainController {
-    @Autowired
-    MainMapper dao;
-
     @GetMapping("/")
-    public ModelAndView goMain(@SessionAttribute(name = "userId", required = false) String userId) {
-        ModelAndView mav = new ModelAndView();
-
-        if(userId == null){
-            System.out.println("널");
-        }else{
-            String name = dao.getName(userId);
-            mav.addObject("name", name);
-        }
-
-        mav.setViewName("main");
-        return mav;
+    public String goMain() {
+        return "main";
     }
 
 }

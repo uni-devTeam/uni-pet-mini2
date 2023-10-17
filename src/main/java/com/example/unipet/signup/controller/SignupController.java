@@ -27,12 +27,17 @@ public class SignupController {
             mav.setViewName("signup");
             return mav;
         }
-        mav.setViewName("signup");
+        if(dto.getHavePet().equals("true")){
+
+        }
+        System.out.println(dto.toString());
+        System.out.println("성공");
+        mav.setViewName("login");
         return mav;
     }
 
     public boolean validationDto(SignupDTO dto, ModelAndView mav) {
-        if (dto.getEmail().isEmpty())  {
+        if(dto.getUser_id().isEmpty()){
             mav.addObject("message", "아이디를 입력해주세요.");
             return false;
         }
@@ -40,45 +45,55 @@ public class SignupController {
             mav.addObject("message", "패스워드를 입력해주세요.");
             return false;
         }
+        if (dto.getRePassword().isEmpty()) {
+            mav.addObject("message", "패스워드 확인을 입력해주세요.");
+            return false;
+        }
+        if(!dto.getPassword().equals(dto.getRePassword())){
+            mav.addObject("message", "패스워드가 일치하지 않습니다.");
+            return false;
+        }
+        if (dto.getEmail().isEmpty())  {
+            mav.addObject("message", "이메일을 입력해주세요.");
+            return false;
+        }
         if (dto.getName().isEmpty()) {
             mav.addObject("message", "이름을 입력해주세요.");
             return false;
         }
-        if (dto.getHavePet() == null) {
-            mav.addObject("message", "펫 보유 여부를 입력해주세요.");
-            return false;
-        }
-        if (dto.getPetName().isEmpty()) {
-            mav.addObject("message", "펫 이름을 입력해주세요.");
-            return false;
-        }
-        if (dto.getPetBirthday().isEmpty()) {
-            mav.addObject("message", "펫 생일을 입력해주세요.");
-            return false;
-        }
-        if (dto.getPetGender().isEmpty()) {
-            mav.addObject("message", "펫 성별을 입력해주세요.");
-            return false;
-        }
-        if (dto.getPetType().isEmpty()) {
-            mav.addObject("message", "펫 종류을 입력해주세요.");
-            return false;
-        }
-        if (dto.getPetPicture().isEmpty()) {
-            mav.addObject("message", "펫 사진을 입력해주세요.");
-            return false;
-        }
-        if (dto.getDoNeutering() == null) {
-            mav.addObject("message", "펫 중성화여부를 입력해주세요.");
-            return false;
-        }
-        if (dto.getPetColor().isEmpty()) {
-            mav.addObject("message", "펫 색상을 입력해주세요.");
-            return false;
-        }
-        if (dto.getPetChar().isEmpty()) {
-            mav.addObject("message", "펫 특징을 입력해주세요.");
-            return false;
+        if (dto.getHavePet().equals("true")) {
+            if (dto.getPetName().isEmpty()) {
+                mav.addObject("message", "펫 이름을 입력해주세요.");
+                return false;
+            }
+            if (dto.getPetBirthday().isEmpty()) {
+                mav.addObject("message", "펫 생일을 입력해주세요.");
+                return false;
+            }
+            if (dto.getPetGender().isEmpty()) {
+                mav.addObject("message", "펫 성별을 입력해주세요.");
+                return false;
+            }
+            if (dto.getPetType().isEmpty()) {
+                mav.addObject("message", "펫 종류을 입력해주세요.");
+                return false;
+            }
+            if (dto.getPetPicture().isEmpty()) {
+                mav.addObject("message", "펫 사진을 입력해주세요.");
+                return false;
+            }
+            if (dto.getDoNeutering() == null) {
+                mav.addObject("message", "펫 중성화여부를 입력해주세요.");
+                return false;
+            }
+            if (dto.getPetColor().isEmpty()) {
+                mav.addObject("message", "펫 색상을 입력해주세요.");
+                return false;
+            }
+            if (dto.getPetChar().isEmpty()) {
+                mav.addObject("message", "펫 특징을 입력해주세요.");
+                return false;
+            }
         }
         return true;
     }
