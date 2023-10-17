@@ -2,7 +2,7 @@ body {
   overflow-x: hidden;
 }
 
-.signup_main_container {
+.sign_main_container {
   font-family: LINESeedKR-Bd;
   padding-top: 96px;
   padding-bottom: 96px;
@@ -11,7 +11,7 @@ body {
   margin: 0 auto;
 }
 
-.signup_main_container h1 {
+.sign_main_container h1 {
   font-size: 38px;
   font-weight: bold;
   margin-bottom: 60px;
@@ -47,6 +47,7 @@ body {
   padding: 8px 20px;
   font-size: 16px;
   border: 1px solid #c6c6c6;
+  box-shadow: 0 3px 10px rgb(0, 0, 0, 0.2);
 }
 
 .input_lable_text {
@@ -72,7 +73,7 @@ body {
   background-color: white;
   border-radius: 8px;
   transform: translateX(-50%);
-  box-shadow: 0 3px 10px rgb(0,0,0,0.2);
+  box-shadow: 0 3px 10px rgb(0, 0, 0, 0.2);
 }
 
 .alert p {
@@ -118,9 +119,10 @@ body {
   padding: 10px 20px;
   font-size: 16px;
   border: 1px solid #c6c6c6;
+  box-shadow: 0 3px 10px rgb(0, 0, 0, 0.2);
 }
 
-.signup_btn {
+.sign_btn {
   width: 100%;
   border: none;
   padding: 20px;
@@ -133,4 +135,18 @@ body {
 }
 .margin90 {
   margin-right: 90px;
+}
+
+.margin_bottom_50 {
+  margin-bottom: 50px;
+}
+
+.go_signup_text_container {
+  width: 100%;
+  text-align: right;
+}
+
+.go_signup_text_container a {
+  text-decoration: none;
+  color: black;
 }
