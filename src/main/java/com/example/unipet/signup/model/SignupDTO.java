@@ -8,8 +8,10 @@ import lombok.ToString;
 @Setter
 @ToString
 public class SignupDTO {
+    private String user_id;
     private String email;
     private String password;
+    private String rePassword;
     private String name;
     private String havePet;
     private String petName;
