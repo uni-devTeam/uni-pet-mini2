@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default_layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>비밀번호 확인</title>
+    <link rel="stylesheet" th:href="@{/css/mypage.css}"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
+<th:block layout:fragment="content">
+<body>
+<div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='mypage')"></div>
+    <p th:if="${action == 'changepwd'}">비밀번호 변경</p>
+    <p th:unless="${action == 'changepwd'}">회원탈퇴</p>
+    <form method="post" action="/passcheck">
+        <p>비밀번호 확인 : </p><input type="password" name="currentPass">
+        <input type="submit" value="확인">
+    </form>
+</body>
+</th:block>
+</html>
