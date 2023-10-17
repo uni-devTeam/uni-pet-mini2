@@ -1,0 +1,45 @@
+.content_main_container {
+    margin: 30px;
+}
+
+#ref_btn {
+    width: 30%;
+    border: none;
+    padding: 10px;
+    font-family: HakgyoansimWoojuR;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 18px;
+    background-color: #494949;
+    color: white;
+    margin-top: 20px;
+}
+
+#del_btn {
+    text-decoration: none;
+    width: 30%;
+    border: none;
+    padding: 10px;
+    font-family: HakgyoansimWoojuR;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 18px;
+    background-color: #494949;
+    color: white;
+    margin-top: 20px;
+}
+
+
+#edit_btn {
+    text-decoration: none;
+    width: 30%;
+    border: none;
+    padding: 10px;
+    font-family: HakgyoansimWoojuR;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 18px;
+    background-color: #494949;
+    color: white;
+    margin-top: 20px;
+}

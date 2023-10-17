@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/default_layout">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/content.css}"/>
+</head>
+<th:block layout:fragment="content">
+    <body>
+    <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='Share')"></div>
+    <section class="content_main_container">
+        <h1 th:text="|게시글 제목: ${board.title}|"></h1>
+        <hr>
+        <p th:text="|작성자: ${board.user_id}|"></p>
+        <p th:text="|작성일: ${board.posting_date}|"></p>
+        <div th:text="|게시글 내용: ${board.content}|"></div>
+        <div th:text="|조회수: ${board.views}|"></div>
+        <div th:text="|게시판번호: ${board.board_no}|"></div>
+        <a th:href="@{/board/sblist}">
+            <button id="ref_btn">목록으로 돌아가기</button>
+        </a>
+        <br>
+
+        <button id="edit_btn" th:onclick="|displayUpdateForm(${board.board_no})|">수정</button>
+        <br>
+        <br>
+        <br>
+
+        <a id="del_btn" th:href="@{'/board/sbdelete?board_no='+${board.board_no}}">삭제</a>
+        <br>
+        <br>
+        <br>
+        <hr>
+
+        <div id="updateform" style="display: none">
+            <h2>글을 수정하세요</h2>
+            <hr>
+            <form method="post" action="/board/sbupdate">
+                <input type="hidden" name="board_no" value="">
+                <input type="text" name="user_id" value="" required><br>
+                <textarea cols="35" rows="10" name="content" required></textarea>
+                <br> <input type="submit" value="수정"> <input
+                    type="reset" value="재작성" onclick="resetForm();return false;">
+                <input type="button" value="취소"
+                       onclick="document.getElementById('updateform').style.display='none'">
+            </form>
+        </div>
+    </section>
+
+    <script>
+        let jsonobj = null;
+        let user_iddom = null;
+        let contentdom = null;
+
+        function displayUpdateForm(board_no) {
+            let xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    document.getElementById('updateform').style.display = 'block';
+                    let board_nodom = document.querySelector("#updateform input[name=board_no]");
+                    user_iddom = document.querySelector("#updateform input[name=user_id]");
+                    contentdom = document.querySelector("#updateform textarea");
+                    jsonobj = JSON.parse(xhr.responseText);
+                    board_nodom.value = jsonobj.board_no;
+                    user_iddom.value = jsonobj.user_id;
+                    contentdom.value = jsonobj.content;
+                }
+            };
+            xhr.open('GET', '/board/parsejson?board_no=' + board_no, true);
+            xhr.send();
+        }
+
+        function resetForm() {
+            if (jsonobj) {
+                user_iddom.value = jsonobj.user_id;
+                contentdom.value = jsonobj.content;
+            }
+        }
+    </script>
+    </body>
+</th:block>
+</html>
