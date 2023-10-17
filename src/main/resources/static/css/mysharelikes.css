@@ -1,0 +1,33 @@
+
+.cardbox {
+    margin: 0px auto;
+    display:flex;
+    justify-content: left;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+#likes_card {
+    width:100vw;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+.card-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 250px;
+}
+
+#noItem {
+    text-align: center;
+}
+
+#pic {
+    width: 18rem;
+    height: 200px;
+}

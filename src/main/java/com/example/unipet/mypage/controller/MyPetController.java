@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -26,8 +27,7 @@ public class MyPetController {
 
     // 펫 조회
     @RequestMapping(value = "/mypet")
-    public String mypet(Model model, HttpSession session) {
-        String sessionId = (String) session.getAttribute("sessionId");
+    public String mypet(Model model, @SessionAttribute(name = "userId", required = false) String sessionId) {
         MypetDTO pet = dao.showMyPet(sessionId);
         if(pet == null) {
             model.addAttribute("nopet", "등록된 펫이 없습니다.");
@@ -56,8 +56,7 @@ public class MyPetController {
 
     // 펫 정보 수정 페이지 이동
     @RequestMapping(value = "/mypetchange")
-    public String petChangepage(Model model, HttpSession session) {
-        String sessionId = (String) session.getAttribute("sessionId");
+    public String petChangepage(Model model, @SessionAttribute(name = "userId", required = false) String sessionId) {
         MypetDTO pet = dao.showMyPet(sessionId);
         model.addAttribute("mypet", pet);
         return "mypage/petChange";
@@ -65,10 +64,8 @@ public class MyPetController {
 
     // 펫 정보 수정
     @RequestMapping(value = "/petchanged")
-    public String petChange(Model model, HttpSession session, @ModelAttribute MypetDTO dto,
+    public String petChange(Model model, @SessionAttribute(name = "userId", required = false) String sessionId, @ModelAttribute MypetDTO dto,
                             @RequestParam("attachFile") MultipartFile file) {
-        String sessionId = (String) session.getAttribute("sessionId");
-
         // 이미지 파일 업로드 처리
         if (file.isEmpty()) {
             // 파일이 선택되지 않은 경우, 기존 이미지 경로를 그대로 유지
@@ -92,16 +89,14 @@ public class MyPetController {
 
     // 펫 등록 페이지 이동
     @RequestMapping(value = "/myaddpet")
-    public String addpet(Model model, HttpSession session) {
-        String sessionId = (String) session.getAttribute("sessionId");
+    public String addpet(Model model, @SessionAttribute(name = "userId", required = false) String sessionId) {
         return "mypage/petAdd";
     }
 
     // 펫 등록
     @RequestMapping(value = "/insertpet")
-    public String insertPet(Model model, HttpSession session, @ModelAttribute MypetDTO dto, @RequestParam("attachFile") MultipartFile file) {
-        String sessionId = (String) session.getAttribute("sessionId");
-
+    public String insertPet(Model model, @SessionAttribute(name = "userId", required = false) String sessionId,
+                            @ModelAttribute MypetDTO dto, @RequestParam("attachFile") MultipartFile file) {
         // 이미지 파일 업로드 처리
         if (!file.isEmpty()) {
             try {
@@ -122,8 +117,7 @@ public class MyPetController {
 
     // 펫 삭제
     @RequestMapping(value = "/deletepet")
-    public String delpet(HttpSession session) {
-        String sessionId = (String)session.getAttribute("sessionId");
+    public String delpet(@SessionAttribute(name = "userId", required = false) String sessionId) {
         dao.deletePet(sessionId);
         return "mypage/petAdd";
     }
