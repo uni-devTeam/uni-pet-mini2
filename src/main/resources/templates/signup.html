@@ -43,30 +43,31 @@
                         type="radio"
                         name="havePet"
                         value="false"
+                        checked="checked"
                 />
                 <label for="havePetFalse">미보유</label>
             </div>
 
             <label class="input_lable_text" for="petName">펫 이름 </label>
-            <input class="inputTag" id="petName" type="text" name="petName"/>
+            <input class="inputTag disable_toggle" id="petName" type="text" name="petName"/>
 
             <label class="input_lable_text" for="petBirthday">생일 </label>
             <input
-                    class="inputTag"
+                    class="inputTag disable_toggle"
                     id="petBirthday"
                     type="text"
                     name="petBirthday"
             />
 
             <label class="input_lable_text" for="petGender">성별</label>
-            <input class="inputTag" id="petGender" type="text" name="petGender"/>
+            <input class="inputTag disable_toggle" id="petGender" type="text" name="petGender"/>
 
             <label class="input_lable_text" for="petType">종류</label>
-            <input class="inputTag" id="petType" type="text" name="petType"/>
+            <input class="inputTag disable_toggle" id="petType" type="text" name="petType"/>
 
             <label class="input_lable_text" for="petPicture">펫 사진</label>
             <input
-                    class="inputTag"
+                    class="inputTag disable_toggle"
                     id="petPicture"
                     type="text"
                     name="petPicture"
@@ -79,6 +80,7 @@
                         type="radio"
                         name="doNeutering"
                         value="true"
+                        class="disable_toggle"
                 />
                 <label class="margin90" for="doNeuteringTrue">⭕</label>
                 <input
@@ -86,16 +88,17 @@
                         type="radio"
                         name="doNeutering"
                         value="false"
+                        class="disable_toggle"
                 />
                 <label for="doNeuteringFalse">❌</label>
             </div>
 
             <label class="input_lable_text" for="petColor">펫 색상</label>
-            <input class="inputTag" id="petColor" type="text" name="petColor"/>
+            <input class="inputTag disable_toggle" id="petColor" type="text" name="petColor"/>
 
             <label class="input_lable_text" for="petChar">펫 특징</label>
             <textarea
-                    class="textarea_tag"
+                    class="textarea_tag disable_toggle"
                     id="petChar"
                     name="petChar"
                     cols="30"
