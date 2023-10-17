@@ -221,6 +221,7 @@ video {
 
 .text_up_down_container p {
   font-size: 12px;
+  color: #d3d3d3;
 }
 
 @keyframes UpDown {

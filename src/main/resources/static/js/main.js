@@ -19,7 +19,9 @@ window.addEventListener("scroll", () => {
   if (getServiceContainerY() <= window.scrollY) {
     serviceContainer.classList.remove("hidden");
     textUpDownContainer.classList.remove("hidden");
-    serviceContainer.style.trans = currentWidth + "%";
+  }else if (getServiceContainerY() > window.scrollY - 200){
+      serviceContainer.classList.add("hidden");
+      textUpDownContainer.classList.add("hidden");
   }
 });
 
