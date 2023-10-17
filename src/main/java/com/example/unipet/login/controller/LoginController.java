@@ -19,16 +19,14 @@ public class LoginController {
     LoginMapper dao;
 
     @GetMapping("/login")
-    public String signupMain() {
+    public String loginMain() {
         return "login";
     }
 
     @PostMapping("/login")
     public String loginReq(LoginDTO dto, HttpServletRequest httpServletRequest, Model model) {
-
         String id = dto.getId();
         String passWord = dto.getPassword();
-
         if (dao.checkId(id)) {
             if (dao.checkPassword(id, passWord)) {
                 System.out.println("로그인 성공");
@@ -49,6 +47,11 @@ public class LoginController {
             model.addAttribute("message", "존재하지 않는 ID 입니다.");
         }
         return "login";
+    }
+    @GetMapping("/logout")
+    public String logoutMain(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
     }
 
 }
