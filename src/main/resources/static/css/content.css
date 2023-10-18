@@ -3,7 +3,7 @@
 }
 
 #ref_btn {
-    width: 30%;
+    white-space: nowrap;
     border: none;
     padding: 10px;
     font-family: HakgyoansimWoojuR;
@@ -17,7 +17,6 @@
 
 #del_btn {
     text-decoration: none;
-    width: 30%;
     border: none;
     padding: 10px;
     font-family: HakgyoansimWoojuR;
@@ -27,12 +26,12 @@
     background-color: #494949;
     color: white;
     margin-top: 20px;
+    text-align: center;
 }
 
 
 #edit_btn {
     text-decoration: none;
-    width: 30%;
     border: none;
     padding: 10px;
     font-family: HakgyoansimWoojuR;
@@ -42,4 +41,14 @@
     background-color: #494949;
     color: white;
     margin-top: 20px;
+    order: 0;
 }
+
+.button_wrap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    width: 25%;
+}
+

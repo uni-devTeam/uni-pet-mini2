@@ -12,21 +12,15 @@
     <body>
     <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='Share')"></div>
     <section class="board_main_container">
-        <div class="board_main_wrap">
-            <br>
-            <div id="search_warp">
-                <form id="posting_btn" method="post" action="posting">
-                    <button type="submit" class="btn btn-dark">글쓰기</button>
-                </form>
-                <form id="search_btn" method="GET" action="/board/sbsearch">
-                    <input type="text" id="search_text" placeholder="검색어를 입력해주세요." name="title">
-                    <button type="submit" class="btn btn-light">
-                        <img th:src="@{/image/search_icon.png}" alt=""/>
-                    </button>
-                </form>
-            </div>
-            <div class="table table-hover" id="table-container">
-                <table th:if="${list}">
+        <div class="board_main_wrap flex-column w-75">
+            <form id="search_btn" method="GET" action="/board/sbsearch">
+                <input type="text" id="search_text" placeholder="검색어를 입력해주세요." name="title">
+                <button type="submit" class="btn btn-light">
+                    <img th:src="@{/image/search_icon.png}" alt=""/>
+                </button>
+            </form>
+            <div class="table table-hover w-100" id="table-container">
+                <table th:if="${list}" class="w-100">
                     <thead>
                     <tr class="table-dark">
                         <th>제목</th>
@@ -46,9 +40,12 @@
                     </tbody>
                 </table>
                 <h3 th:if="${msg}" th:text="${ msg }"></h3>
-                <a th:href="@{/board/sblist}">
+                <!--<a th:href="@{/board/sblist}">
                     <button class="btn btn-dark">메인페이지로 돌아가기</button>
-                </a>
+                </a>-->
+                <form id="posting_btn" method="post" action="posting">
+                    <button type="submit" class="btn btn-dark">글쓰기</button>
+                </form>
             </div>
         </div>
     </section>
