@@ -29,8 +29,6 @@ public class LoginController {
         String passWord = dto.getPassword();
         if (dao.checkId(id)) {
             if (dao.checkPassword(id, passWord)) {
-                System.out.println("로그인 성공");
-
                 httpServletRequest.getSession().invalidate();
                 HttpSession session = httpServletRequest.getSession(true);  // Session이 없으면 생성
 
@@ -38,12 +36,10 @@ public class LoginController {
                 session.setMaxInactiveInterval(1800);
                 return "redirect:";
             } else {
-                System.out.println("비밀번호가 틀립니다.");
                 model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
                 model.addAttribute("login");
             }
         } else {
-            System.out.println("없는 아이디 입니다.");
             model.addAttribute("message", "존재하지 않는 ID 입니다.");
         }
         return "login";
