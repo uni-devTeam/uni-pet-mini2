@@ -43,12 +43,12 @@
 </div>
 <script>
     var select = document.getElementById('emailSelect');
-    var customInput = document.getElementById('customInput');
+    var c_input = document.getElementsByClassName('customInput');
 
     select.addEventListener('change', function() {
         if (this.value === 'custom') {
             select.style.display = 'none';  // select 숨기기
-            customInput.style.display = 'block';  // input 보이기
+            c_input[0].style.display = 'block';
             document.getElementById('cancelButton').style.display = 'block';
         }
     });
@@ -57,7 +57,7 @@
         event.preventDefault();
         select.style.display = 'block';
         document.getElementById('emailSelect').value = 'gmail.com'; // 기본 선택 옵션으로 변경
-        document.getElementById('customInput').style.display = 'none';
+        c_input[0].style.display = 'none';
         document.getElementById('cancelButton').style.display = 'none';
     });
 </script>
