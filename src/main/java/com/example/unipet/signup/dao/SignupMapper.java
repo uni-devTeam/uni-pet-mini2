@@ -7,9 +7,10 @@ import java.util.List;
 
 @Mapper
 public interface SignupMapper {
-//	@Insert("insert into reply (name, content, refid) values (#{name}, #{content}, #{refid})")
-//	public boolean insertSignup(SignupDTO vo);
+    @Insert("insert into user(user_id, password, email, name, created_at, modified_At, roles) values(#{user_id}, #{password}, #{email},#{name}, now(), now(), 'user')")
+    public boolean insertUserInfo(SignupDTO dto);
 
-	@Select("select count(myPet_id) from mypet;")
-	public int insertSignup();
+    @Insert("insert into mypet (user_id, pet_name, pet_birth, pet_gender, pet_kind, pet_neuter, pet_pic, pet_color, pet_weight, pet_trait ) values (#{user_id}, #{petName}, #{petBirthday} , #{petGender}, #{petType}, #{doNeutering}, #{petPicture}, #{petColor}, #{petWeight}, #{petChar})")
+    public boolean insertPetInfo(SignupDTO dto);
+
 }

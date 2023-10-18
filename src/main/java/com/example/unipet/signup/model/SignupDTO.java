@@ -22,4 +22,5 @@ public class SignupDTO {
     private String doNeutering;
     private String petColor;
     private String petChar;
+    private String petWeight;
 }
