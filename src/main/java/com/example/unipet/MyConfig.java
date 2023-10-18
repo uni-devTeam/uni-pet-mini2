@@ -19,3 +19,5 @@ public class MyConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/img/mypage/upload/**").addResourceLocations(location);
     }
 }
+
+//Hospital information
