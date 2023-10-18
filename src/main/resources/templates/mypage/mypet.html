@@ -11,14 +11,10 @@
 <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='mypage')"></div>
 <div class="middle">
     <aside class="asNav" th:insert="/mypage/mypageNav :: navFragment"></aside>
-        <div th:if="${nopet}">
-            <p th:text="${nopet}"></p>
-            <button onclick="window.location.href='/myaddpet'">등록하러 가기</button>
-        </div>
     <div class="con_info">
         <th:block th:if="${mypet}">
-            <p th:if="${mypet.pet_pic != null}"><img th:src="@{${mypet.pet_pic}}" alt="Pet Image" /></p>
-            <p th:if="${mypet.pet_pic == null}"><img th:src="@{/img/mypage/default-image.png}" alt="No Image" /></p>
+            <img class="circle_petpic" th:if="${mypet.pet_pic != null}" th:src="@{|${mypet.pet_pic}|}" alt="Pet Image" />
+            <img class="circle_petpic" th:unless="${mypet.pet_pic != null}" th:src="@{/img/mypage/default-image.png}" alt="No Image" />
             <p th:text="|이름 : ${mypet.pet_name}|"></p>
             <p th:text="|생일 : ${#temporals.format(mypet.pet_birth, 'yyyy년 M월 d일')}${age}|"></p>
             <p th:text="'성별: ' + ${mypet.pet_gender == 'm' ? '남아' : '여아'}"></p>
@@ -28,6 +24,12 @@
             <p th:text="|체중 : ${mypet.pet_weight}|"></p>
             <p th:text="|메모 : ${mypet.pet_trait}|"></p>
             <button onclick="window.location.href='/mypetchange'">수정</button>
+        </th:block>
+        <th:block th:unless="${mypet}">
+            <div th:if="${nopet}">
+                <p th:text="${nopet}"></p>
+                <button onclick="window.location.href='/myaddpet'">등록하러 가기</button>
+            </div>
         </th:block>
     </div>
 </div>

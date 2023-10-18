@@ -15,11 +15,10 @@
     <aside class="asNav" th:insert="/mypage/mypageNav :: navFragment"></aside>
     <div class="con_info">
         <form action="/insertpet" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="pet_id" />
-            <label for="file">
-                <img th:src="@{/img/mypage/default-image.png}" alt="No Image" />
-                <img th:src="@{/img/mypage/mypicture.png}" alt="이미지 아이콘" style="cursor: pointer;">
-                <p>사진: <input type="file" name="attachFile" id="file" accept="image/*" style="display: none;" max="1048576"></p>
+            <label for="attach">
+                <img class="circle_petpic" th:src="@{/img/mypage/default-image.png}" alt="No Image" />
+                <img src="img/mypage/mypicture.png" alt="이미지 아이콘" style="cursor: pointer;">
+                <input type="file" name="attachFile" id="attach" accept="image/*" style="display: none;" max="1048576">
             </label>
             <img id="preview" src="" alt="Image Preview" style="max-width: 100px; max-height: 100px;">
             <p>이름: <input type="text" name="pet_name" /></p>
@@ -43,7 +42,7 @@
 </body>
 <script>
     // 파일 입력 필드가 변경될 때 호출되는 함수
-    document.getElementById('file').addEventListener('change', function() {
+    document.getElementById('attach').addEventListener('change', function() {
         const fileInput = this;
         const preview = document.getElementById('preview');
 

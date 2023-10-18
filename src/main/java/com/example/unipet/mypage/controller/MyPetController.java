@@ -68,6 +68,7 @@ public class MyPetController {
             // 파일이 선택되지 않은 경우, 기존 이미지 경로를 그대로 유지
             MypetDTO originalPet = dao.showMyPet(userId);
             dto.setPet_pic(originalPet.getPet_pic());
+
         } else {
             try {
                 uploadImg(dto, file);
@@ -76,12 +77,9 @@ public class MyPetController {
                 return "redirect:/mypetchange"; // 업로드 실패 시 리다이렉트
             }
         }
+        dao.petInfoChange(dto, userId);
 
-        boolean changed = dao.petInfoChange(dto, userId);
-        if (changed) {
-            return "redirect:/mypet"; // 성공했을 경우 리다이렉트
-        }
-        return "redirect:/mypetchange"; // 실패했을 경우 리다이렉트
+        return "redirect:/mypet"; // 실패했을 경우 리다이렉트
     }
 
     // 펫 등록 페이지 이동
@@ -103,20 +101,17 @@ public class MyPetController {
                 return "redirect:/myaddpet"; // 업로드 실패 시 리다이렉트
             }
         }
+        dao.petInfoAdd(dto, userId);
 
-        boolean added = dao.petInfoAdd(dto, userId);
-        if (added) {
-            return "redirect:/mypet"; // 성공했을 경우 리다이렉트
-        }
-
-        return "mypage/petAdd";
+        return "redirect:/mypet";
     }
 
     // 펫 삭제
     @RequestMapping(value = "/deletepet")
     public String delpet(@ModelAttribute("userId") String userId) {
+        System.out.println(userId);
         dao.deletePet(userId);
-        return "mypage/petAdd";
+        return "redirect:/mypet";
     }
 
     // 이미지 업로드 메서드

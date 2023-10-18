@@ -1,0 +1,51 @@
+.con_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+}
+
+.con_title {
+    position: absolute;
+    top: 10%;
+    color: #555;
+    text-decoration: underline;
+    text-decoration-color: #BEBEBE;
+    text-underline-position: under;
+    text-decoration-thickness: 1px;
+    left: 35%;
+    font-size: x-large;
+}
+
+.infobox {
+    border: 0;
+    background: transparent;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 420px;
+    height: 80px;
+    border-bottom: 2px solid #BEBEBE;
+    margin-bottom: 10px;
+    padding: 0 20px;
+}
+
+.con_bottom {
+    position: absolute;
+    bottom: 25px;
+}
+
+.con_email {
+    color:
+}
+
+.con_bottom, .con_link {
+    color: #BEBEBE;
+    transition: color 0.3s;
+}
+
+.con_link:hover {
+    color: #555;
+}
