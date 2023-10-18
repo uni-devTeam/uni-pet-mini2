@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>마이페이지</title>
     <link rel="stylesheet" th:href="@{/css/mypage.css}"/>
-
+    <link rel="stylesheet" th:href="@{/css/mynav.css}"/>
 </head>
 <th:block layout:fragment="content">
 <body>
-    <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='mypage')"></div>
-        <div><p th:text="${myname}"></p></div>
+<div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='mypage')"></div>
+<div class="middle">
+    <aside class="asNav" th:insert="/mypage/mypageNav :: navFragment"></aside>
     <div class="menu">
         <button class="selbox selbox1" onclick="window.location.href='/myprofile'">
             <img class="my_icon" th:src="@{/img/mypage/me.png}" alt="회원 정보">
@@ -33,6 +34,7 @@
             <span>나눔 좋아요</span>
         </button>
     </div>
+</div>
 </body>
 </th:block>
 </html>

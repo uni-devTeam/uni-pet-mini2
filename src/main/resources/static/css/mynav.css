@@ -1,0 +1,8 @@
+
+.circle-test {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: url("/image/happy_cat.jpg");
+  background-size: 100% 100%;
+}
