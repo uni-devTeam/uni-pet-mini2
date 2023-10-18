@@ -7,10 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -21,14 +18,15 @@ import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
+@SessionAttributes({"userId", "myname"})
 public class MyPetController {
     @Autowired
     MyPetMapper dao;
 
     // 펫 조회
     @RequestMapping(value = "/mypet")
-    public String mypet(Model model, @SessionAttribute(name = "userId", required = false) String sessionId) {
-        MypetDTO pet = dao.showMyPet(sessionId);
+    public String mypet(Model model, @ModelAttribute("userId") String userId) {
+        MypetDTO pet = dao.showMyPet(userId);
         if(pet == null) {
             model.addAttribute("nopet", "등록된 펫이 없습니다.");
         } else {
@@ -56,20 +54,19 @@ public class MyPetController {
 
     // 펫 정보 수정 페이지 이동
     @RequestMapping(value = "/mypetchange")
-    public String petChangepage(Model model, @SessionAttribute(name = "userId", required = false) String sessionId) {
-        MypetDTO pet = dao.showMyPet(sessionId);
-        model.addAttribute("mypet", pet);
+    public String petChangepage(Model model, @ModelAttribute("userId") String userId) {
+        model.addAttribute("mypet", dao.showMyPet(userId));
         return "mypage/petChange";
     }
 
     // 펫 정보 수정
     @RequestMapping(value = "/petchanged")
-    public String petChange(Model model, @SessionAttribute(name = "userId", required = false) String sessionId, @ModelAttribute MypetDTO dto,
+    public String petChange(Model model, @ModelAttribute("userId") String userId, @ModelAttribute MypetDTO dto,
                             @RequestParam("attachFile") MultipartFile file) {
         // 이미지 파일 업로드 처리
         if (file.isEmpty()) {
             // 파일이 선택되지 않은 경우, 기존 이미지 경로를 그대로 유지
-            MypetDTO originalPet = dao.showMyPet(sessionId);
+            MypetDTO originalPet = dao.showMyPet(userId);
             dto.setPet_pic(originalPet.getPet_pic());
         } else {
             try {
@@ -80,7 +77,7 @@ public class MyPetController {
             }
         }
 
-        boolean changed = dao.petInfoChange(dto, sessionId);
+        boolean changed = dao.petInfoChange(dto, userId);
         if (changed) {
             return "redirect:/mypet"; // 성공했을 경우 리다이렉트
         }
@@ -89,13 +86,13 @@ public class MyPetController {
 
     // 펫 등록 페이지 이동
     @RequestMapping(value = "/myaddpet")
-    public String addpet(Model model, @SessionAttribute(name = "userId", required = false) String sessionId) {
+    public String addpet(Model model, @ModelAttribute("userId") String userId) {
         return "mypage/petAdd";
     }
 
     // 펫 등록
     @RequestMapping(value = "/insertpet")
-    public String insertPet(Model model, @SessionAttribute(name = "userId", required = false) String sessionId,
+    public String insertPet(Model model, @ModelAttribute("userId") String userId,
                             @ModelAttribute MypetDTO dto, @RequestParam("attachFile") MultipartFile file) {
         // 이미지 파일 업로드 처리
         if (!file.isEmpty()) {
@@ -107,7 +104,7 @@ public class MyPetController {
             }
         }
 
-        boolean added = dao.petInfoAdd(dto, sessionId);
+        boolean added = dao.petInfoAdd(dto, userId);
         if (added) {
             return "redirect:/mypet"; // 성공했을 경우 리다이렉트
         }
@@ -117,8 +114,8 @@ public class MyPetController {
 
     // 펫 삭제
     @RequestMapping(value = "/deletepet")
-    public String delpet(@SessionAttribute(name = "userId", required = false) String sessionId) {
-        dao.deletePet(sessionId);
+    public String delpet(@ModelAttribute("userId") String userId) {
+        dao.deletePet(userId);
         return "mypage/petAdd";
     }
 

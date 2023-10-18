@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>마이페이지</title>
     <link rel="stylesheet" th:href="@{/css/mypage.css}"/>
-
 </head>
 <th:block layout:fragment="content">
 <body>
-    <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='mypage')"></div>
-        <div><p th:text="${myname}"></p></div>
+<div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='mypage')"></div>
     <div class="menu">
         <button class="selbox selbox1" onclick="window.location.href='/myprofile'">
-            <img class="my_icon" th:src="@{/img/mypage/me.png}" alt="회원 정보">
-            <span>회원 정보</span>
+            <div class="icon_space">
+                <img class="my_icon" th:src="@{/img/mypage/me.png}" alt="회원 정보">
+                <span>회원 정보</span>
+            </div>
         </button>
         <button class="selbox selbox2" onclick="window.location.href='/mypet'">
             <img class="my_icon" th:src="@{/img/mypage/paw.png}" alt="나의 펫">

@@ -8,13 +8,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@SessionAttributes({"userId", "myname"})
 public class MyBoardController {
 
     @Autowired
@@ -24,16 +24,22 @@ public class MyBoardController {
     MyMapper mydao;
 
     @RequestMapping(value = "/myshare")
-    public String myshare(@SessionAttribute(name = "userId", required = false) String sessionId, Model model) {
-        model.addAttribute("share", dao.getMyShare(sessionId));
-        model.addAttribute("myname", mydao.getMyName(sessionId));
+    public String myshare(@ModelAttribute("userId") String userId, Model model) {
+        model.addAttribute("share", dao.getMyShare(userId));
+        model.addAttribute("myname", mydao.getMyName(userId));
         return "mypage/myshare";
     }
 
     @RequestMapping(value = "/mysharelikes")
-    public String mysharelikes(@SessionAttribute(name = "userId", required = false) String sessionId, Model model) {
-        model.addAttribute("likes", dao.getShareLikes(sessionId));
-        model.addAttribute("myname", mydao.getMyName(sessionId));
+    public String mysharelikes(@ModelAttribute("userId") String userId, Model model) {
+        model.addAttribute("likes", dao.getShareLikes(userId));
+        model.addAttribute("myname", mydao.getMyName(userId));
         return "mypage/mysharelikes";
+    }
+
+    @RequestMapping(value = "/mywriting")
+    public String mywriting(@ModelAttribute("userId") String userId, Model model) {
+        model.addAttribute("writing", dao.getMyWritings(userId));
+        return "mypage/mywriting";
     }
 }
