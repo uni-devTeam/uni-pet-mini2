@@ -10,19 +10,19 @@
     <body>
     <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='mypage')"></div>
 <div class="middle">
-    <aside class="asNav" th:insert="/mypage/mypageNav :: navFragment"></aside>
+    <aside class="asNav" th:insert="/fragments/mypageNav :: navFragment(pageName='1')"></aside>
     <div class="con_info">
         <div class="con_title">회원 정보</div>
         <div class="infobox">
-            <p>이름 </p><span th:text="${me.name}"></span>
+            <p>이름 </p><span class="con_name" th:text="${me.name}"></span>
         </div>
         <div class="infobox">
-            <p>이메일 </p><a class="con_email" th:text="|${me.email} &gt|" th:href="@{/myemail}"></a>
+            <p>이메일 </p><a class="con_link" th:text="|${me.email} &gt|" th:href="@{/myemail}"></a>
         </div>
         <div class="infobox">
             <p>비밀번호 변경</p><a class="con_link" th:href="@{/mypasswd(action='changepwd')}">&gt;</a>
         </div>
-        <div class="con_bottom"><a class="con_link" th:href="@{/logout}">로그아웃</a> | <a class="con_link" th:href="@{/mypasswd}">회원탈퇴</a></div>
+        <div class="con_bottom"><a class="con_link_bottom" th:href="@{/logout}">로그아웃</a> | <a class="con_link_bottom" th:href="@{/mypasswd}">회원탈퇴</a></div>
     </div>
 </div>
     </body>

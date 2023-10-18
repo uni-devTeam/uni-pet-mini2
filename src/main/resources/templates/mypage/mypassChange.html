@@ -5,18 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>비밀번호 변경</title>
     <link rel="stylesheet" th:href="@{/css/mypage.css}"/>
+    <link rel="stylesheet" th:href="@{/css/profile.css}"/>
 </head>
 <th:block layout:fragment="content">
 <body>
 <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='mypage')"></div>
 <div class="middle">
-    <aside class="asNav" th:insert="/mypage/mypageNav :: navFragment"></aside>
+    <aside class="asNav" th:insert="/fragments/mypageNav :: navFragment(pageName='0')"></aside>
     <div class="con_info">
-        <form method="post" action="/passchange">
-            <p>변경 비밀번호 : </p><input type="password" name="changedPass">
-            <p>변경 비밀번호 확인 : </p><input type="password" name="changedPassCheck">
-            <input type="submit" value="변경">
-        </form>
+        <div class="con_title">비밀번호 변경</div>
+        <div>
+            <form method="post" th:action="@{/passchange}" id="confirm_change">
+                <div class="infobox">
+                    <p>변경 비밀번호 </p><input type="password" class="customInput" name="changedPass">
+                </div>
+                <div class="infobox">
+                    <p>변경 비밀번호 확인 </p><input type="password" class="customInput" name="changedPassCheck">
+                </div>
+            </form>
+            <button type="submit" form="confirm_change" id="e_btn">확인</button>
+        </div>
     </div>
 </div>
 </body>

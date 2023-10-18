@@ -12,7 +12,7 @@
     <body>
     <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='mypage')"></div>
 <div class="middle">
-    <aside class="asNav" th:insert="/mypage/mypageNav :: navFragment"></aside>
+    <aside class="asNav" th:insert="/fragments/mypageNav :: navFragment(pageName='0')"></aside>
     <div class="con_info">
         <form action="/petchanged" method="post" enctype="multipart/form-data">
                 <label for="attach">

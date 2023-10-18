@@ -5,31 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>이메일 변경</title>
     <link rel="stylesheet" th:href="@{/css/mypage.css}"/>
+    <link rel="stylesheet" th:href="@{/css/profile.css}"/>
 </head>
 <th:block layout:fragment="content">
 <body>
 <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='mypage')"></div>
 <div class="middle">
-    <aside class="asNav" th:insert="/mypage/mypageNav :: navFragment"></aside>
+    <aside class="asNav" th:insert="/fragments/mypageNav :: navFragment(pageName='1')"></aside>
     <div class="con_info">
-        <p>이메일 변경</p>
-        <br>
-        <p th:text="|기존 이메일 ${me.email}|"></p>
-        <form method="post" action="/changeemail">
-        <p th:text="'변경 후 이메일 '"></p>
-            <input type="text" name="email" id="customEmailField">
-            @
-            <select name="domain" id="emailSelect">
-                <option value="gmail.com">gmail.com</option>
-                <option value="naver.com">naver.com</option>
-                <option value="daum.net">daum.net</option>
-                <option value="kakao.com">kakao.com</option>
-                <option value="self">직접입력</option>
-            </select>
-            <button type="submit">변경</button>
-        </form>
+        <div class="con_title">이메일 변경</div>
+        <div class="infobox">
+            <div th:text="'기존 이메일 '"></div>
+            <div th:text="${me.email}"></div>
+        </div>
+        <div>
+            <form method="post" action="/changeemail" id="confirm_change">
+                <div class="infobox">
+                    <div class="after_change" th:text="'변경 후 이메일 '"></div>
+                    <div class="con_email">
+                        <input class="new_email" type="text" name="email" id="customEmailField">
+                        &nbsp;&#64;&nbsp;
+                        <select name="domain" id="emailSelect" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                            <option value="gmail.com">gmail.com</option>
+                            <option value="naver.com">naver.com</option>
+                            <option value="daum.net">daum.net</option>
+                            <option value="kakao.com">kakao.com</option>
+                            <option value="custom">직접입력</option>
+                        </select>
+                        <input type="text" class="customInput" style="display: none;">
+                        <button id="cancelButton" style="display: none;">취소</button>
+                    </div>
+                </div>
+            </form>
+            <button type="submit" form="confirm_change" id="e_btn">확인</button>
+        </div>
     </div>
 </div>
+<script>
+    var select = document.getElementById('emailSelect');
+    var customInput = document.getElementById('customInput');
+
+    select.addEventListener('change', function() {
+        if (this.value === 'custom') {
+            select.style.display = 'none';  // select 숨기기
+            customInput.style.display = 'block';  // input 보이기
+            document.getElementById('cancelButton').style.display = 'block';
+        }
+    });
+
+    document.getElementById('cancelButton').addEventListener('click', function() {
+        event.preventDefault();
+        select.style.display = 'block';
+        document.getElementById('emailSelect').value = 'gmail.com'; // 기본 선택 옵션으로 변경
+        document.getElementById('customInput').style.display = 'none';
+        document.getElementById('cancelButton').style.display = 'none';
+    });
+</script>
 </body>
 </th:block>
 </html>

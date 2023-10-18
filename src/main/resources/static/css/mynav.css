@@ -53,6 +53,7 @@
     line-height: 1.8em;
 }
 
-.nav-link:hover {
-    color: #555; /* 마우스 호버 시 폰트 색상 변경 */
+.nav-link:hover,
+.nav_act{
+    color: #555;
 }

@@ -10,7 +10,7 @@
 <body>
 <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='mypage')"></div>
 <div class="middle">
-    <aside class="asNav" th:insert="/mypage/mypageNav :: navFragment"></aside>
+    <aside class="asNav" th:insert="/fragments/mypageNav :: navFragment(pageName='2')"></aside>
     <div class="con_info">
         <th:block th:if="${mypet}">
             <img class="circle_petpic" th:if="${mypet.pet_pic != null}" th:src="@{|${mypet.pet_pic}|}" alt="Pet Image" />

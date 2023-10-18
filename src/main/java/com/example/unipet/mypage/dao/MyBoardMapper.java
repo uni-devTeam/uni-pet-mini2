@@ -15,7 +15,7 @@ public interface MyBoardMapper {
             "FROM boards " +
             "WHERE user_id = #{userId} " +
             "ORDER BY board_no DESC")
-    public List<BoardVO> getMyShare(String userId);
+    public List<BoardVO> getMyShare(@Param("userId") String userId);
 
     // 나눔 좋아요 가져오기
     @Select("SELECT b.board_no, b.board_id, b.title, b.content, b.posting_date, b.img_path " +
@@ -24,11 +24,11 @@ public interface MyBoardMapper {
             "ON b.board_no = l.board_no " +
             "WHERE l.user_id = #{userId} " +
             "ORDER BY l.board_no DESC")
-    public List<BoardVO> getShareLikes(String userId);
+    public List<BoardVO> getShareLikes(@Param("userId") String userId);
 
     @Select("SELECT board_no, board_id, title, posting_date " +
             "FROM boards " +
             "WHERE board_id = 2 AND user_id = #{userId} " +
             "ORDER BY board_no DESC")
-    public List<MyWritingVO> getMyWritings(String userId);
+    public List<MyWritingVO> getMyWritings(@Param("userId") String userId);
 }

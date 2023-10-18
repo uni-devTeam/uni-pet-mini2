@@ -37,15 +37,49 @@
     bottom: 25px;
 }
 
-.con_email {
-    color:
-}
-
-.con_bottom, .con_link {
+.con_bottom, .con_link, .con_link_bottom {
     color: #BEBEBE;
     transition: color 0.3s;
 }
 
-.con_link:hover {
+.con_link:hover,
+.con_link_bottom:hover,
+.con_name
+{
     color: #555;
+}
+
+a.con_link {
+    padding: 20px 0 20px 50px;
+}
+
+.after_change {
+    width: 30%;
+}
+
+.con_email {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.new_email,
+.customInput {
+    border: none;
+    background-color: #BEBEBE;
+    width: 35%;
+}
+
+#emailSelect {
+    width: 42%;
+}
+
+#e_btn {
+    margin-top: 40px;
+    margin-left: auto;
+    display: flex;
+}
+
+#cancelButton {
+    margin-left: 5px;
 }
