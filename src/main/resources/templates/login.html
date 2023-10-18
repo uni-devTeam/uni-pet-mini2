@@ -13,6 +13,7 @@
   </head>
   <th:block layout:fragment="content">
     <body>
+    <div th:replace="/fragments/modal.html :: modalFragment(message=${message})"></div>
       <div
         th:replace="/fragments/topBackground.html :: topBgFragment(imgName='Login')"
       ></div>
