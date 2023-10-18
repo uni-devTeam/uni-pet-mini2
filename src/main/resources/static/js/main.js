@@ -1,6 +1,7 @@
 const mainTextBgbox = document.querySelector(".main_text_bgbox");
 const serviceContainer = document.querySelector(".service_container");
 const textUpDownContainer = document.querySelector(".text_up_down_container");
+const photo3 = document.querySelector(".photo3");
 
 let yRelativeToPageTop = 0;
 let currentWidth = 75;
@@ -59,3 +60,7 @@ const updateWidth = () => {
   mainTextBgbox.style.width = currentWidth + "%";
   lastScrollY = scrollY;
 };
+
+photo3.addEventListener("click", ()=>{
+    window.location.href = '/hospinfo';
+})

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/default_layout">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/hospInfo.css}"/>
+</head>
+<th:block layout:fragment="content">
+    <script defer src="/js/apikey.js"></script>
+    <script defer src="/js/hospInfo.js"></script>
+    <body>
+    <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='Signup')"></div>
+    <div class="hospital_dataList_head_text"><h1>동물 병원 리스트</h1></div>
+    <div class="hospital_dataList_container">
+        <div class="hospital_dataList_warpper"></div>
+    </div>
+    </body>
+</th:block>
+</html>
