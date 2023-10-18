@@ -26,14 +26,14 @@ public interface MyPetMapper {
             "    pet_trait = #{dto.pet_trait}",
             "WHERE user_id = #{userId}"
     })
-    public boolean petInfoChange(@Param("dto") MypetDTO dto, @Param("userId") String userId);
+    public boolean petInfoChange(@Param("dto") MypetDTO dto, String userId);
     
     // 펫 등록
     @Insert("INSERT INTO mypet (user_id, pet_pic, pet_name, pet_birth, pet_gender, pet_kind, pet_neuter, pet_color, pet_weight, pet_trait) " +
             "VALUES (#{userId}, #{dto.pet_pic}, #{dto.pet_name}, #{dto.pet_birth}, #{dto.pet_gender}, #{dto.pet_kind}, #{dto.pet_neuter}, #{dto.pet_color}, #{dto.pet_weight}, #{dto.pet_trait})")
-    public boolean petInfoAdd(@Param("dto") MypetDTO dto, @Param("userId") String userId);
+    public boolean petInfoAdd(@Param("dto") MypetDTO dto, String userId);
 
     // 펫 삭제
     @Delete("DELETE FROM mypet WHERE user_id = #{userId}")
-    public void deletePet(@Param("userId") String userId);
+    public void deletePet(String userId);
 }

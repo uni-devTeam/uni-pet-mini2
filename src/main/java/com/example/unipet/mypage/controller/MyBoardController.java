@@ -36,4 +36,10 @@ public class MyBoardController {
         model.addAttribute("myname", mydao.getMyName(userId));
         return "mypage/mysharelikes";
     }
+
+    @RequestMapping(value = "/mywriting")
+    public String mywriting(@ModelAttribute("userId") String userId, Model model) {
+        model.addAttribute("writing", dao.getMyWritings(userId));
+        return "mypage/mywriting";
+    }
 }

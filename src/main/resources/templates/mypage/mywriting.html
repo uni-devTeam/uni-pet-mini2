@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default_layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>나의 게시글</title>
+</head>
+<th:block layout:fragment="content">
+<body>
+<div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='mypage')"></div>
+<div class="middle">
+    <aside class="asNav" th:insert="/mypage/mypageNav :: navFragment"></aside>
+    <div class="con_info">
+        <th:block th:if="${writing}">
+            <div class="con_table">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">번호</th>
+                            <th scope="col">제목</th>
+                            <th scope="col">날짜</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="wr, rowStat : ${writing}">
+                            <input type="hidden" value="${wr.board_no}">
+                            <td th:text="${writing.size() - rowStat.index}"></td>
+                            <td th:text="${wr.title}">제목</td>
+                            <td th:text="${wr.posting_date}">날짜</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </th:block>
+        <th:block th:unless="${writing}">
+            <div>등록된 글이 없습니다.</div>
+        </th:block>
+    </div>
+</div>
+</body>
+</th:block>
+</html>
