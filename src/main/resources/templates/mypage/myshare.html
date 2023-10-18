@@ -9,8 +9,9 @@
 <th:block layout:fragment="content">
 <body>
     <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='mypage')"></div>
-        <div><p th:text="${myname}"></p></div>
-
+<div class="middle">
+    <aside class="asNav" th:insert="/mypage/mypageNav :: navFragment"></aside>
+    <div class="con_info">
         <div class="container" id="share_card">
             <div class="cardbox">
             <th:block th:if="${share}">
@@ -39,6 +40,7 @@
             </div>
         </th:block>
     </div>
+</div>
 </body>
 </th:block>
 </html>

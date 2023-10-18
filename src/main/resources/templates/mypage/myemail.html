@@ -9,22 +9,27 @@
 <th:block layout:fragment="content">
 <body>
 <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='mypage')"></div>
-    <p>이메일 변경</p>
-    <br>
-    <p th:text="|기존 이메일 ${me.email}|"></p>
-    <form method="post" action="/changeemail">
-    <p th:text="'변경 후 이메일 '"></p>
-        <input type="text" name="email" id="customEmailField">
-        @
-        <select name="domain" id="emailSelect">
-            <option value="gmail.com">gmail.com</option>
-            <option value="naver.com">naver.com</option>
-            <option value="daum.net">daum.net</option>
-            <option value="kakao.com">kakao.com</option>
-            <option value="self">직접입력</option>
-        </select>
-        <button type="submit">변경</button>
-    </form>
+<div class="middle">
+    <aside class="asNav" th:insert="/mypage/mypageNav :: navFragment"></aside>
+    <div class="con_info">
+        <p>이메일 변경</p>
+        <br>
+        <p th:text="|기존 이메일 ${me.email}|"></p>
+        <form method="post" action="/changeemail">
+        <p th:text="'변경 후 이메일 '"></p>
+            <input type="text" name="email" id="customEmailField">
+            @
+            <select name="domain" id="emailSelect">
+                <option value="gmail.com">gmail.com</option>
+                <option value="naver.com">naver.com</option>
+                <option value="daum.net">daum.net</option>
+                <option value="kakao.com">kakao.com</option>
+                <option value="self">직접입력</option>
+            </select>
+            <button type="submit">변경</button>
+        </form>
+    </div>
+</div>
 </body>
 </th:block>
 </html>

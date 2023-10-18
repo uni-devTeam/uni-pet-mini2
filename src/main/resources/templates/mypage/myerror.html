@@ -8,6 +8,7 @@
 </head>
 <th:block layout:fragment="content">
     <body>
+    <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='mypage')"></div>
 <p>알 수 없는 오류가 발생했습니다.</p>
 <button onclick="window.location.href='/mypage'">마이페이지 홈으로</button>
 </body>

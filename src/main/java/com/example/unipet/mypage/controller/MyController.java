@@ -11,7 +11,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
 @RequiredArgsConstructor
-@SessionAttributes("userId")
+@SessionAttributes({"userId", "myname"})
 public class MyController {
 
     @Autowired
@@ -19,9 +19,12 @@ public class MyController {
 
     // 메인
     @RequestMapping(value = "/mypage")
-    public String mypage(Model model, @ModelAttribute("userId") String userId) {
+    public String mypage(Model model, HttpSession session, @ModelAttribute("userId") String userId) {
         System.out.println(userId);
-        model.addAttribute("myname", dao.getMyName(userId));
+        String myname = dao.getMyName(userId);
+        System.out.println(myname);
+        session.setAttribute("myname", myname);
+        model.addAttribute("myname", myname);
         return "mypage/main";
     }
 

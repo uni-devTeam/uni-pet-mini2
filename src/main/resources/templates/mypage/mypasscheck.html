@@ -9,12 +9,17 @@
 <th:block layout:fragment="content">
 <body>
 <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='mypage')"></div>
-    <p th:if="${action == 'changepwd'}">비밀번호 변경</p>
-    <p th:unless="${action == 'changepwd'}">회원탈퇴</p>
-    <form method="post" action="/passcheck">
-        <p>비밀번호 확인 : </p><input type="password" name="currentPass">
-        <input type="submit" value="확인">
-    </form>
+<div class="middle">
+    <aside class="asNav" th:insert="/mypage/mypageNav :: navFragment"></aside>
+    <div class="con_info">
+        <p th:if="${action == 'changepwd'}">비밀번호 변경</p>
+        <p th:unless="${action == 'changepwd'}">회원탈퇴</p>
+        <form method="post" action="/passcheck">
+            <p>비밀번호 확인 : </p><input type="password" name="currentPass">
+            <input type="submit" value="확인">
+        </form>
+    </div>
+</div>
 </body>
 </th:block>
 </html>

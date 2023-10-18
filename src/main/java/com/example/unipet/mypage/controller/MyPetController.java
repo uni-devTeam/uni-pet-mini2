@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
-@SessionAttributes("userId")
+@SessionAttributes({"userId", "myname"})
 public class MyPetController {
     @Autowired
     MyPetMapper dao;

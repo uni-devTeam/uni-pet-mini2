@@ -9,11 +9,16 @@
 <th:block layout:fragment="content">
 <body>
 <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='mypage')"></div>
-<form method="post" action="/passchange">
-    <p>변경 비밀번호 : </p><input type="password" name="changedPass">
-    <p>변경 비밀번호 확인 : </p><input type="password" name="changedPassCheck">
-    <input type="submit" value="변경">
-</form>
+<div class="middle">
+    <aside class="asNav" th:insert="/mypage/mypageNav :: navFragment"></aside>
+    <div class="con_info">
+        <form method="post" action="/passchange">
+            <p>변경 비밀번호 : </p><input type="password" name="changedPass">
+            <p>변경 비밀번호 확인 : </p><input type="password" name="changedPassCheck">
+            <input type="submit" value="변경">
+        </form>
+    </div>
+</div>
 </body>
 </th:block>
 </html>

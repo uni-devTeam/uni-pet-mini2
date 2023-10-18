@@ -14,7 +14,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@SessionAttributes("userId")
+@SessionAttributes({"userId", "myname"})
 public class MyBoardController {
 
     @Autowired
