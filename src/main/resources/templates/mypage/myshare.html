@@ -12,6 +12,7 @@
 <div class="middle">
     <aside class="asNav" th:insert="/fragments/mypageNav :: navFragment(pageName='4')"></aside>
     <div class="con_info">
+        <div class="con_title">나눔 물품</div>
         <div class="container" id="share_card">
             <div class="cardbox">
             <th:block th:if="${share}">
@@ -23,9 +24,11 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title" th:text="${item.title}"></h5>
-                                    <p class="card-text" th:text="${item.content}"></p>
-                                    <p class="card-text" th:text="${item.posting_date}"><small class="text-muted"></small></p>
+                                    <a th:href="@{/board/content(board_no=${item.board_no})}">
+                                        <h5 class="card-title" th:text="${item.title}"></h5>
+                                        <p class="card-text" th:text="${item.content}"></p>
+                                        <p class="card-text" th:text="${item.posting_date}"><small class="text-muted"></small></p>
+                                    </a>
                                 </div>
                             </div>
                         </div>

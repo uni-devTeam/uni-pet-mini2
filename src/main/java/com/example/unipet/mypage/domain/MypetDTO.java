@@ -19,7 +19,7 @@ public class MypetDTO {
     private String pet_neuter; // y or n
     private String pet_pic;
     private String pet_color;
-    private Float pet_weight;
+    private String pet_weight;
     private String pet_trait;
 
     private MultipartFile attachFile;

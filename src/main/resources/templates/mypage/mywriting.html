@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>나의 게시글</title>
+    <link rel="stylesheet" th:href="@{/css/profile.css}"/>
 </head>
 <th:block layout:fragment="content">
 <body>
@@ -11,26 +12,48 @@
 <div class="middle">
     <aside class="asNav" th:insert="/fragments/mypageNav :: navFragment(pageName='3')"></aside>
     <div class="con_info">
+        <div class="con_title">나의 게시글</div>
         <th:block th:if="${writing}">
-            <div class="con_table">
+            <div class="wr_table">
                 <table class="table table-hover">
-                    <thead>
+                    <thead class="table-light">
                         <tr>
                             <th scope="col">번호</th>
                             <th scope="col">제목</th>
                             <th scope="col">날짜</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="table-group-divider">
                         <tr th:each="wr, rowStat : ${writing}">
                             <input type="hidden" value="${wr.board_no}">
-                            <td th:text="${writing.size() - rowStat.index}"></td>
-                            <td th:text="${wr.title}">제목</td>
-                            <td th:text="${wr.posting_date}">날짜</td>
+                            <td class="tb_num" th:text="${writing.size() - rowStat.index}"></td>
+                            <td class="tb_title">
+                                <a th:href="@{/board/content(board_no=${wr.board_no})}">
+                                    <span th:text="${wr.title}"></span>
+                                </a>
+                            </td>
+                            <td th:text="${wr.posting_date}"></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+            <nav aria-label="Page navigation" id="wr_page">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </th:block>
         <th:block th:unless="${writing}">
             <div>등록된 글이 없습니다.</div>

@@ -42,4 +42,5 @@ public class MyBoardController {
         model.addAttribute("writing", dao.getMyWritings(userId));
         return "mypage/mywriting";
     }
+
 }

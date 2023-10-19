@@ -1,18 +1,35 @@
 
-.cardbox {
-    margin: 0px auto;
-    display:flex;
-    justify-content: left;
-    flex-wrap: wrap;
-    gap: 20px;
+.con_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
 }
 
-#likes_card {
-    display: flex;
+.con_title {
+    position: absolute;
+    top: 10%;
+    color: #555;
+    text-decoration: underline;
+    text-decoration-color: #BEBEBE;
+    text-underline-position: under;
+    text-decoration-thickness: 1px;
+    left: 35%;
+    font-size: x-large;
+}
+
+.cardbox {
+ position: absolute;
+    top: 23%;
     flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    margin: 20px auto;
+border: 1px solid blue;
+    width: 80%;
+    display: grid;
+    justify-content: right;
+    grid-template-columns: 45% 45%;
+    grid-gap: 20px;
+    padding: 30px;
 }
 
 .card-title, .card-text {
@@ -30,3 +47,4 @@
     width: 149.55px;
     height: 128px;
 }
+

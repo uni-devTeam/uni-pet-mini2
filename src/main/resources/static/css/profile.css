@@ -83,3 +83,22 @@ a.con_link {
 #cancelButton {
     margin-left: 5px;
 }
+
+.tb_num {
+    max-width: 50px;
+}
+
+.tb_title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 500px;
+}
+
+.wr_table {
+    margin: 18% 0 5% 0;
+}
+
+#wr_page {
+    margin-bottom: 5%;
+}

@@ -1,10 +1,39 @@
 
+.con_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+}
+
+.con_title {
+    position: absolute;
+    top: 10%;
+    color: #555;
+    text-decoration: underline;
+    text-decoration-color: #BEBEBE;
+    text-underline-position: under;
+    text-decoration-thickness: 1px;
+    left: 35%;
+    font-size: x-large;
+}
+
 .cardbox {
-    margin: 0px auto;
-    display:flex;
-    justify-content: left;
+ position: absolute;
+    top: 23%;
     flex-wrap: wrap;
-    gap: 20px;
+border: 1px solid blue;
+    width: 80%;
+    display: grid;
+    justify-content: right;
+    grid-template-columns: 30% 30% 30%;
+    grid-gap: 20px;
+    padding: 30px;
+}
+
+.card-body {
+    height: 190px;
 }
 
 #likes_card {
@@ -28,6 +57,6 @@
 }
 
 #pic {
-    width: 18rem;
+    width: 287px;
     height: 200px;
 }

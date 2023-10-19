@@ -26,7 +26,7 @@ public interface MyPetMapper {
             "    pet_trait = #{dto.pet_trait}",
             "WHERE user_id = #{userId}"
     })
-    public boolean petInfoChange(@Param("dto") MypetDTO dto, @Param("userId") String userId);
+    public void petInfoChange(@Param("dto") MypetDTO dto, @Param("userId") String userId);
     
     // 펫 등록
     @Insert("INSERT INTO mypet (user_id, pet_pic, pet_name, pet_birth, pet_gender, pet_kind, pet_neuter, pet_color, pet_weight, pet_trait) " +

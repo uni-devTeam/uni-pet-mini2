@@ -7,29 +7,37 @@
     <link rel="stylesheet" th:href="@{/css/mysharelikes.css}"/>
 </head>
 <th:block layout:fragment="content">
+    <script defer src="/js/mysharelikes.js"></script>
 <body>
     <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='mypage')"></div>
 <div class="middle">
     <aside class="asNav" th:insert="/fragments/mypageNav :: navFragment(pageName='5')"></aside>
     <div class="con_info">
-        <div class="container" id="likes_card">
+        <div class="con_title">나눔 좋아요</div>
+        <th:block th:if="${likes}">
             <div class="cardbox">
-            <th:block th:if="${likes}">
-                <div th:each="item : ${likes}">
+
+                <div th:each="item : ${likes}" id="likecard">
                     <div class="card" style="width: 18rem; height: 430px; margin: 0 auto;">
-                        <img src="${item.img_path}" class="card-img-top" id="pic" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title" th:text="${item.title}"></h5>
-                            <p class="card-text" th:text="${item.content.length() > 50 ? item.content.subSequence(0, 50) + '...' : item.content}"></p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted" th:text="${item.posting_date}"></small>
-                        </div>
+                        <a th:href="@{/board/content(board_no=${item.board_no})}">
+                            <img src="/image/logo_footer.jpg" class="card-img-top" id="pic" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${item.title}"></h5>
+                                <p class="card-text" th:text="${item.content.length() > 50 ? item.content.subSequence(0, 50) + '...' : item.content}"></p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted" th:text="${item.posting_date}"></small>
+                            </div>
+                        </a>
                     </div>
                 </div>
-        </th:block>
-        </div>
+
+
     </div>
+            <div>
+                <button id="load-more">더 보기</button>
+            </div>
+        </th:block>
         <th:block th:unless="${likes}">
             <div class="container" id="noItem">
                 <h5>나눔한 항목이 존재하지 않습니다.</h5>
