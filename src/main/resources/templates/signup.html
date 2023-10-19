@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default_layout">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/signup.css}"/>
+</head>
+<th:block layout:fragment="content">
+<script defer src="/js/signup.js"></script>
+<body>
+<div class="black_bg" th:if="${message}"></div>
+<div class="alert" th:if="${message}">
+    <p th:text="${message}"></p>
+    <button class="alert_btn">확인</button>
+</div>
+<div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='signup')"></div>
+<section class="signup_main_container">
+    <h1>회원가입</h1>
+    <form method="post" action="/signup">
+        <div class="info_container">
+            <label class="input_lable_text" for="email">이메일</label>
+            <input class="inputTag" id="email" type="text" name="email"/>
+
+            <label class="input_lable_text" for="password">비밀번호</label>
+            <input class="inputTag" id="password" type="text" name="password"/>
+
+            <label class="input_lable_text" for="rePassword">비밀번호 확인</label>
+            <input class="inputTag" id="rePassword" type="text"/>
+
+            <label class="input_lable_text" for="name">이름</label>
+            <input class="inputTag" id="name" type="text" name="name"/>
+        </div>
+
+        <div class="info_container">
+            <h3>나의 펫 정보</h3>
+            <span class="input_lable_text">펫 보유 여부</span>
+            <div class="radio_container">
+                <input id="havePetTrue" type="radio" name="havePet" value="true"/>
+                <label class="margin90" for="havePetTrue">보유</label>
+                <input
+                        id="havePetFalse"
+                        type="radio"
+                        name="havePet"
+                        value="false"
+                />
+                <label for="havePetFalse">미보유</label>
+            </div>
+
+            <label class="input_lable_text" for="petName">펫 이름 </label>
+            <input class="inputTag" id="petName" type="text" name="petName"/>
+
+            <label class="input_lable_text" for="petBirthday">생일 </label>
+            <input
+                    class="inputTag"
+                    id="petBirthday"
+                    type="text"
+                    name="petBirthday"
+            />
+
+            <label class="input_lable_text" for="petGender">성별</label>
+            <input class="inputTag" id="petGender" type="text" name="petGender"/>
+
+            <label class="input_lable_text" for="petType">종류</label>
+            <input class="inputTag" id="petType" type="text" name="petType"/>
+
+            <label class="input_lable_text" for="petPicture">펫 사진</label>
+            <input
+                    class="inputTag"
+                    id="petPicture"
+                    type="text"
+                    name="petPicture"
+            />
+
+            <span class="input_lable_text">중성화 여부</span>
+            <div class="radio_container">
+                <input
+                        id="doNeuteringTrue"
+                        type="radio"
+                        name="doNeutering"
+                        value="true"
+                />
+                <label class="margin90" for="doNeuteringTrue">⭕</label>
+                <input
+                        id="doNeuteringFalse"
+                        type="radio"
+                        name="doNeutering"
+                        value="false"
+                />
+                <label for="doNeuteringFalse">❌</label>
+            </div>
+
+            <label class="input_lable_text" for="petColor">펫 색상</label>
+            <input class="inputTag" id="petColor" type="text" name="petColor"/>
+
+            <label class="input_lable_text" for="petChar">펫 특징</label>
+            <textarea
+                    class="textarea_tag"
+                    id="petChar"
+                    name="petChar"
+                    cols="30"
+                    rows="10"
+            ></textarea>
+            <button class="signup_btn">회원가입 전송</button>
+        </div>
+    </form>
+</section>
+</body>
+</th:block>
+</html>

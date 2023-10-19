@@ -1,25 +1,31 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default_layout">
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <meta charset="UTF-8">
     <title>Animal List</title>
+    <link rel="stylesheet" th:href="@{/css/animalList.css}"/>
 </head>
-<body>
-<div class="card-deck">
-    <div th:each="animal : ${animalList}" class="card" style="width: 18rem;">
-        <img th:src="${animal.popfile}" class="card-img-top" alt="Animal Image">
-        <div class="card-body">
-            <h5 th:text="${animal.noticeNo}" class="card-title"></h5>
-            <p th:text="${animal.kindCd}" class="card-text"></p>
+<th:block layout:fragment="content">
+    <body>
+    <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='List')"></div>
+    <div id="card_container" class="card-deck">
+        <div th:each="animal : ${animalList}" class="card" style="width: 18rem;">
+            <a th:href="@{'/animalDetail/' + ${animal.image_id} + '?careAddr=' + ${animal.careAddr}}">
+                <img id="animalList_img" th:src="${animal.popfile}" class="card-img-top" alt="Animal Image">
+            </a>
+            <div class="card-body">
+                <h5 th:text="${animal.noticeNo}" class="card-title"></h5>
+                <p th:text="${animal.kindCd}" class="card-text"></p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" th:text="${animal.processState}"></li>
+                <li class="list-group-item" th:text="${animal.careNm}"></li>
+                <li class="list-group-item" th:text="${animal.happenPlace}"></li>
+                <li class="list-group-item" th:text="${animal.specialMark}"></li>
+            </ul>
         </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item" th:text="${animal.processState}"></li>
-            <li class="list-group-item" th:text="${animal.careNm}"></li>
-            <li class="list-group-item" th:text="${animal.happenPlace}"></li>
-            <li class="list-group-item" th:text="${animal.specialMark}"></li>
-        </ul>
     </div>
-</div>
-</body>
+    </body>
+</th:block>
 </html>
