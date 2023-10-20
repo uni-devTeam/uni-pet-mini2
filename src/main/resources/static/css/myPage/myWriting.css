@@ -1,0 +1,12 @@
+.wr_table {
+    width: 100%;
+}
+
+#wr_page {
+    margin-top: 40px;
+    margin-bottom: 100px;
+}
+
+th, .tb_title, .tb_num, .tb_date {
+    text-align: center;
+}

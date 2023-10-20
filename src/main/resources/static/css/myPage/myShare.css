@@ -1,0 +1,11 @@
+.cardbox{
+    width: 100%;
+    display: grid;
+    justify-content:center;
+    grid-template-columns: 45% 45%;
+    grid-gap: 20px;
+}
+
+.con_info{
+    margin-bottom: 100px;
+}

@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>마이페이지</title>
-    <link rel="stylesheet" th:href="@{/css/mypage.css}"/>
+    <link rel="stylesheet" th:href="@{/css/myPage/myPage.css}"/>
 </head>
 <th:block layout:fragment="content">
 <body>
-<div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='mypage')"></div>
+<div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='Mypage')"></div>
     <div class="menu">
         <button class="selbox selbox1" onclick="window.location.href='/myprofile'">
             <img class="my_icon" th:src="@{/img/mypage/me.png}" alt="회원 정보">

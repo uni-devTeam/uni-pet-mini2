@@ -1,0 +1,52 @@
+.con_petform{
+    width: 80%;
+    max-width: 600px;
+}
+
+.con_petchangepic{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.con_petchangepic_container{
+    display: flex;
+    justify-content: center;
+}
+
+.edit_img{
+    width: 20%;
+    height: 20%;
+}
+
+.petChange_select_container{
+    display: flex;
+    justify-content: space-around;
+}
+
+#select_container2, #select_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.petForm_btn{
+    margin: 10px 0;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    background-color: #222222;
+}
+.con_info_wrapper{
+    margin-bottom: 100px;
+}
+
+.btn_container{
+    width: 100%;
+    display: flex;
+    justify-content: right;
+}
