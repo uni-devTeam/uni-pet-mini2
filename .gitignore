@@ -16,6 +16,7 @@ build/
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
@@ -31,8 +32,5 @@ out/
 /dist/
 /nbdist/
 /.nb-gradle/
-
 ### VS Code ###
 .vscode/
-
-apikey.js
