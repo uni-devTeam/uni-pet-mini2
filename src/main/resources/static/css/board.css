@@ -1,12 +1,16 @@
-@font-face {
-    font-family: 'HakgyoansimWoojuR';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimWoojuR.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+.main_container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
-* {
-    font-family: 'HakgyoansimWoojuR';
+.main_wrap {
+    padding: 40px;
+    margin: 40px;
+    text-align: right;
+    border: solid lightgrey;
+    border-radius: 8px;
 }
 
 
@@ -26,17 +30,6 @@ tr:hover {
     background-color: lightgreen;
 }
 
-.board_main_container {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-}
-
-.board_main_wrap {
-    margin-top: 20px;
-    text-align: right;
-}
 
 
 /*
@@ -96,10 +89,16 @@ tr:hover {
     display: inline-block;
 
 }
-#posting_btn {
+#posting_btn1 {
+    display: inline-block;
+}
+#posting_btn2 {
     display: inline-block;
 }
 #search_btn {
     margin-left: 30px;
     display: inline-block;
+}
+#entire_screen {
+    display: flex;
 }
