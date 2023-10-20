@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default_layout">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/default_layout">
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <meta charset="UTF-8">
     <title>Animal Detail</title>
     <link rel="stylesheet" th:href="@{/css/animalDetail.css}"/>
+    <script type="javascript" src="/js/config.js"></script>
 
 </head>
 <th:block layout:fragment="content">
@@ -13,27 +16,27 @@
     <body>
 
     <div class="all">
-    <main>
-        <div class="pet-info">
-            <img th:src="${animal.popfile}" alt="Animal Image" width="600" height="400">
+        <main>
+            <div class="pet-info">
+                <img th:src="${animal.popfile}" alt="Animal Image" width="600" height="400">
             </div>
-            <div class = "pet-details">
-    <h2><span th:text="${animal.kindCd}"></span></h2>
+            <div class="pet-details">
+                <h2><span th:text="${animal.kindCd}"></span></h2>
                 <table class="table">
                     <thead>
                     <tr>
-                        <th class= "theader" scope="col">동물번호</th>
-                        <th class ="tbot" scope="col"><span th:text="${animal.desertionNo}"></span></th>
+                        <th class="theader" scope="col">동물번호</th>
+                        <th class="tbot" scope="col"><span th:text="${animal.desertionNo}"></span></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <th class= "theader" scope="row">관리번호</th>
-                        <td class ="tbot"><span th:text="${animal.noticeNo}"></span></td>
+                        <th class="theader" scope="row">관리번호</th>
+                        <td class="tbot"><span th:text="${animal.noticeNo}"></span></td>
                     </tr>
                     <tr>
-                        <th class= "theader" scope="row">입소날짜</th>
-                        <td class ="tbot" ><span th:text="${animal.happenDt}"></span></td>
+                        <th class="theader" scope="row">입소날짜</th>
+                        <td class="tbot"><span th:text="${animal.happenDt}"></span></td>
                     </tr>
                     </tbody>
                 </table>
@@ -41,78 +44,80 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th class= "theader" scope="col">색상</th>
-                        <th class ="tbot" scope="col"><span th:text="${animal.colorCd}"></span></th>
-                        <th class= "theader" scope="col">성별</th>
-                        <th class ="tbot" scope="col"><span th:text="${animal.sexCd}"></span></th>
+                        <th class="theader" scope="col">색상</th>
+                        <th class="tbot" scope="col"><span th:text="${animal.colorCd}"></span></th>
+                        <th class="theader" scope="col">성별</th>
+                        <th class="tbot" scope="col"><span th:text="${animal.sexCd}"></span></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <th class= "theader" scope="row">나이</th>
+                        <th class="theader" scope="row">나이</th>
                         <td><span th:text="${animal.age}"></span></td>
-                        <td class= "theader">체중</td>
+                        <td class="theader">체중</td>
                         <td><span th:text="${animal.weight}"></span></td>
                     </tr>
                     <tr>
-                        <th class= "theader" scope="row">중성화여부</th>
+                        <th class="theader" scope="row">중성화여부</th>
                         <td><span th:text="${animal.neuterYn}"></span></td>
-                        <td class= "theader">보호기간</td>
-                        <td><span th:text="${animal.noticeSdt}"></span> - <span th:text="${animal.noticeEdt}"></span></td>
+                        <td class="theader">보호기간</td>
+                        <td><span th:text="${animal.noticeSdt}"></span> - <span th:text="${animal.noticeEdt}"></span>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
 
-    </main>
-    <section>
-        <div class = "pet-details1">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th class= "theader" scope="col">발견장소</th>
-                <tbody>
-                <tr>
-                    <th class ="tbot" scope="row"><span th:text="${animal.happenPlace}"></span></th>
-            </tbody>
+        </main>
+        <section>
+            <div class="pet-details1">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="theader" scope="col">발견장소</th>
+                    <tbody>
+                    <tr>
+                        <th class="tbot" scope="row"><span th:text="${animal.happenPlace}"></span></th>
+                    </tbody>
                 </table>
-        </div>
-        <div class = "pet-details1">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th class= "theader" scope="col">특징</th>
-                <tbody>
-                <tr>
-                    <th class ="tbot" scope="row"><span th:text="${animal.specialMark}"></span></th>
-                </tbody>
-            </table>
-        </div>
-        <div class = "pet-details1">
-            <table class="table">
-            <thead>
-            <tr>
-                <th class= "theader" scope="col">보호센터명</th>
-                <th scope="col"><span th:text="${animal.careNm}"></span></th>
-                <th class= "theader" scope="col">보호소 전화번호</th>
-                <th scope="col"><span th:text="${animal.careTel}"></span></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th class= "theader" scope="row">보호장소</th>
-                <td><span th:text="${animal.careAddr}"></span></td>
-                <td class= "theader">유기장소</td>
-                <td><span th:text="${animal.happenPlace}"></span></td>
-            </tr>
-            </tbody>
-        </table>
-        </div>
-    <div id="map" ></div>
-    </section>
+            </div>
+            <div class="pet-details1">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="theader" scope="col">특징</th>
+                    <tbody>
+                    <tr>
+                        <th class="tbot" scope="row"><span th:text="${animal.specialMark}"></span></th>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pet-details1">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="theader" scope="col">보호센터명</th>
+                        <th scope="col"><span th:text="${animal.careNm}"></span></th>
+                        <th class="theader" scope="col">보호소 전화번호</th>
+                        <th scope="col"><span th:text="${animal.careTel}"></span></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th class="theader" scope="row">보호장소</th>
+                        <td><span th:text="${animal.careAddr}"></span></td>
+                        <td class="theader">유기장소</td>
+                        <td><span th:text="${animal.happenPlace}"></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="map"></div>
+        </section>
     </div>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6ed169c7c2bb7b7aa98b850d7db3d8f8&libraries=services"></script>
+    <script type="text/javascript" th:src="${API_KEY}"></script>
     <script type="text/javascript">
+
         var queryString = window.location.search;
         var urlParams = new URLSearchParams(queryString);
         var animalCareAddr = urlParams.get('careAddr');
@@ -130,7 +135,7 @@
         var geocoder = new kakao.maps.services.Geocoder();
 
         // animalCareAddr 주소를 변환합니다
-        geocoder.addressSearch(animalCareAddr, function(result, status) {
+        geocoder.addressSearch(animalCareAddr, function (result, status) {
             if (status === kakao.maps.services.Status.OK) {
                 var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 

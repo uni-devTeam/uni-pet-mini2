@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -22,8 +23,13 @@ import java.util.List;
 
 @Service
 public class AnimalListService {
+
+   @Value("${LIST_API_KEY}")
+   private String LIST_API_KEY;
+// ----------------------------------------------
+
     // insert() api 호출해서 db에 저장하는거 -(1)
-    // update() db 업데이트 하기 (최신화 & 수정사항 적용)-(2)
+    // update() db 업데이트 하기 (최신화 &       수정사항 적용)-(2)
     // delete() 종료일이 지난 api 삭제하기 -(3)
     //  ----------------------------- AnimalLIstService
 
@@ -57,7 +63,6 @@ public class AnimalListService {
             for (AnimalListDTO existingAnimal : existingAnimalsInDB) {
                 if (animal.getDesertionNo() == existingAnimal.getDesertionNo()) {
                     isDuplicate = true;
-                    break;
                 }
             }
             if (!isDuplicate) {
@@ -120,7 +125,7 @@ public class AnimalListService {
             urlBuilder.append("&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); // 페이지 번호
             urlBuilder.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "=" + URLEncoder.encode("20", "UTF-8")); // 페이지당 보여줄 갯수
             urlBuilder.append("&" + URLEncoder.encode("_type", "UTF-8") + "=" + URLEncoder.encode("json", "UTF-8"));
-            urlBuilder.append("&" + URLEncoder.encode("serviceKey", "UTF-8") + "=wzo4W7QZeILljzxez1UjpoqqfoohiTZ6CHQGCVyxZIJRoV6ZXDLdpqbGrGftBwS6%2FO7AgBIUOL9VXLHzIEapEA%3D%3D");
+            urlBuilder.append("&" + URLEncoder.encode("serviceKey", "UTF-8") + LIST_API_KEY);
 
             URL url = new URL(urlBuilder.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();

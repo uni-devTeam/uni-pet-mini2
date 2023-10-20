@@ -85,6 +85,7 @@ video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+    font-family: LINESeedKR-Bd;
 }
 
 * {
@@ -127,6 +128,10 @@ table {
   border-spacing: 0;
 }
 
+a{
+  text-decoration: none;
+  color: black;
+}
 @font-face {
   font-family: "LINESeedKR-Bd";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2")

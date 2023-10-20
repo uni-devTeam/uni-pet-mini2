@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default_layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>비밀번호 변경</title>
+    <link rel="stylesheet" th:href="@{/css/mypage.css}"/>
+</head>
+<th:block layout:fragment="content">
+<body>
+<div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='mypage')"></div>
+<div class="middle">
+    <aside class="asNav" th:insert="/mypage/mypageNav :: navFragment"></aside>
+    <div class="con_info">
+        <form method="post" action="/passchange">
+            <p>변경 비밀번호 : </p><input type="password" name="changedPass">
+            <p>변경 비밀번호 확인 : </p><input type="password" name="changedPassCheck">
+            <input type="submit" value="변경">
+        </form>
+    </div>
+</div>
+</body>
+</th:block>
+</html>
