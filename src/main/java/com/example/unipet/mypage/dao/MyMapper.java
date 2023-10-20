@@ -18,7 +18,7 @@ public interface MyMapper {
     @Update("UPDATE user " +
             "SET email = #{email} " +
             "WHERE user_id = #{userId}")
-    public boolean changeEmail(@Param("userId") String userId, @Param("email") String email);
+    public void changeEmail(@Param("userId") String userId, @Param("email") String email);
 
     // 비밀번호 확인
     @Select("SELECT password FROM user WHERE user_id = #{userId}")
@@ -28,7 +28,7 @@ public interface MyMapper {
     @Update("UPDATE user SET password = #{password} WHERE user_id = #{userId}")
     public void changeMyPass(@Param("userId") String userId, @Param("password") String password);
 
-    // 회원탈퇴 -> role update 해서 비활성화, 로그인,회원가입에서 걸러줘야함
-    @Delete("DELETE FROM user WHERE user_id = #{userId}")
-    public void deleteAccount(@Param("userId") String userId);
+    // 회원탈퇴 -> roles update 해서 비활성화, 로그인,회원가입에서 걸러줘야함
+    @Update("UPDATE user SET roles = #{status} WHERE user_id = #{userId}")
+    public void setStatusOut(@Param("userId") String userId, @Param("status") String status);
 }

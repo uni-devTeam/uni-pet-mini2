@@ -7,13 +7,13 @@
     <link rel="stylesheet" th:href="@{/css/profile.css}"/>
 </head>
 <th:block layout:fragment="content">
+    <script defer src="/js/paging.js"></script>
 <body>
 <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='mypage')"></div>
 <div class="middle">
     <aside class="asNav" th:insert="/fragments/mypageNav :: navFragment(pageName='3')"></aside>
     <div class="con_info">
         <div class="con_title">나의 게시글</div>
-        <th:block th:if="${writing}">
             <div class="wr_table">
                 <table class="table table-hover">
                     <thead class="table-light">
@@ -23,41 +23,16 @@
                             <th scope="col">날짜</th>
                         </tr>
                     </thead>
-                    <tbody class="table-group-divider">
-                        <tr th:each="wr, rowStat : ${writing}">
-                            <input type="hidden" value="${wr.board_no}">
-                            <td class="tb_num" th:text="${writing.size() - rowStat.index}"></td>
-                            <td class="tb_title">
-                                <a th:href="@{/board/content(board_no=${wr.board_no})}">
-                                    <span th:text="${wr.title}"></span>
-                                </a>
-                            </td>
-                            <td th:text="${wr.posting_date}"></td>
-                        </tr>
+                    <tbody class="table-group-divider" id="items">
+
+
                     </tbody>
                 </table>
             </div>
-            <nav aria-label="Page navigation" id="wr_page">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </th:block>
-        <th:block th:unless="${writing}">
-            <div>등록된 글이 없습니다.</div>
-        </th:block>
+        <div id="pagination"></div>
+<!--        <th:block th:unless="">-->
+<!--            <div>등록된 글이 없습니다.</div>-->
+<!--        </th:block>-->
     </div>
 </div>
 </body>

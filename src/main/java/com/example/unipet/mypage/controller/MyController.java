@@ -81,6 +81,7 @@ public class MyController {
                 return "redirect:/mydelaccount";
             }
         }
+        model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
 
         return "mypage/myerror";
     }
@@ -95,13 +96,16 @@ public class MyController {
             System.out.println("비밀번호 변경 완료");
             return "redirect:/myprofile";
         }
+        model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
+
         return "mypage/myerror";
     }
 
     // 회원 탈퇴
     @RequestMapping(value = "/mydelaccount")
     public String deleteAcc(Model model, @ModelAttribute("userId") String userId) {
-        dao.deleteAccount(userId);
+        dao.setStatusOut(userId, "out");
+        model.addAttribute("message", "회원탈퇴가 완료되었습니다.");
         return "mypage/withdraw";
     }
 }

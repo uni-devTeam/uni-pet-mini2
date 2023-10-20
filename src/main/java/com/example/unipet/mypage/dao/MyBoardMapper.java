@@ -6,6 +6,7 @@ import com.example.unipet.mypage.domain.UserResultDTO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface MyBoardMapper {
@@ -31,4 +32,12 @@ public interface MyBoardMapper {
             "WHERE board_id = 2 AND user_id = #{userId} " +
             "ORDER BY board_no DESC")
     public List<MyWritingVO> getMyWritings(@Param("userId") String userId);
+
+    @Select("SELECT board_no, board_id, title, posting_date " +
+            "FROM boards " +
+            "WHERE board_id = 2 AND user_id = #{userId} " +
+            "ORDER BY board_no DESC " +
+            "LIMIT #{limit} " +
+            "OFFSET #{offset}")
+    public List<MyWritingVO> getPagingItems(@Param("limit") int limit, @Param("offset") int offset, @Param("userId") String userId);
 }
