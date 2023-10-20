@@ -12,10 +12,10 @@
 
             var selectOption = document.getElementById("emailSelect");
             selectOption = selectOption.options[selectOption.selectedIndex].value;
-            console.log(selectOption == 'custom_option_domain');
+            console.log(selectOption == 'custom');
 
             formData.set("email", email.value);
-            if (select.value === 'custom_option_domain') {
+            if (select.value === 'custom') {
                 formData.set("domain", c_input.value); // custom 도메인 값을 FormData에 추가
             } else {
                 formData.set("domain", select.value);
@@ -44,7 +44,7 @@
 
 
         select.addEventListener('change', function (e) {
-            if (select.value === 'custom_option_domain') {
+            if (select.value === 'custom') {
                 select.style.display = 'none';  // select 숨기기
                 c_input.style.display = 'block';
                 cancelButton.style.display = 'block';

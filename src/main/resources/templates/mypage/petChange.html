@@ -5,155 +5,137 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>마이펫 정보수정</title>
-    <link rel="stylesheet" th:href="@{/css/petChange.css}"/>
+    <link rel="stylesheet" th:href="@{/css/myPage/myPageLayout.css}"/>
+    <link rel="stylesheet" th:href="@{/css/myPage/myPetChange.css}"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.6/dist/flatpickr.min.js"></script>
+    <script defer src="/js/pet.js"></script>
 </head>
 <th:block layout:fragment="content">
-    <script defer src="/js/pet.js"></script>
     <body>
-    <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='mypage')"></div>
-    <div class="middle" id="div_wide">
-        <div class="con_title">나의 펫 수정</div>
-        <aside class="asNav" th:insert="/fragments/mypageNav :: navFragment(pageName='0')"></aside>
-        <div class="con_info" id="div_cen">
-            <div class="con_petform">
-                <form action="/petchanged" method="post" enctype="multipart/form-data">
-                    <div class="con_petchangepic">
-                        <img class="circle_petpic" th:if="${mypet.pet_pic != null}" th:src="@{${mypet.pet_pic}}"
-                             alt="Pet Image"/>
-                        <img class="circle_petpic" th:unless="${mypet.pet_pic != null}"
-                             th:src="@{/img/mypage/default-image.png}" alt="No Image"/>
-
-                        <label for="attach">
-                            <img class="imgIcon" src="img/mypage/mypicture.png" alt="이미지 아이콘" style="cursor: pointer;">
-                            <input type="file" name="attachFile" id="attach" accept="image/*" style="display: none;"
-                                   max="1048576">
-                        </label>
-                    </div>
-
-                    <div class="withoutPic">
-                        <div class="mb-3 row">
-                            <label for="pet_name" class="col-sm-2 col-form-label">이름</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="pet_name" name="pet_name"
-                                       th:value="${mypet.pet_name}">
-                            </div>
+    <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='Mypage')"></div>
+    <div class="middle">
+        <div class="nav_wrapper">
+            <th:block th:insert="/fragments/mypageNav :: navFragment(pageName='1')"></th:block>
+        </div>
+        <div class="con_info">
+            <div class="con_info_wrapper">
+                <div class="con_title">나의 펫 수정</div>
+                <div class="con_petform">
+                    <form action="/petchanged" method="post" enctype="multipart/form-data">
+                        <div class="con_petchangepic">
+                            <label class="con_petchangepic_container" for="attach">
+                                <img class="edit_img" th:if="${mypet.pet_pic != null}"
+                                     th:src="@{|${mypet.pet_pic}|}"
+                                     alt="Pet Image"/>
+                                <img class="edit_img" th:unless="${mypet.pet_pic != null}"
+                                     th:src="@{/img/mypage/default-image.png}" alt="No Image"/>
+                                <img class="edit_img" src="img/mypage/mypicture.png" alt="이미지 아이콘"
+                                     style="cursor: pointer;">
+                                <input type="file" name="attachFile" id="attach" accept="image/*" style="display: none;"
+                                       max="1048576">
+                            </label>
+                            <img id="preview" src="" alt="Image Preview">
                         </div>
-
-                        <div class="infobox row mb-3">
-                            <label for="petBirthPicker" class="col-sm-2 col-form-label">생일</label>
-                            <div class="col-sm-10">
-                                <input type="date" class="form-control" name="pet_birth" id="petBirthPicker"
-                                       th:value="${mypet.pet_birth}">
-                            </div>
-                        </div>
-
-                        <div class="infobox row mb-3">
-                            <label class="col-sm-2 col-form-label">성별</label>
-                            <div class="col-sm-10">
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" name="pet_gender" value="m"
-                                           id="genderMale"
-                                           th:checked="${mypet.pet_gender == 'm'}">
-                                    <label class="form-check-label" for="genderMale">남아</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" name="pet_gender" value="f"
-                                           id="genderFemale" th:checked="${mypet.pet_gender == 'f'}">
-                                    <label class="form-check-label" for="genderFemale">여아</label>
+                        <div class="withoutPic">
+                            <div class="mb-3 row">
+                                <label for="pet_name" class="col-sm-2 col-form-label">이름</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="pet_name" name="pet_name"
+                                           th:value="${mypet.pet_name}">
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="infobox row mb-3">
-                            <label for="pet_kind" class="col-sm-2 col-form-label">종류</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="pet_kind" id="pet_kind"
-                                       th:value="${mypet.pet_kind}">
-                            </div>
-                        </div>
-
-                        <div class="infobox row mb-3">
-                            <label class="col-sm-2 col-form-label">중성화 여부</label>
-                            <div class="col-sm-10">
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" name="pet_neuter" value="y"
-                                           id="neuterYes"
-                                           th:checked="${mypet.pet_neuter == 'y'}">
-                                    <label class="form-check-label" for="neuterYes">유</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" name="pet_neuter" value="n"
-                                           id="neuterNo"
-                                           th:checked="${mypet.pet_neuter == 'n'}">
-                                    <label class="form-check-label" for="neuterNo">무</label>
+                            <div class="infobox row mb-3">
+                                <label for="petBirthPicker" class="col-sm-2 col-form-label">생일</label>
+                                <div class="col-sm-10">
+                                    <input type="date" class="form-control" name="pet_birth" id="petBirthPicker"
+                                           th:value="${mypet.pet_birth}">
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="infobox row mb-3">
-                            <label for="pet_color" class="col-sm-2 col-form-label">색상</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="pet_color" id="pet_color"
-                                       th:value="${mypet.pet_color}">
-                            </div>
-                        </div>
-
-                        <div class="infobox row mb-3">
-                            <label for="pet_weight" class="col-sm-2 col-form-label">체중</label>
-                            <div class="col-sm-10">
-                                <div class="input-group">
-                                    <input type="number" class="form-control" step="0.01" id="pet_weight"
-                                           name="pet_weight" min="0" max="100" value="0">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">kg</span>
+                            <div class="petChange_select_container mb-3">
+                                <label class="col-sm-2 col-form-label">성별</label>
+                                <div id="select_container" class="col-sm-10">
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input" name="pet_gender" value="m"
+                                               id="genderMale"
+                                               th:checked="${mypet.pet_gender == 'm'}">
+                                        <label class="form-check-label" for="genderMale">남아</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input" name="pet_gender" value="f"
+                                               id="genderFemale" th:checked="${mypet.pet_gender == 'f'}">
+                                        <label class="form-check-label" for="genderFemale">여아</label>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="infobox row mb-3">
-                            <label class="col-sm-2 col-form-label">메모</label>
-                            <div class="col-sm-10">
-                                <textarea class="form-control" name="pet_trait" th:text="${mypet.pet_trait}"></textarea>
+                            <div class="infobox row mb-3">
+                                <label for="pet_kind" class="col-sm-2 col-form-label">종류</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="pet_kind" id="pet_kind"
+                                           th:value="${mypet.pet_kind}">
+                                </div>
+                            </div>
+
+                            <div class="petChange_select_container mb-3">
+                                <label class="col-sm-2 col-form-label">중성화 여부</label>
+                                <div id="select_container2" class="col-sm-10">
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input" name="pet_neuter" value="y"
+                                               id="neuterYes"
+                                               th:checked="${mypet.pet_neuter == 'y'}">
+                                        <label class="form-check-label" for="neuterYes">유</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input" name="pet_neuter" value="n"
+                                               id="neuterNo"
+                                               th:checked="${mypet.pet_neuter == 'n'}">
+                                        <label class="form-check-label" for="neuterNo">무</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="infobox row mb-3">
+                                <label for="pet_color" class="col-sm-2 col-form-label">색상</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="pet_color" id="pet_color"
+                                           th:value="${mypet.pet_color}">
+                                </div>
+                            </div>
+
+                            <div class="infobox row mb-3">
+                                <label for="pet_weight" class="col-sm-2 col-form-label">체중</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" step="0.01" id="pet_weight"
+                                               name="pet_weight" min="0" max="100" value="0">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">kg</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="infobox row mb-3">
+                                <label class="col-sm-2 col-form-label">메모</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="pet_trait"
+                                           th:value="${mypet.pet_trait}">
+                                </div>
                             </div>
                         </div>
-                        <div class="btns">
+                        <div class="btn_container">
                             <input type="submit" class="petForm_btn" value="완료">
-                            <button type="button" class="petForm_btn" onclick="window.location.href='/deletepet'">삭제
-                            </button>
                         </div>
+                    </form>
+                    <div class="btn_container">
+                        <button class="petForm_btn" onclick="window.location.href='/deletepet'">삭제</button>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
     </body>
 </th:block>
-<script>
-    // 파일 입력 필드가 변경될 때 호출되는 함수
-    document.getElementById('attach').addEventListener('change', function() {
-    const fileInput = this;
-    const preview = document.getElementById('preview');
-
-    if (fileInput.files && fileInput.files[0]) {
-        const reader = new FileReader();
-
-        reader.onload = function (e) {
-            // 이미지 미리보기 표시
-            preview.src = e.target.result;
-        };
-
-        // 파일 읽기 시작
-        reader.readAsDataURL(fileInput.files[0]);
-    }
-});
-
-    // 생일 선택 달력
-    flatpickr("#petBirthPicker", {
-        dateFormat: "Y-m-d", // 원하는 날짜 형식으로 설정 (예: 년-월-일)
-        enableTime: false, // 시간을 사용하지 않는 경우 false로 설정
-    });
-</script>
 </html>

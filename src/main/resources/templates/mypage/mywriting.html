@@ -1,40 +1,45 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/default_layout">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/default_layout">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>나의 게시글</title>
-    <link rel="stylesheet" th:href="@{/css/profile.css}"/>
+    <link rel="stylesheet" th:href="@{/css/myPage/myWriting.css}"/>
+    <link rel="stylesheet" th:href="@{/css/myPage/myPageLayout.css}"/>
+    <script defer src="/js/paging.js"></script>
 </head>
 <th:block layout:fragment="content">
-    <script defer src="/js/paging.js"></script>
-<body>
-<div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='mypage')"></div>
-<div class="middle">
-    <aside class="asNav" th:insert="/fragments/mypageNav :: navFragment(pageName='3')"></aside>
-    <div class="con_info">
-        <div class="con_title">나의 게시글</div>
-            <div class="wr_table">
-                <table class="table table-hover">
-                    <thead class="table-light">
+
+    <body>
+    <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='Mypage')"></div>
+    <div class="middle">
+        <div class="nav_wrapper">
+            <th:block th:insert="/fragments/mypageNav :: navFragment(pageName='3')"></th:block>
+        </div>
+        <div class="con_info">
+            <div class="con_info_wrapper">
+                <div class="con_title">나의 게시글</div>
+                <div class="wr_table">
+                    <table class="table table-hover">
+                        <thead class="table-light">
                         <tr>
                             <th scope="col">번호</th>
                             <th scope="col">제목</th>
                             <th scope="col">날짜</th>
                         </tr>
-                    </thead>
-                    <tbody class="table-group-divider" id="items">
-
-
-                    </tbody>
-                </table>
+                        </thead>
+                        // 게시글 리스트
+                        <tbody class="table-group-divider" id="items"></tbody>
+                    </table>
+                </div>
+                <div id="pagination"></div>
             </div>
-        <div id="pagination"></div>
-<!--        <th:block th:unless="">-->
-<!--            <div>등록된 글이 없습니다.</div>-->
-<!--        </th:block>-->
+        </div>
     </div>
-</div>
-</body>
+    <!--        <th:block th:unless="">-->
+    <!--            <div>등록된 글이 없습니다.</div>-->
+    <!--        </th:block>-->
+    </body>
 </th:block>
 </html>
