@@ -24,7 +24,16 @@
         <section class="main_container">
             <div class="main_wrap">
                 <h1 class="board_title" th:text="|${board.title}|"></h1>
-                <div class="posting_info1" th:text="|️😍${board.user_id}|"></div>
+                <!--<div class="posting_info1" th:text="|️😍${board.user_id}|"></div>-->
+                <div class="writer_wrap">
+                <img class="circle_pet" th:if="${pet_pic != null}" th:src="@{|${pet_pic}|}"
+                     alt="Pet Image"/>
+                <img class="circle_pet" th:unless="${pet_pic != null}"
+                     th:src="@{/img/mypage/default-image.png}" alt="No Image"/>
+                <div class="posting_info1" th:text="|️${board.user_id}|"></div>
+                </div>
+
+
                 <div class="posting_info2" th:utext="|${board.posting_date} &amp;nbsp; 조회 ${board.views}|"></div>
                 <hr>
                 <h2>게시글 내용</h2>
@@ -42,7 +51,16 @@
                     <br>
                     <ul id='Comment_list'>
                         <li th:each="comment : ${comments}">
-                            <span th:text="|️🙂${comment.user_id}|"></span><br>
+                            <div class="writer_wrap">
+                            <img class="circle_pet" th:if="${comment.petPicUrl != null}" th:src="@{|${comment.petPicUrl}|}"
+                                 alt="Pet Image"/>
+                            <img class="circle_pet" th:unless="${comment.petPicUrl != null}"
+                                 th:src="@{/img/mypage/default-image.png}" alt="No Image"/>
+                            <!--<span th:text="|️🙂${comment.user_id}|"></span><br>-->
+                            <span th:text="|️${comment.user_id}|"></span>
+                            </div>
+
+
                             <span th:text="${comment.content}"></span>
                             <hr>
                         </li>

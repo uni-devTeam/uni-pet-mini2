@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         };
 
-        xhr.open('GET', '/items?limit=' + limit + '&page=' + currentPage, true);
+        xhr.open('GET', '/board/items?limit=' + limit + '&page=' + currentPage, true);
         xhr.send();
     }
     window.loadPageData = loadPageData;
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
             method: "POST"
         };
 
-        fetch('/items?limit=' + limit + '&page=' + currentPage, tableData)
+        fetch('/board/items?limit=' + limit + '&page=' + currentPage, tableData)
             .then(function(response) {
                 return response.json();
             })

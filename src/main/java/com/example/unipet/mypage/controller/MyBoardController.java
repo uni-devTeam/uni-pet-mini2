@@ -57,5 +57,4 @@ public class MyBoardController {
         return response;
     }
 
-
 }
