@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org/">
+
+<head>
+    <meta charset="UTF-8">
+    <title>날씨 정보</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+<div id="weatherInfo">날씨 정보를 불러오는 중...</div>
+<script th:inline="javascript">
+    /*@thymesVar*/ var API_KEY = [[${WAPI_KEY}]];
+</script>
+<script src="/js/weather.js"></script>
+</body>
+
+
+</html>
+
+
+
