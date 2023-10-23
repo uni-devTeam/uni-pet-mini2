@@ -6,23 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Document</title>
     <link rel="stylesheet" th:href="@{/css/board.css}"/>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
 </head>
 <th:block layout:fragment="content">
     <body>
     <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='Board')"></div>
-    <section class="main_container">
-            <div class="main_wrap flex-column w-75">
-                <th:block th:if="${!#lists.isEmpty(list)}">
+    <section id="entire_screen">
+        <div class="container_nav">
+            <nav class="nav_flex_column">
+                <a class="nav-link" th:href="@{'/board/list' + 0}"><span class="bnav">공지 게시판</span></a>
+                <a class="nav-link" th:href="@{'/board/list' + 1}"><span class="bnav">나눔 게시판</span></a>
+                <a class="nav-link" th:href="@{'/board/list' + 2}"><span class="bnav">자유 게시판</span></a>
+            </nav>
+        </div>
+        <div class="main_container">
+            <th:block th:if="${!#lists.isEmpty(list)}">
                 <form id="search_btn" method="GET" action="/board/sbsearch">
                     <input type="text" id="search_text" placeholder="검색어를 입력해주세요." name="title">
                     <button type="submit" class="btn btn-light">
                         <img th:src="@{/image/search_icon.png}" alt=""/>
                     </button>
                 </form>
-                <div class="table table-hover w-100" id="table-container">
-                    <table th:if="${list}" class="w-100">
+                <br>
+                <br>
+                <div class="table">
+                    <table th:if="${list}" class="table">
+                    <!--<table th:if="${list}" class="w-100">-->
                         <thead>
+                        <!--<tr class="table-dark">-->
                         <tr class="table-dark">
                             <th th:width=600px>제목</th>
                             <th>작성자</th>
@@ -32,7 +42,8 @@
                         </thead>
                         <tbody>
                         <tr th:each="vo : ${list}">
-                            <td><a id="title" th:href="@{'/board/content?board_no='+${vo.board_no}}">[[${vo.title }]]</a>
+                            <td><a id="title" th:href="@{'/board/content?board_no='+${vo.board_no}}">[[${vo.title
+                                }]]</a>
                             </td>
                             <td>[[${vo.user_id }]]</td>
                             <td>[[${vo.posting_date }]]</td>
@@ -40,23 +51,25 @@
                         </tr>
                         </tbody>
                     </table>
-                    <form id="posting_btn1" method="post" action="/board/posting" th:if="${(session.userId == 'admin' &&  boardId == 0) || boardId != 0 && session.userId != null}">
-                        <input type="hidden" name="board_id" th:value="${boardId}" />
+                    <form id="posting_btn1" method="post" action="/board/posting"
+                          th:if="${(session.userId == 'admin' &&  boardId == 0) || boardId != 0 && session.userId != null}">
+                        <input type="hidden" name="board_id" th:value="${boardId}"/>
                         <button type="submit" class="btn btn-dark">글쓰기</button>
                     </form>
                 </div>
-                </th:block>
-                <h3 th:if="${msg}" th:text="${ msg }"></h3>
-                <th:block th:if="${#lists.isEmpty(list)}">
-                    <a th:href="@{/}">
-                        <button class="btn btn-dark">메인으로 돌아가기</button>
-                    </a>
-                    <form id="posting_btn2" method="post" action="/board/posting" th:if="${(session.userId == 'admin' &&  boardId == 0) || boardId != 0 && session.userId != null}">
-                        <input type="hidden" name="board_id" th:value="${boardId}" />
-                        <button type="submit" class="btn btn-dark">글쓰기</button>
-                    </form>
-                </th:block>
-            </div>
+            </th:block>
+            <h3 th:if="${msg}" th:text="${ msg }"></h3>
+            <th:block th:if="${#lists.isEmpty(list)}">
+                <a th:href="@{/}">
+                    <button class="btn btn-dark">메인으로 돌아가기</button>
+                </a>
+                <form id="posting_btn2" method="post" action="/board/posting"
+                      th:if="${(session.userId == 'admin' &&  boardId == 0) || boardId != 0 && session.userId != null}">
+                    <input type="hidden" name="board_id" th:value="${boardId}"/>
+                    <button type="submit" class="btn btn-dark">글쓰기</button>
+                </form>
+            </th:block>
+        </div>
     </section>
     </body>
 </th:block>
