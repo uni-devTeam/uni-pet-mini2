@@ -1,7 +1,6 @@
 const WAPI_KEY = weather_config.WAPI_KEY;
 
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("Dd")
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition, showError);
     } else {
