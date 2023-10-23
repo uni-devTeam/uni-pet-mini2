@@ -15,4 +15,5 @@ public class CommentDTO {
     private int board_no;
     private String content;
     private String comment_date;
+    private String petPicUrl;
 }

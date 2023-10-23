@@ -3,20 +3,28 @@ package com.example.unipet.boards.controller;
 import com.example.unipet.boards.dao.BoardMapper;
 import com.example.unipet.boards.domain.BoardDTO;
 import com.example.unipet.boards.domain.CommentDTO;
+import com.example.unipet.mypage.dao.MyPetMapper;
+import com.example.unipet.mypage.domain.MyWritingVO;
 import jakarta.servlet.http.HttpSession;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("board")
 public class BoardController {
     @Autowired
     BoardMapper dao;
+    @Autowired
+    MyPetMapper pet_dao;
 
     @RequestMapping("list{board_id}")
     public ModelAndView BoardList(@PathVariable("board_id") int board_id) {
@@ -137,17 +145,26 @@ public class BoardController {
     @RequestMapping(value = "/content", produces = "application/json; charset=utf-8")
     @ResponseBody
     public ModelAndView showContent(@RequestParam("board_no") int board_no, HttpSession session) {
-        System.out.println(board_no);
         dao.increaseViews(board_no);
         BoardDTO board = dao.showContent(board_no); //DTO 반환
+        System.out.println("테스트="+board);
+        String pet_pic = pet_dao.getPetPicUrl(board.getUser_id());
 
         List<CommentDTO> comments = dao.getComments(board_no); //Comment 리스트 가져오기
+
+        for(CommentDTO comment : comments) {
+            String commentUserId = comment.getUser_id();
+            String pet_pic_for_comment_user = pet_dao.getPetPicUrl(commentUserId);
+            comment.setPetPicUrl(pet_pic_for_comment_user);
+        }
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("board", board);
         mav.addObject("boardId", board.getBoard_id());
-
         mav.addObject("comments", comments);
+        mav.addObject("pet_pic", pet_pic);
+
+
 
         String currentUserId = (String) session.getAttribute("userId");
         System.out.println("로그인 중인 아이디:" + currentUserId);
@@ -183,4 +200,5 @@ public class BoardController {
         }
         return mav;
     }
+
 }

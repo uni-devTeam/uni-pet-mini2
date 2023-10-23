@@ -42,5 +42,6 @@ public interface BoardMapper {
     @Insert("insert into comment (board_no, user_id, comment_date, content) values (#{board_no}, #{user_id}, now(), #{content})")
     public boolean comment(CommentDTO save);
 
+
 }
 
