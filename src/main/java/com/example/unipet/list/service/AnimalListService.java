@@ -86,6 +86,8 @@ public class AnimalListService {
 
     public void insertNewAnimals(List<AnimalListDTO> newAnimals) {
         if (newAnimals != null && !newAnimals.isEmpty()) {
+
+
             for (AnimalListDTO animal : newAnimals) {
                 if (!isAnimalExist(String.valueOf(animal.getDesertionNo()))) {
                     animalMapper.insertAnimals(Collections.singletonList(animal));

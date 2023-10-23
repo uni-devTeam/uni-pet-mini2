@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -38,9 +39,15 @@ public class BoardController {
         return mav;
     }
 
-
     @RequestMapping("save")
     public ModelAndView insert(BoardDTO save) {
+        System.out.println(save);
+        //초기화 된 게시판에 첫 게시글 작성할 때
+        //board_id를 Integer 타입으로 변경하면 쉽게 해결 가능하지만 int타입을 유지해야 함.
+ /*       if(save.getBoard_id() == -1) {
+            int newBoardId = dao.makeBoardId(save);
+            save.setBoard_id(newBoardId);
+        }*/
         boolean result = dao.insert(save);
         ModelAndView mav = new ModelAndView();
         if (result) {
@@ -51,8 +58,31 @@ public class BoardController {
         return mav;
     }
 
+/*    @RequestMapping("save")
+    public ModelAndView insert(BoardDTO save) {
+        System.out.println(save);
+        ModelAndView mav = new ModelAndView();
+
+        if (save.getBoard_id() < 0) {
+            int newBoardId = dao.makeBoardId(save);
+            save.setBoard_id(newBoardId);
+        }
+
+        boolean result = dao.insert(save);
+
+        if (result) {
+            mav.setViewName("redirect:/board/list" + save.getBoard_id());
+        } else {
+            mav.addObject("msg", "글 등록에 실패했습니다.");
+        }
+
+        return mav;
+    }*/
+
+
     @RequestMapping("delete")
     public ModelAndView delete(int board_no) {
+        BoardDTO board = dao.getBoard(board_no);
         boolean result = dao.delete(board_no);
         ModelAndView mav = new ModelAndView();
         if (result) {
@@ -60,7 +90,8 @@ public class BoardController {
         } else {
             mav.addObject("msg", "글 삭제에 실패했습니다.");
         }
-        mav.setViewName("board");
+        mav.setViewName("redirect:/board/list" + board.getBoard_id());
+
         return mav;
     }
 
@@ -69,12 +100,15 @@ public class BoardController {
     public ModelAndView update(BoardDTO dto) {
         boolean result = dao.update(dto);
         ModelAndView mav = new ModelAndView();
+
         if (result) {
-            mav.addObject("board", dto);
+            BoardDTO updatedBoard = dao.getBoard(dto.getBoard_no());
+            mav.addObject("board", updatedBoard); // 모델에 추가
+            mav.setViewName("redirect:/board/content?board_no=" + dto.getBoard_no()); // 수정한 글 보기 페이지로 리다이렉트
         } else {
             mav.addObject("msg", "글 수정에 실패했습니다.");
+            mav.setViewName("error"); // 에러 페이지로 리다이렉트
         }
-        mav.setViewName("content");
         return mav;
     }
 
@@ -117,7 +151,8 @@ public class BoardController {
 
         String currentUserId = (String) session.getAttribute("userId");
         System.out.println("로그인 중인 아이디:" + currentUserId);
-        if(currentUserId != null && currentUserId.equals((board.getUser_id()))) {
+
+        if (currentUserId != null && (currentUserId.equals(board.getUser_id()) || currentUserId.equals("admin"))) {
             mav.addObject("canEdit", true);
         } else {
             mav.addObject("canEdit", false);
@@ -127,12 +162,25 @@ public class BoardController {
         return mav;
     }
 
+    //json 받는법
     @RequestMapping(value = "/parsejson", produces = "application/json; charset=utf-8")
     @ResponseBody
-    public BoardDTO one(int board_no) {
-        return dao.one(board_no);
+    public BoardDTO parseJson(int board_no) {
+        return dao.getBoard(board_no);
     }
 
+    @RequestMapping("comment")
+    public ModelAndView comment(CommentDTO content) {
+        System.out.println(content);
 
-
+        boolean result = dao.comment(content);
+        ModelAndView mav = new ModelAndView();
+        System.out.println(content);
+        if (result) {
+            mav.setViewName("redirect:/board/content?board_no=" + content.getBoard_no());
+        } else {
+            mav.addObject("msg", "글 등록에 실패했습니다.");
+        }
+        return mav;
+    }
 }
