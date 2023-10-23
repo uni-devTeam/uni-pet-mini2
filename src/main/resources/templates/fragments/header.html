@@ -7,7 +7,9 @@
     </head>
     <body>
     <th:block th:fragment="headerFragment">
+        <script defer src="/js/apikey.js"></script>
         <script defer src='/js/header.js'></script>
+        <script defer src="/js/weather.js"></script>
     <header class="header">
         <div class="header_wrapper">
             <div class="header_container">
@@ -25,13 +27,15 @@
                 </div>
                 <th:block th:if="${session.userId == null}">
                     <div class="header_sideMenu_container font_size_s drag_none">
-                        <a class="menu_text" href="/login">Login</a>
+                        <a class="menu_text right_margin_20" href="/login">Login</a>
+                        <a class="menu_text weather_icon"></a>
                     </div>
                 </th:block>
                 <th:block th:if="${session.userId != null}">
                     <div class="header_sideMenu_container font_size_s drag_none">
                         <a class="menu_text right_margin_20" href="/mypage">My Page</a>
-                        <a class="menu_text" href="/logout">Log Out</a>
+                        <a class="menu_text right_margin_20" href="/logout">Log Out</a>
+                        <a class="menu_text weather_icon"></a>
                     </div>
                 </th:block>
             </div>
@@ -48,7 +52,6 @@
                     </div>
                     <div class="drop_down_menu_container">
                         <a href="/hospinfo" class="drop_down_menu_text display_none">동물병원 위치</a>
-                        <a class="drop_down_menu_text display_none">현재 날씨</a>
                         <a href="/trailInfo" class="drop_down_menu_text display_none">산책로</a>
                     </div>
                 </div>
