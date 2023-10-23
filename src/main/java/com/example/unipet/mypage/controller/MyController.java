@@ -109,8 +109,9 @@ public class MyController {
 
     // 회원 탈퇴
     @RequestMapping(value = "/mydelaccount")
-    public String deleteAcc(Model model, @ModelAttribute("userId") String userId) {
+    public String deleteAcc(SessionStatus sessionStatus, Model model, @ModelAttribute("userId") String userId) {
         dao.setStatusOut(userId, "out");
+        sessionStatus.setComplete();
         model.addAttribute("message", "회원탈퇴가 완료되었습니다.");
         return "mypage/withdraw";
     }

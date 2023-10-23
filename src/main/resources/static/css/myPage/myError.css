@@ -14,3 +14,8 @@
     color: white;
     background-color: #222222;
 }
+
+.confirm_withdraw {
+    margin: 100px 0;
+    font-size: x-large;
+}
