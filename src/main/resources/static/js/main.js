@@ -1,6 +1,8 @@
 const mainTextBgbox = document.querySelector(".main_text_bgbox");
 const serviceContainer = document.querySelector(".service_container");
 const textUpDownContainer = document.querySelector(".text_up_down_container");
+const photo1 = document.querySelector(".photo1");
+const photo2 = document.querySelector(".photo2");
 const photo3 = document.querySelector(".photo3");
 
 let yRelativeToPageTop = 0;
@@ -61,6 +63,12 @@ const updateWidth = () => {
   lastScrollY = scrollY;
 };
 
+photo1.addEventListener("click", ()=>{
+  window.location.href = '/animalList';
+})
+photo2.addEventListener("click", ()=>{
+  window.location.href = '/board/list2';
+})
 photo3.addEventListener("click", ()=>{
     window.location.href = '/hospinfo';
 })
