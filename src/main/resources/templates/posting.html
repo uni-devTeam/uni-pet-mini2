@@ -9,21 +9,26 @@
 </head>
 <th:block layout:fragment="content">
     <body>
-    <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='Share')"></div>
-    <section class="posting_main_container">
-        <form method="post" action="sbsave">
-            <input type="hidden" name="board_id" value=1>
-            <input class="title" type="text" placeholder="작성자" name="user_id" required><br>
-            <input class="title" type="text" placeholder="제목" name="title" required>
-            <div class="form-floating">
+    <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='Board')"></div>
+
+
+        <section class="main_container">
+            <div class="main_wrap flex-column w-75">
+            <form method="post" action="save">
+                <input type="hidden" name="board_id" th:value="${boardId}">
+                <input class="title" type="hidden" name="user_id" th:value="${session.userId}"><br>
+                <input class="title" type="text" placeholder="제목을 입력해 주세요." name="title" required>
+                <div class="form-floating">
         <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
                   style="height: 300px" name="content" required></textarea>
-                <label for="floatingTextarea2">게시글 내용</label>
-                <br>
-                <button type="submit" class="btn btn-secondary btn-lg">글작성</button>
+                    <label for="floatingTextarea2">내용을 입력하세요.</label>
+                    <br>
+                    <button type="submit" class="btn btn-dark btn-lg">글작성</button>
+                </div>
+            </form>
             </div>
-        </form>
-    </section>
+        </section>
+
     </body>
 </th:block>
 </html>

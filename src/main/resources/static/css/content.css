@@ -1,12 +1,22 @@
-.content_main_container {
+#entire_screen {
+    display: flex;
+}
+
+.main_container {
     margin: 30px;
+    width: 85%;
+    border: solid lightgrey;
+    border-radius: 8px;
+    padding: 40px;
+}
+.main_wrap {
+    line-height: 1.6;
 }
 
 #ref_btn {
     white-space: nowrap;
     border: none;
     padding: 10px;
-    font-family: HakgyoansimWoojuR;
     cursor: pointer;
     border-radius: 8px;
     font-size: 18px;
@@ -19,7 +29,7 @@
     text-decoration: none;
     border: none;
     padding: 10px;
-    font-family: HakgyoansimWoojuR;
+
     cursor: pointer;
     border-radius: 8px;
     font-size: 18px;
@@ -29,12 +39,11 @@
     text-align: center;
 }
 
-
 #edit_btn {
     text-decoration: none;
     border: none;
     padding: 10px;
-    font-family: HakgyoansimWoojuR;
+
     cursor: pointer;
     border-radius: 8px;
     font-size: 18px;
@@ -48,7 +57,71 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    width: 280px;
+    margin-left: auto;
     justify-content: space-around;
-    width: 25%;
 }
 
+textarea {
+    border: none;
+    resize: none;
+    outline: none;
+}
+
+#reply_form {
+    border: solid lightgrey;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.comment_write {
+    display: flex;
+    flex-direction: column;
+
+}
+
+#comment_write_btn {
+    width: 60px;
+    align-self: flex-end;
+
+    text-decoration: none;
+    border: none;
+    font-weight: bold;
+    padding: 10px;
+    font-family: HakgyoansimWoojuR;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 18px;
+    background-color: #494949;
+    color: white;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.boardNav {
+    width: 15%;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.reply_text_content {
+    line-height: 1.6;
+}
+.posting_info1 {
+    font-size: smaller;
+}
+.posting_info2 {
+    font-size: x-small;
+    color: lightgrey;
+}
+.board_title {
+    display: block;
+    font-size: 1.5em;
+    margin-top: 0.83em;
+    margin-bottom: 0.83em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}

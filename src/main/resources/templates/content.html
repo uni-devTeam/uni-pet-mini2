@@ -5,45 +5,86 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/content.css}"/>
 </head>
 <th:block layout:fragment="content">
     <body>
-    <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='Share')"></div>
-    <section class="content_main_container">
-        <h1 th:text="|게시글 제목: ${board.title}|"></h1>
-        <hr>
-        <p th:text="|작성자: ${board.user_id}|"></p>
-        <p th:text="|작성일: ${board.posting_date}|"></p>
-        <div th:text="|게시글 내용: ${board.content}|"></div>
-        <div th:text="|조회수: ${board.views}|"></div>
-        <div th:text="|게시판번호: ${board.board_no}|"></div>
-
-        <div class="button_wrap">
-            <a th:href="@{/board/sblist}">
-                <button id="ref_btn">목록으로 돌아가기</button>
-            </a>
-            <button id="edit_btn" th:onclick="|displayUpdateForm(${board.board_no})|">수정</button>
-            <a id="del_btn" th:href="@{'/board/sbdelete?board_no='+${board.board_no}}">삭제</a>
-            <button id="refly_btn" th:onclick="||">댓글</button>
-        </div>
-
-        <div id="updateform" style="display: none">
-            <h2>글을 수정하세요</h2>
+    <div th:replace="/fragments/topBackground.html :: topBgFragment(imgName='Board')"></div>
+    <div id="entire_screen">
+        <aside class="boardNav" th:insert="/boardnav.html :: navFragment"></aside>
+        <section class="main_container">
+            <div class="main_wrap">
+                <h1 class="board_title" th:text="|${board.title}|"></h1>
+                <div class="posting_info1" th:text="|${board.user_id}|"></div>
+                <div class="posting_info2" th:utext="|${board.posting_date} &amp;nbsp; 조회 ${board.views}|"></div>
+                <hr>
+                <h2>게시글 내용</h2>
+                <br>
+                <div id="content" th:text="|${board.content}|"></div>
+            </div>
+            <br>
             <hr>
-            <form method="post" action="/board/sbupdate">
-                <input type="hidden" name="board_no" value="">
-                <input type="text" name="user_id" value="" required><br>
-                <textarea cols="35" rows="10" name="content" required></textarea>
-                <br> <input type="submit" value="수정"> <input
-                    type="reset" value="재작성" onclick="resetForm();return false;">
-                <input type="button" value="취소"
-                       onclick="document.getElementById('updateform').style.display='none'">
-            </form>
-        </div>
-    </section>
 
-    <script>
+            <!--댓글 출력 부분-->
+            <div class="comment_list"
+                 th:if="${(session.userId == 'admin' && board.board_id == 0) || board.board_id != 0}">
+                <div class="reply_text_content">
+                    <h2>댓글</h2>
+                    <br>
+                    <ul id='Comment_list'>
+                        <li th:each="comment : ${comments}">
+                            <span th:text="|${comment.user_id}|"></span><br>
+                            <span th:text="${comment.content}"></span>
+                            <hr>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 댓글 작성 부분 -->
+                <form id='reply_form' method='post' action=""
+                      th:if="${(session.userId == 'admin' && board.board_id == 0) || board.board_id != 0 && session.userId != null}">
+                    <div class="comment_write">
+                        <label for='commentContent' th:text="${session.userId}">댓글 작성자 아이디</label><br/>
+                        <textarea id='commentContent' name='content'
+                                  placeholder="댓글을 남겨보세요."></textarea><br/>
+                        <input type="hidden" id="commentWriter" name="user_id" th:value="${session.userId}">
+                        <input type="hidden" id="board_no" name="board_no" th:value="${board.board_no}"/>
+                        <button id="comment_write_btn" onclick="commentWrite()">등록</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 버튼 묶음 -->
+            <div class="button_wrap" th:if="${canEdit}">
+                <!--th:if="${(session.userId == 'admin' && board.board_id == 0) || board.board_id != 0}"-->
+                <a th:href="@{/}">
+                    <button id="ref_btn">메인으로 돌아가기</button>
+                </a>
+                <button id="edit_btn" th:onclick="|displayUpdateForm(${board.board_no})|">수정</button>
+                <a id="del_btn" th:href="@{'/board/delete?board_no='+${board.board_no}}">삭제</a>
+            </div>
+
+            <!-- 수정 form -->
+            <div id="updateform" style="display: none">
+                <h2>글을 수정하세요</h2>
+                <hr>
+                <form method="post" action="/board/sbupdate">
+                    <input type="hidden" name="board_no" value="">
+                    <!--<input type="text" name="user_id" value="" required><br>-->
+                    <textarea cols="35" rows="10" name="content" required></textarea>
+                    <br> <input type="submit" value="수정"> <input
+                        type="reset" value="재작성" onclick="resetForm();return false;">
+                    <input type="button" value="취소"
+                           onclick="document.getElementById('updateform').style.display='none'">
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <!--<script th:inline="javascript"></script> 타임리프에서 모델에 담긴 값을 접근할 때 사용하는 방법인데 꼭 지정해줘야 함-->
+    <script th:inline="javascript">
         let jsonobj = null;
         let user_iddom = null;
         let contentdom = null;
@@ -73,7 +114,38 @@
             }
         }
 
-
+        const commentWrite = () => {
+            const writer = document.getElementById("commentWriter").value;
+            const contents = document.getElementById("commentContent").value;
+            const boardNo = document.getElementById("board_no").value;
+            console.log("작성자: ", writer);
+            console.log("내용: ", contents);
+            $.ajax({
+                // 요청주소: /board/comment/save,요청 방식: post, 요청데이터: 작성자, 작성내용, 게시글 번호
+                url: "/comment/save",
+                type: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify({
+                    "user_id": writer,
+                    "content": contents,
+                    "board_no": boardNo
+                }),
+                success: function (res) {
+                    console.log(res);
+                    let newComment = document.createElement("li");
+                    newComment.innerHTML = `
+        작성자: ${res.comment.user_id}<br>
+        내용: ${res.comment.content}<br>
+        <hr>
+    `;
+                    document.getElementById('reply_list').appendChild(newComment);
+                },
+                error: function (err) {
+                    console.log("요청 실패", err);
+                }
+            });
+        }
     </script>
     </body>
 </th:block>
