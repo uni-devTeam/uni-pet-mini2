@@ -1,8 +1,8 @@
 
 document.addEventListener("DOMContentLoaded", function() {
-    const cards = document.getElementsByClassName('likecard');
+    const cards = document.getElementsByClassName('sharecard');
     const loadMoreButton = document.getElementById('load-more');
-    const itemsPerPage = 4;
+    const itemsPerPage = 8;
     let currentItems = itemsPerPage;
 
     loadMoreButton.addEventListener('click', function() {

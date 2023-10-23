@@ -16,9 +16,28 @@
     justify-content: center;
 }
 
-.edit_img{
-    width: 20%;
-    height: 20%;
+.image-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.circle_petchange {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    object-fit: cover;
+}
+
+.icon {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
 }
 
 .petChange_select_container{
@@ -34,7 +53,7 @@
 }
 
 .petForm_btn{
-    margin: 10px 0;
+    margin: 10px 0 0 5px;
     padding: 8px;
     border: none;
     border-radius: 8px;
@@ -49,4 +68,5 @@
     width: 100%;
     display: flex;
     justify-content: right;
+
 }

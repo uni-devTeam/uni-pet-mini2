@@ -1,6 +1,7 @@
 package com.example.unipet.mypage.controller;
 
 import com.example.unipet.mypage.dao.MyMapper;
+import com.example.unipet.mypage.dao.MyPetMapper;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,20 +18,25 @@ public class MyController {
     @Autowired
     MyMapper dao;
 
+    @Autowired
+    MyPetMapper petdao;
+
     // 메인
     @RequestMapping(value = "/mypage")
     public String mypage(Model model, HttpSession session, @ModelAttribute("userId") String userId) {
         System.out.println(userId);
         String myname = dao.getMyName(userId);
         System.out.println(myname);
+        String petPic = petdao.getPetPicUrl(userId);
+        System.out.println(petPic + " 마이페이지 경로");
         session.setAttribute("myname", myname);
-        model.addAttribute("myname", myname);
+        session.setAttribute("petpic", petPic);
         return "mypage/main";
     }
 
     // 회원 정보
     @RequestMapping(value = "/myprofile")
-    public String myprofile(Model model, @ModelAttribute("userId") String userId) {
+    public String myprofile(Model model, @ModelAttribute("userId") String userId, @ModelAttribute("petpic") String petpic) {
         System.out.println(userId);
         model.addAttribute("me", dao.getMyInfo(userId));
         return "mypage/profile";

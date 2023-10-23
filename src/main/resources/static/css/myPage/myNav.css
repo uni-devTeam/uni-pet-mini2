@@ -4,7 +4,8 @@
   border-radius: 50%;
     margin-bottom: 20px;
     background-position: center;
-    background-image: url("../../image/happy_cat.jpg");
+    background-size: cover;
+    /* background-image: url("../../image/happy_cat.jpg"); */
 }
 
 .side_nav_container{

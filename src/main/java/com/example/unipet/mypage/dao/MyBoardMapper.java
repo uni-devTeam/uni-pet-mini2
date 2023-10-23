@@ -27,17 +27,18 @@ public interface MyBoardMapper {
             "ORDER BY l.board_no DESC")
     public List<BoardVO> getShareLikes(@Param("userId") String userId);
 
-    @Select("SELECT board_no, board_id, title, posting_date " +
+    @Select("SELECT count(*) " +
             "FROM boards " +
-            "WHERE board_id = 2 AND user_id = #{userId} " +
-            "ORDER BY board_no DESC")
-    public List<MyWritingVO> getMyWritings(@Param("userId") String userId);
+            "WHERE user_id = #{userId}")
+    public int countWritings(@Param("userId") String userId);
 
-    @Select("SELECT board_no, board_id, title, posting_date " +
+    @Select("SELECT board_no, board_id, title, posting_date, " +
+            "ROW_NUMBER() OVER (ORDER BY board_no) as num " +
             "FROM boards " +
             "WHERE board_id = 2 AND user_id = #{userId} " +
             "ORDER BY board_no DESC " +
             "LIMIT #{limit} " +
             "OFFSET #{offset}")
-    public List<MyWritingVO> getPagingItems(@Param("limit") int limit, @Param("offset") int offset, @Param("userId") String userId);
+    public List<MyWritingVO> getPagingItems(@Param("limit") int limit, @Param("offset") int offset,
+                                            @Param("userId") String userId);
 }

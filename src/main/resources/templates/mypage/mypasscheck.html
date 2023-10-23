@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>비밀번호 확인</title>
     <link rel="stylesheet" th:href="@{/css/myPage/myPageLayout.css}"/>
+    <link rel="stylesheet" th:href="@{/css/myPage/myPasscheck.css}"/>
 </head>
 <th:block layout:fragment="content">
 <body>
@@ -19,7 +20,7 @@
             <div class="con_title" th:unless="${action == 'changepwd'}">회원탈퇴</div>
             <form method="post" th:action="@{'/passcheck?action=' + ${action}}" id="confirm_change">
                 <div class="infobox">
-                    <p>비밀번호 확인 </p><input type="password" class="customInput" name="currentPass">
+                    <p class="passwdcheck">비밀번호 확인 </p><input type="password" class="customInput" name="currentPass">
                 </div>
             </form>
             <button type="submit" form="confirm_change" id="e_btn">확인</button>

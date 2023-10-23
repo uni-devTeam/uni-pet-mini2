@@ -11,6 +11,30 @@
     margin-bottom: 40px;
 }
 
+.image-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.circle_petadd {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    object-fit: cover;
+}
+
+.icon {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+}
+
 .withoutPic{
     display: flex;
     flex-direction: column;

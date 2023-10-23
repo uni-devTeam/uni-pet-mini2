@@ -11,8 +11,13 @@
     <link rel="stylesheet" th:href="@{/css/myPage/myNav.css}"/>
     <div class="side_nav_container">
         <div class="container_user_name">
-            <div class="circle_petpic"></div>
-            <span id="user_name" th:text="${myname}"></span><span>님</span>
+            <th:block th:if="${session.petpic == null}">
+                <div class="circle_petpic" th:style="'background-image: url(/img/mypage/default-image.png)'"></div>
+            </th:block>
+            <th:block th:unless="${session.petpic == null}">
+                <div class="circle_petpic" th:style="'background-image: url(' + ${session.petpic} + ')'"></div>
+            </th:block>
+            <span id="user_name" th:text="${session.myname}"></span><span>님</span>
         </div>
             <nav class="nav flex-column">
                 <a th:if="${pageName == '1'}" class="nav-link nav_act" th:href="@{/myprofile}">회원 정보</a>

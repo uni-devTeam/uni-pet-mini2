@@ -1,20 +1,17 @@
-    // 파일 입력 필드가 변경될 때 호출되는 함수
-    document.getElementById('attach').addEventListener('change', function() {
-        const fileInput = this;
-        const preview = document.getElementById('preview');
 
-        if (fileInput.files && fileInput.files[0]) {
-            const reader = new FileReader();
-
-            reader.onload = function (e) {
-                // 이미지 미리보기 표시
-                preview.src = e.target.result;
-            };
-
-            // 파일 읽기 시작
-            reader.readAsDataURL(fileInput.files[0]);
-        }
-    });
+function showImagePreview(input) {
+    var preview = document.getElementById('preview');
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.style.display = 'block'; // 이미지가 선택되면 표시
+        };
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        preview.style.display = 'none'; // 이미지 선택이 취소되면 숨김
+    }
+}
 
     // 생일 선택 달력
     flatpickr("#petBirthPicker", {

@@ -12,6 +12,12 @@ public interface MyPetMapper {
             "WHERE user_id = #{userId}")
     public MypetDTO showMyPet(@Param("userId") String userId);
 
+    // 나의 펫 사진 url
+    @Select("SELECT pet_pic " +
+            "FROM mypet " +
+            "WHERE user_id = #{userId}")
+    public String getPetPicUrl(@Param("userId") String userId);
+
     // 펫 정보 수정
     @Update({
             "UPDATE mypet",

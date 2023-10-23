@@ -22,20 +22,22 @@
             <div class="con_info_wrapper">
                 <div class="con_title">나의 펫 수정</div>
                 <div class="con_petform">
-                    <form action="/petchanged" method="post" enctype="multipart/form-data">
+                    <form action="/petchanged" id="changeForm" method="post" enctype="multipart/form-data">
                         <div class="con_petchangepic">
                             <label class="con_petchangepic_container" for="attach">
-                                <img class="edit_img" th:if="${mypet.pet_pic != null}"
-                                     th:src="@{|${mypet.pet_pic}|}"
-                                     alt="Pet Image"/>
-                                <img class="edit_img" th:unless="${mypet.pet_pic != null}"
-                                     th:src="@{/img/mypage/default-image.png}" alt="No Image"/>
-                                <img class="edit_img" src="img/mypage/mypicture.png" alt="이미지 아이콘"
-                                     style="cursor: pointer;">
+                                <div class="image-container">
+                                    <img class="circle_petchange" th:if="${mypet.pet_pic != null}"
+                                         th:src="@{|${mypet.pet_pic}|}"
+                                         alt="Pet Image"/>
+                                    <img class="circle_petchange" th:unless="${mypet.pet_pic != null}"
+                                         th:src="@{/img/mypage/default-image.png}" alt="No Image"/>
+                                    <img class="icon" src="img/mypage/mypicture.png" alt="이미지 아이콘"
+                                         style="cursor: pointer;">
+                                </div>
                                 <input type="file" name="attachFile" id="attach" accept="image/*" style="display: none;"
-                                       max="1048576">
+                                       max="1048576" onchange="showImagePreview(this)">
                             </label>
-                            <img id="preview" src="" alt="Image Preview">
+                            <img id="preview" src="" alt="Image Preview" style="max-width: 100px; max-height: 100px; display: none;">
                         </div>
                         <div class="withoutPic">
                             <div class="mb-3 row">
@@ -125,11 +127,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="btn_container">
-                            <input type="submit" class="petForm_btn" value="완료">
-                        </div>
                     </form>
                     <div class="btn_container">
+                        <button type="submit" form="changeForm" class="petForm_btn">완료</button>
                         <button class="petForm_btn" onclick="window.location.href='/deletepet'">삭제</button>
                     </div>
                 </div>

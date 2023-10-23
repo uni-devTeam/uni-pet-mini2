@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,27 +23,16 @@ public class MyBoardController {
     @Autowired
     MyBoardMapper dao;
 
-    @Autowired
-    MyMapper mydao;
-
     @RequestMapping(value = "/myshare")
     public String myshare(@ModelAttribute("userId") String userId, Model model) {
         model.addAttribute("share", dao.getMyShare(userId));
-        model.addAttribute("myname", mydao.getMyName(userId));
         return "mypage/myshare";
     }
 
     @RequestMapping(value = "/mysharelikes")
     public String mysharelikes(@ModelAttribute("userId") String userId, Model model) {
         model.addAttribute("likes", dao.getShareLikes(userId));
-        model.addAttribute("myname", mydao.getMyName(userId));
         return "mypage/mysharelikes";
-    }
-
-    @RequestMapping(value = "/getMywriting")
-    @ResponseBody
-    public List<MyWritingVO> getMywriting(@ModelAttribute("userId") String userId) {
-        return dao.getMyWritings(userId);
     }
 
     // 나의 게시글 페이지
@@ -53,13 +43,19 @@ public class MyBoardController {
 
     @RequestMapping("/items")
     @ResponseBody
-    public List<MyWritingVO> paging(@RequestParam("limit") int limit,
-                                        @RequestParam("page") int page,
-                                    @ModelAttribute("userId") String userId) {
-        System.out.println(limit);
-        System.out.println(page);
+    public Map<String, Object> paging(@RequestParam("limit") int limit,
+                                      @RequestParam("page") int page,
+                                      @ModelAttribute("userId") String userId) {
         int offset = (page - 1) * limit;
-        return dao.getPagingItems(limit, offset, userId);
+        int count = dao.countWritings(userId);
+        List<MyWritingVO> items = dao.getPagingItems(limit, offset, userId);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("count", count);
+        response.put("writings", items);
+
+        return response;
     }
+
 
 }

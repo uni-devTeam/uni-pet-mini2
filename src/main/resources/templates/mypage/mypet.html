@@ -19,9 +19,9 @@
                 <div class="con_title">나의 펫</div>
                 <div class="menu">
                     <th:block th:if="${mypet}">
-                        <img class="circle_petpic" th:if="${mypet.pet_pic != null}" th:src="@{|${mypet.pet_pic}|}"
+                        <img class="circle_pet" th:if="${mypet.pet_pic != null}" th:src="@{|${mypet.pet_pic}|}"
                              alt="Pet Image"/>
-                        <img class="circle_petpic" th:unless="${mypet.pet_pic != null}"
+                        <img class="circle_pet" th:unless="${mypet.pet_pic != null}"
                              th:src="@{/img/mypage/default-image.png}" alt="No Image"/>
                         <div class="pet_details">
                             <div class="infobox">
