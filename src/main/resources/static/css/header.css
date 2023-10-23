@@ -147,3 +147,16 @@ video {
 .right_margin_20{
        margin-right: 20px;
 }
+
+.weather_container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.header_sideMenu_container{
+  display: flex;
+  align-items: center;
+}

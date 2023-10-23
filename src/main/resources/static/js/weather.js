@@ -1,6 +1,6 @@
 const WAPI_KEY = weather_config.WAPI_KEY;
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     console.log("Dd")
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition, showError);
@@ -16,7 +16,7 @@ function showPosition(position) {
 }
 
 function showError(error) {
-    switch(error.code) {
+    switch (error.code) {
         case error.PERMISSION_DENIED:
             document.getElementById("weatherInfo").innerHTML = " ";
             break;
@@ -39,7 +39,8 @@ function fetchWeatherByCoords(lat, lon) {
         .then(data => {
             const weather = data.weather[0].description;
             const temp = data.main.temp;
-            document.querySelector('.weather_icon').innerHTML =weather;
+            document.querySelector('.weather_icon').innerHTML = weather;
+            document.querySelector('.weather_temp').innerHTML = temp +"°C";
             // document.getElementById("weatherInfo").innerHTML = `현재 날씨: ${weather}, 온도: ${temp}°C`;
         })
         .catch(error => {
