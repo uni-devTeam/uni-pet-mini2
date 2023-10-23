@@ -6,6 +6,7 @@ import com.example.unipet.mypage.domain.UserResultDTO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface MyBoardMapper {
@@ -15,7 +16,7 @@ public interface MyBoardMapper {
             "FROM boards " +
             "WHERE user_id = #{userId} " +
             "ORDER BY board_no DESC")
-    public List<BoardVO> getMyShare(String userId);
+    public List<BoardVO> getMyShare(@Param("userId") String userId);
 
     // 나눔 좋아요 가져오기
     @Select("SELECT b.board_no, b.board_id, b.title, b.content, b.posting_date, b.img_path " +
@@ -24,11 +25,20 @@ public interface MyBoardMapper {
             "ON b.board_no = l.board_no " +
             "WHERE l.user_id = #{userId} " +
             "ORDER BY l.board_no DESC")
-    public List<BoardVO> getShareLikes(String userId);
+    public List<BoardVO> getShareLikes(@Param("userId") String userId);
 
-    @Select("SELECT board_no, board_id, title, posting_date " +
+    @Select("SELECT count(*) " +
+            "FROM boards " +
+            "WHERE user_id = #{userId}")
+    public int countWritings(@Param("userId") String userId);
+
+    @Select("SELECT board_no, board_id, title, posting_date, " +
+            "ROW_NUMBER() OVER (ORDER BY board_no) as num " +
             "FROM boards " +
             "WHERE board_id = 2 AND user_id = #{userId} " +
-            "ORDER BY board_no DESC")
-    public List<MyWritingVO> getMyWritings(String userId);
+            "ORDER BY board_no DESC " +
+            "LIMIT #{limit} " +
+            "OFFSET #{offset}")
+    public List<MyWritingVO> getPagingItems(@Param("limit") int limit, @Param("offset") int offset,
+                                            @Param("userId") String userId);
 }

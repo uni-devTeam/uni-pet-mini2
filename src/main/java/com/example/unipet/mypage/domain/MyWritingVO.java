@@ -12,4 +12,5 @@ public class MyWritingVO {
     private int board_id;
     private String title;
     private LocalDate posting_date;
+    private int num;
 }
