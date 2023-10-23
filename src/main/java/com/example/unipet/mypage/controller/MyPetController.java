@@ -130,7 +130,7 @@ public class MyPetController {
         System.out.println(currentDirectory);
         String correctedPath = currentDirectory.replace("\\", "/");
         UUID uuid = UUID.randomUUID();
-        String path = correctedPath + "/uni-pet/src/main/resources/static/img/mypage/upload/" + uuid.toString() + fileName;
+        String path = correctedPath + "/src/main/resources/static/img/mypage/upload/" + uuid.toString() + fileName;
         System.out.println(path);
         File destinationFile = new File(path);
         file.transferTo(destinationFile);

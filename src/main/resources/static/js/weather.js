@@ -1,4 +1,7 @@
+const WAPI_KEY = weather_config.WAPI_KEY;
+
 document.addEventListener("DOMContentLoaded", function() {
+    console.log("Dd")
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition, showError);
     } else {
@@ -29,14 +32,15 @@ function showError(error) {
 }
 
 function fetchWeatherByCoords(lat, lon) {
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&lang=kr&units=metric`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${WAPI_KEY}&lang=kr&units=metric`;
 
     fetch(url)
         .then(response => response.json())
         .then(data => {
             const weather = data.weather[0].description;
             const temp = data.main.temp;
-            document.getElementById("weatherInfo").innerHTML = `현재 날씨: ${weather}, 온도: ${temp}°C`;
+            document.querySelector('.weather_icon').innerHTML =weather;
+            // document.getElementById("weatherInfo").innerHTML = `현재 날씨: ${weather}, 온도: ${temp}°C`;
         })
         .catch(error => {
             console.error("날씨 정보를 가져오는데 실패했습니다.", error);

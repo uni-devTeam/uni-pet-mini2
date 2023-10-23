@@ -11,7 +11,7 @@ public class MyConfig implements WebMvcConfigurer {
     String currentDirectory = System.getProperty("user.dir");
     // String location="file:///c:/kosastudy/springedu/src/main/resources/static/images/";
     String correctedPath = currentDirectory.replace("\\", "/");
-    String location = "file:///" + correctedPath + "/uni-pet/src/main/resources/static/img/mypage/upload/";
+    String location = "file:///" + correctedPath + "/src/main/resources/static/img/mypage/upload/";
 
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
