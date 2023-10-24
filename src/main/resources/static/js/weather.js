@@ -1,17 +1,12 @@
 const WAPI_KEY = weather_config.WAPI_KEY;
 
 document.addEventListener("DOMContentLoaded", function () {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition, showError);
-    } else {
-        document.getElementById("weatherInfo").innerHTML = " ";
-    }
+    showPosition();
 });
 
 function showPosition(position) {
-    const lat = position.coords.latitude;
-    const lon = position.coords.longitude;
-    fetchWeatherByCoords(lat, lon);
+
+    fetchWeatherByCoords(37.4964224, 127.123456);
 }
 
 function showError(error) {
@@ -39,7 +34,7 @@ function fetchWeatherByCoords(lat, lon) {
             const weather = data.weather[0].description;
             const temp = data.main.temp;
             document.querySelector('.weather_icon').innerHTML = weather;
-            document.querySelector('.weather_temp').innerHTML = temp +"°C";
+            document.querySelector('.weather_temp').innerHTML = temp + "°C";
             // document.getElementById("weatherInfo").innerHTML = `현재 날씨: ${weather}, 온도: ${temp}°C`;
         })
         .catch(error => {

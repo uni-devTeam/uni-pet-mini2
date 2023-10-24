@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
             '<input type="hidden" value="' + board_no + '">' +
             '<td class="tb_num">' + row_num + '</td>' +
             '<td class="tb_title">' +
-            '<a href="/content?board_no=' + board_no + '">' + title + '</a>' +
+            '<a href="/board/content?board_no=' + board_no + '">' + title + '</a>' +
             '</td>' +
             '<td>' + posting_date + '</td>' +
             '</tr>';
