@@ -14,7 +14,7 @@ public interface MyBoardMapper {
     // 나의 나눔 가져오기
     @Select("SELECT board_no, board_id, title, content, posting_date, img_path " +
             "FROM boards " +
-            "WHERE user_id = #{userId} " +
+            "WHERE board_id = 1 AND user_id = #{userId} " +
             "ORDER BY board_no DESC")
     public List<BoardVO> getMyShare(@Param("userId") String userId);
 
