@@ -18,7 +18,6 @@ public class SignupDTO {
     private String petBirthday;
     private String petGender;
     private String petType;
-    private String petPicture;
     private String doNeutering;
     private String petColor;
     private String petChar;

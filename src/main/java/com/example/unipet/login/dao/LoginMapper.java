@@ -14,4 +14,7 @@ public interface LoginMapper {
 
     @Select("SELECT COUNT(*) > 0 AS user_exists FROM uni_pet.User WHERE user_id = #{id} AND password = #{password}")
     public boolean checkPassword(@Param("id") String id, @Param("password") String password );
+
+    @Select("SELECT roles FROM uni_pet.User WHERE user_id = #{id}")
+    public String checkRoles(String id);
 }

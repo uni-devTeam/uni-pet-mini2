@@ -94,10 +94,6 @@ public class SignupController {
                 mav.addObject("message", "펫 종류을 입력해주세요.");
                 return false;
             }
-            if (dto.getPetPicture().isEmpty()) {
-                mav.addObject("message", "펫 사진을 입력해주세요.");
-                return false;
-            }
             if (dto.getDoNeutering() == null) {
                 mav.addObject("message", "펫 중성화여부를 입력해주세요.");
                 return false;

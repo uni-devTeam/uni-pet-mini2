@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         };
 
-        xhr.open('GET', '/board/items?limit=' + limit + '&page=' + currentPage, true);
+        xhr.open('GET', '/items?limit=' + limit + '&page=' + currentPage, true);
         xhr.send();
     }
     window.loadPageData = loadPageData;
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
             method: "POST"
         };
 
-        fetch('/board/items?limit=' + limit + '&page=' + currentPage, tableData)
+        fetch('/items?limit=' + limit + '&page=' + currentPage, tableData)
             .then(function(response) {
                 return response.json();
             })
@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
             '<input type="hidden" value="' + board_no + '">' +
             '<td class="tb_num">' + row_num + '</td>' +
             '<td class="tb_title">' +
-            '<a href="/board/content?board_no=' + board_no + '">' + title + '</a>' +
+            '<a href="/content?board_no=' + board_no + '">' + title + '</a>' +
             '</td>' +
             '<td>' + posting_date + '</td>' +
             '</tr>';

@@ -29,6 +29,10 @@ public class LoginController {
         String passWord = dto.getPassword();
         if (dao.checkId(id)) {
             if (dao.checkPassword(id, passWord)) {
+                if(dao.checkRoles(id).equals("out")){
+                    model.addAttribute("message", "탈퇴한 회원 입니다.");
+                    return "login";
+                }
                 httpServletRequest.getSession().invalidate();
                 HttpSession session = httpServletRequest.getSession(true);  // Session이 없으면 생성
 
@@ -37,7 +41,6 @@ public class LoginController {
                 return "redirect:";
             } else {
                 model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
-                model.addAttribute("login");
             }
         } else {
             model.addAttribute("message", "존재하지 않는 ID 입니다.");
