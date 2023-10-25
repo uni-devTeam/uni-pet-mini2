@@ -12,7 +12,7 @@
 ---
 | 하인성<br>(팀장) | 김민지<br> | 노인수<br> | 한승완<br>|
 | :---: | :---: | :---: | :---: |
-| <img alt="하인성" src="https://github.com/uni-devTeam/uni-pet/assets/115906460/67563c8b-cfcf-45cb-8205-dec87fe0675c"  width="100"><br>[@HaInseong](https://github.com/HaInseong)| <img alt="김민지" src="https://github.com/uni-devTeam/uni-pet/assets/115906460/2884c5e2-68b5-40df-8b9a-6c3317d1993a"  width="100"> <br>[@Minji287](https://github.com/Minji287) | <img alt="노인수" src="https://github.com/uni-devTeam/uni-pet/assets/115906460/f91bb206-e524-4905-a637-467a4d6c5b34" width="100" height="90"> <br>[@insiu](https://github.com/insiu) | <img alt="한승완" src="https://github.com/uni-devTeam/uni-pet/assets/115906460/b6018775-a5d6-41a3-9bf5-747d412ed369"  width="100"><br>[@hanseungwan1](https://github.com/hanseungwan1)|
+| <img alt="하인성" src="https://github.com/uni-devTeam/uni-pet/assets/115906460/67563c8b-cfcf-45cb-8205-dec87fe0675c"  width="100"><br>[@HaInseong](https://github.com/HaInseong)| <img alt="김민지" src="https://github.com/uni-devTeam/uni-pet/assets/115906460/2884c5e2-68b5-40df-8b9a-6c3317d1993a"  width="100"> <br>[@Minji287](https://github.com/Minji287) | <img alt="노인수" src="https://github.com/uni-devTeam/uni-pet/assets/115906460/f91bb206-e524-4905-a637-467a4d6c5b34" width="100"> <br>[@insiu](https://github.com/insiu) | <img alt="한승완" src="https://github.com/uni-devTeam/uni-pet/assets/115906460/b6018775-a5d6-41a3-9bf5-747d412ed369"  width="100"><br>[@hanseungwan1](https://github.com/hanseungwan1)|
 
 
 역할 분담
