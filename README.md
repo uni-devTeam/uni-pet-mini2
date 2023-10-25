@@ -57,29 +57,19 @@
 
 페이지 미리보기
 ---
-| 인트로 | 회원가입 | 로그인 |
-| :---: | :---: | :---: |
-| ![](https://i.imgur.com/gTGpRuH.png) | ![](https://i.imgur.com/uJNeRNk.png) | ![](https://i.imgur.com/SJ1HW92.png) |
-| 첫 프로필 설정 시작 | 국가/언어/태그 설정 모달 | 첫 프로필 설정 완료 |
-| ![](https://i.imgur.com/Vc5A5CG.png) | ![](https://i.imgur.com/yMMaHPw.png) | ![](https://i.imgur.com/eakKWad.png) |
-| 메인 | 프로필 페이지 | 프로필 수정 |
-| ![](https://i.imgur.com/NLhpLrF.png) | ![](https://i.imgur.com/6chtqOu.png)  | ![](https://i.imgur.com/AsCc11o.png) |
-|  전체 편지함 | 친구별 편지 목록 | 편지 상세 페이지 |
-| ![](https://i.imgur.com/SkYU3aX.png) | ![](https://i.imgur.com/wdD0qyr.png) | ![](https://i.imgur.com/O4rBaU5.png) |
-| 편지 작성 페이지 | 단어 등록 모달  | 친구 프로필 페이지 |
-|  ![](https://i.imgur.com/UgXRIPY.png) | ![](https://i.imgur.com/Oe7RHez.png) | ![](https://i.imgur.com/NV9NdCw.png) |
-| 탈퇴 확인 모달 | 국가 설정 모달 | 태그 설정 모달 |
-| ![](https://i.imgur.com/3idVjC0.png) | ![](https://i.imgur.com/i2FrTvw.png) | ![](https://i.imgur.com/LKVIGOk.png)) |
-| 언어 추가 모달 | 언어 검색 모달  | 언어 레벨 모달 |
-|![](https://i.imgur.com/lvS8grG.png) | ![](https://i.imgur.com/yGzropz.png) | ![](https://i.imgur.com/Hmq1Gll.png) |
-| 단어장 페이지 | 단어 수정 모달 | 에러페이지  |
-| ![](https://i.imgur.com/uK3mWCK.png) | ![](https://i.imgur.com/xzj4Hjz.png) | ![](https://i.imgur.com/7p9DXIE.png) |
-| 친구 검색 | 필터 모달 | 언어 선택 모달  |
-| ![](https://i.imgur.com/FBK1nMy.png) | ![](https://i.imgur.com/nPA8aVl.png) | ![](https://i.imgur.com/flIiQJE.png) |
-
-
-
-
+| 메인페이지 |
+| :---: |
+| ![](https://i.imgur.com/gTGpRuH.png) |
+| 유기동물 페이지 |
+| ![](https://i.imgur.com/Vc5A5CG.png) |
+| 동물병원 / 산책로 페이지 |
+| ![](https://i.imgur.com/NLhpLrF.png) |
+|  게시판 페이지 |
+| ![](https://i.imgur.com/SkYU3aX.png) |
+| 마이 페이지 |
+|  ![](https://i.imgur.com/UgXRIPY.png) |
+| 로그인 / 회원가입 페이지 |
+| ![](https://i.imgur.com/3idVjC0.png) |
 
 협업 프로세스
 ---
