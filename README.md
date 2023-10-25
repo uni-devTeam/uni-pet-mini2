@@ -57,18 +57,28 @@
 
 페이지 미리보기
 ---
-| 메인페이지 |
-| https://github.com/uni-devTeam/uni-pet/assets/115906460/ef887aac-868a-4e31-a7ca-346aa6b20dcb|
-| 유기동물 페이지 |
-| ![](https://i.imgur.com/Vc5A5CG.png) |
-| 동물병원 / 산책로 페이지 |
-| ![](https://i.imgur.com/NLhpLrF.png) |
-|  게시판 페이지 |
-| ![](https://i.imgur.com/SkYU3aX.png) |
-| 마이 페이지 |
-|  ![](https://i.imgur.com/UgXRIPY.png) |
-| 로그인 / 회원가입 페이지 |
-| ![](https://i.imgur.com/3idVjC0.png) |
+#### 메인페이지 
+
+
+https://github.com/uni-devTeam/uni-pet/assets/115906460/c8b59b90-89d2-42b0-9ced-d736623e93cf
+
+
+#### 게시판
+
+#### 유기동물 페이지
+[list_page.webm](https://github.com/uni-devTeam/uni-pet/assets/115906460/2e413d99-cc3b-4290-b898-cba9139652b6)
+
+
+#### 마이 페이지
+
+#### 로그인 / 회원가입
+
+
+https://github.com/uni-devTeam/uni-pet/assets/115906460/b4d13526-ddb0-4390-ad26-f2d5866d8821
+
+
+#### 동물병원 / 산책로 페이지
+[convenience_page.webm](https://github.com/uni-devTeam/uni-pet/assets/115906460/a7f99018-150f-486c-ab31-f8365af040b6)
 
 협업 프로세스
 ---
