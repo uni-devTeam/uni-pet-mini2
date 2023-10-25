@@ -12,49 +12,49 @@
 ---
 | 하인성<br>(팀장) | 김민지<br> | 노인수<br> | 한승완<br>|
 | :---: | :---: | :---: | :---: |
-| <img alt="하인성" src="https://avatars.githubusercontent.com/u/44540726?v=4"  width="100"><br>[@12Ahn22](https://github.com/12Ahn22)| <img alt="김보라" src="https://avatars.githubusercontent.com/u/52031484?v=4"  width="100"> <br>[@rockbell89](https://github.com/rockbell89) | <img alt="김민지" src="https://avatars.githubusercontent.com/u/115906460?v=4" width="100" height="90"> <br>[@hanseungwan1](https://github.com/hanseungwan1) | <img alt="구민주" src="https://avatars.githubusercontent.com/u/74780404?v=4"  width="100"><br>[@mingdu9](https://github.com/mingdu9)|
+| <img alt="하인성" src="https://github.com/uni-devTeam/uni-pet/assets/115906460/67563c8b-cfcf-45cb-8205-dec87fe0675c"  width="100"><br>[@HaInseong](https://github.com/HaInseong)| <img alt="김민지" src="https://github.com/uni-devTeam/uni-pet/assets/115906460/2884c5e2-68b5-40df-8b9a-6c3317d1993a"  width="100"> <br>[@Minji287](https://github.com/Minji287) | <img alt="노인수" src="https://github.com/uni-devTeam/uni-pet/assets/115906460/f91bb206-e524-4905-a637-467a4d6c5b34" width="100" height="90"> <br>[@insiu](https://github.com/insiu) | <img alt="한승완" src="https://github.com/uni-devTeam/uni-pet/assets/115906460/b6018775-a5d6-41a3-9bf5-747d412ed369"  width="100"><br>[@hanseungwan1](https://github.com/hanseungwan1)|
 
 
 역할 분담
 ---
 #### 하인성
-- 편지 페이지
-- 팔로잉 & 블랙리스트 페이지
-- 유저 검색 페이지
-- 단어장 페이지
+- 데이터베이스
+- ERD 스키마
+- 게시판
 #### 김민지
-- 레이아웃
-- 라우터
-- 메인 페이지
-- 프로필 페이지
-- 편지 템플릿
-- 국가/언어/태그 모달창
+- 마이 페이지
+- 회원정보 페이지
+- 나의 펫 페이지
+- 나의 게시글 페이지
+- 나눔 물품 페이지
 #### 노인수
+- 유기동물 리스트 페이지
+- 유기동물 디테일 페이지
+#### 한승완
+- 메인 페이지
 - 회원가입 페이지
 - 로그인 페이지
-- aws 배포 자동화
-- 마우스 커서 번역기
-#### 한승완
-- 배포 자동화
-- 예외처리
-- 이미지 s3 업로드 api
-- 편지 관련 api
+- 동물병원 / 산책로 페이지
+- 레이아웃 / 헤더
 
 개발 환경
 ---
 
 ### 백엔드
-|<img src="https://cdn.icon-icons.com/icons2/2699/PNG/512/java_logo_icon_169577.png" width="60">|<img src="https://pbs.twimg.com/profile_images/1235868806079057921/fTL08u_H_400x400.png" width="60"/>|<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRfFfCw3UmVgIXt38ic_8hvPqA5qJ9AUM1tggfDdMu7SqOw9CCnn4NZSZj1qfLnGMlQEE&usqp=CAU" width="60"/>|<img src="https://pbs.twimg.com/profile_images/1235983944463585281/AWCKLiJh_400x400.png" width="60"/>|
+|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/dd8cd9db-2e45-4b37-bb50-2be7c036d73e
+" width="60">|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/b4f50915-64b6-4e2b-a192-9f11b2a17f91" width="60"/>|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/4caccb38-c0dd-4269-a23c-6bd0a63eee88" width="60"/>|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/b3478fa5-fb29-44b3-b3de-62aa104c8029" width="60"/>|
 |:---:|:---:|:---:|:---:|
 |`Java`|`Spring Boot`|`MyBatis`|`MySQL`|
 
 ### 프론트엔드
-|<img src="https://i.imgur.com/ZfKegAq.png" width="60"/>|<img src="https://recoiljs.org/ko/img/logo.svg" width="60"/>|<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/220px-Typescript_logo_2020.svg.png" width="60"/>|<img src="https://sass-lang.com/assets/img/logos/logo-b6e1ef6e.svg" width="60"/>|
+|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/325b6e44-fa47-46d8-a5fd-0802ab809cc9
+" width="60"/>|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/5368f991-80d8-4181-826e-95b0390f5b6e" width="60"/>|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/a725b7dd-13c7-450f-94fd-b28fc41eac59" width="60"/>|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/e2df7841-01fe-44f5-a2db-22e42f8371c3" width="60"/>|
 |:---:|:---:|:---:|:---:|
 |`Thymeleaf`|`JavaScript`|`HTML`|`CSS`|
 
 ### 기타
-|<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Amazon_Web_Services_Logo.svg/200px-Amazon_Web_Services_Logo.svg.png" width="60"/>|<img src="https://i.imgur.com/xxHjAPB.png" width="60"/>|
+|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/6b33fe28-faaf-4710-a092-b92f45ee8252
+" width="60"/>|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/ddb42da1-1a7a-4fa4-b10b-012d990a9f1a" width="60"/>|
 |:---:|:---:|
 |`Jira`|`GitHub`|
 
