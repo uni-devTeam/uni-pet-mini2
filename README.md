@@ -1,7 +1,7 @@
 
 🐶 유니펫
 ===
-![배너](![image](https://github.com/uni-devTeam/uni-pet/assets/115906460/86effe63-e3ef-4a5f-9274-c004a487fc50))
+![배너](https://github.com/uni-devTeam/uni-pet/assets/115906460/513a7c0e-a3d2-4507-9399-85376128d679)
 
 - **`팀 명` :**  유니팀
 - **`프로젝트 기간` :** 2023.10.13 - 2023.10.23
