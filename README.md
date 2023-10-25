@@ -58,7 +58,11 @@
 페이지 미리보기
 ---
 | 메인페이지 |
-| https://github.com/uni-devTeam/uni-pet/assets/115906460/ef887aac-868a-4e31-a7ca-346aa6b20dcb|
+|
+
+https://github.com/uni-devTeam/uni-pet/assets/115906460/a9188c21-13da-4e2e-8517-6970b859390c
+
+|
 | 유기동물 페이지 |
 | ![](https://i.imgur.com/Vc5A5CG.png) |
 | 동물병원 / 산책로 페이지 |
