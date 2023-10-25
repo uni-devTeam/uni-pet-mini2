@@ -57,6 +57,7 @@
 
 페이지 미리보기
 ---
+
 #### 메인페이지 
 
 
@@ -79,6 +80,7 @@ https://github.com/uni-devTeam/uni-pet/assets/115906460/b4d13526-ddb0-4390-ad26-
 
 #### 동물병원 / 산책로 페이지
 [convenience_page.webm](https://github.com/uni-devTeam/uni-pet/assets/115906460/a7f99018-150f-486c-ab31-f8365af040b6)
+
 
 협업 프로세스
 ---
