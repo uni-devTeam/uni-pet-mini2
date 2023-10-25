@@ -59,7 +59,11 @@
 ---
 | 메인페이지 |
 | :---: |
-| ![](https://i.imgur.com/gTGpRuH.png) |
+| 
+
+https://github.com/uni-devTeam/uni-pet/assets/115906460/ef887aac-868a-4e31-a7ca-346aa6b20dcb
+
+ |
 | 유기동물 페이지 |
 | ![](https://i.imgur.com/Vc5A5CG.png) |
 | 동물병원 / 산책로 페이지 |
