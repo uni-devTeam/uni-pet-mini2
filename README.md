@@ -64,13 +64,21 @@
 https://github.com/uni-devTeam/uni-pet/assets/115906460/c8b59b90-89d2-42b0-9ced-d736623e93cf
 
 
-#### 게시판
+#### 게시판 1
+[Board_1.webm](https://github.com/uni-devTeam/uni-pet/assets/115906460/1c88639f-1626-485b-a767-a8457abecdce)
+
+#### 게시판 2
+[Board_2.webm](https://github.com/uni-devTeam/uni-pet/assets/115906460/a6bea80e-231e-4082-9809-cbb09af50f5f)
 
 #### 유기동물 페이지
 [list_page.webm](https://github.com/uni-devTeam/uni-pet/assets/115906460/2e413d99-cc3b-4290-b898-cba9139652b6)
 
 
-#### 마이 페이지
+#### 마이 페이지 1
+[My_page_1.webm](https://github.com/uni-devTeam/uni-pet/assets/115906460/41e1fef8-abd2-46b3-a9cf-075d2e95d2c6)
+
+#### 마이 페이지 2
+[My_page_2.webm](https://github.com/uni-devTeam/uni-pet/assets/115906460/eb909f01-5ec2-4db2-bbd5-459194dada3b)
 
 #### 로그인 / 회원가입
 
