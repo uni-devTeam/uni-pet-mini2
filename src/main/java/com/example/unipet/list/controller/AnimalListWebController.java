@@ -35,14 +35,14 @@ public class AnimalListWebController {
     }
 
 
-    @GetMapping("/animalDetail/{image_id}")
-    public String animalDetail(@PathVariable int image_id, Model model) {
-        if (image_id <= 0) {
+    @GetMapping("/animalDetail/{imageId}")
+    public String animalDetail(@PathVariable int imageId, Model model) {
+        if (imageId <= 0) {
             model.addAttribute("errorMessage", "유효하지 않은 동물 ID입니다.");
             return "errorPage"; // 오류 페이지로 리디렉션
         }
 
-        AnimalListDTO animal = animalService.findByImage_Id(image_id);
+        AnimalListDTO animal = animalService.findByImageId(imageId);
 
         if (animal == null) {
             model.addAttribute("errorMessage", "동물 정보를 찾을 수 없습니다.");

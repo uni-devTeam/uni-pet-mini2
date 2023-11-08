@@ -1,12 +1,16 @@
 package com.example.unipet.list.domain;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.ToString;
-
+@Entity
+@Table(name = "picture")
 @Data
 @ToString
 public class AnimalListDTO {
-    private int image_id; // image_id 필드를 추가
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int imageId; // image_id 필드를 추가
     private String happenDt; // upload_at 게시일 (완)
     private long desertionNo;
     private String popfile; // 이미지파일url (완)
