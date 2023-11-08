@@ -1,7 +1,7 @@
 package com.example.unipet.list.service;
 
-import com.example.unipet.list.dao.AnimalMapper;
 import com.example.unipet.list.domain.AnimalListDTO;
+import com.example.unipet.list.repository.AnimalListRepository;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,14 +26,17 @@ public class AnimalListService {
 
    @Value("${LIST_API_KEY}")
    private String LIST_API_KEY;
-// ----------------------------------------------
-
+    // ----------------------------------------------
+    // 서비스에서 기능 별 분리
     // insert() api 호출해서 db에 저장하는거 -(1)
     // update() db 업데이트 하기 (최신화 &       수정사항 적용)-(2)
     // delete() 종료일이 지난 api 삭제하기 -(3)
     //  ----------------------------- AnimalLIstService
 
     // read db에 저장되어 있는 api 정보 가져오기
+    // 스케줄링, 페이징 처리, 필터링 기능
+    @Autowired
+    private AnimalListRepository animalListRepository;
     public List<AnimalListDTO> getRecentAnimalList(String startDate) {
         // 종료일이 지난 동물 정보 삭제
         LocalDate today = LocalDate.now();
@@ -42,13 +45,13 @@ public class AnimalListService {
         deleteExpiredAnimals(endDateString);
 
         // 기존 DB에 있는 동물 데이터 가져오기
-        List<AnimalListDTO> existingAnimalsInDB = animalMapper.selectAllAnimals(startDate);
+        List<AnimalListDTO> existingAnimalsInDB = animalListRepository.findByHappenDtGreaterThanEqualOrderByHappenDtDesc(startDate);
 
         // API에서 데이터를 가져오는 로직을 구현
-        String jsonResponse = allowBasic();
+        String jsonResponse = callAnimalApi(today.minusDays(1), today);
 
-        LocalDate currentDate = LocalDate.now();
-        List<AnimalListDTO> allRecentAnimals = parseJsonResponse(jsonResponse, currentDate);
+        List<AnimalListDTO> allRecentAnimals = parseJsonResponse(jsonResponse, today);
+
 
         // 사이즈로 동물 정보로 갯수 제한
         if (allRecentAnimals.size() > 20) {
@@ -57,70 +60,51 @@ public class AnimalListService {
 
         // 중복 데이터 확인 및 최근 데이터만 선택
         List<AnimalListDTO> newAnimals = new ArrayList<>();
-
         for (AnimalListDTO animal : allRecentAnimals) {
-            boolean isDuplicate = false;
-            for (AnimalListDTO existingAnimal : existingAnimalsInDB) {
-                if (animal.getDesertionNo() == existingAnimal.getDesertionNo()) {
-                    isDuplicate = true;
-                }
-            }
-            if (!isDuplicate) {
+            if (!isAnimalExist(animal.getDesertionNo())) {
                 newAnimals.add(animal);
             }
         }
 
         // 중복 데이터가 없는 경우에만 insertNewAnimals 메서드를 호출하여 새로운 동물 데이터를 DB에 삽입
-        if (!newAnimals.isEmpty()) {
-            insertNewAnimals(newAnimals);
-        }
+        insertNewAnimals(newAnimals);
+
 
         // 기존 데이터와 새로운 데이터를 합침
         existingAnimalsInDB.addAll(newAnimals);
-        System.out.println(existingAnimalsInDB);
         return existingAnimalsInDB;
     }
 
-    @Autowired
-    private AnimalMapper animalMapper;
 
     public void insertNewAnimals(List<AnimalListDTO> newAnimals) {
         if (newAnimals != null && !newAnimals.isEmpty()) {
-
-
             for (AnimalListDTO animal : newAnimals) {
-                if (!isAnimalExist(String.valueOf(animal.getDesertionNo()))) {
-                    animalMapper.insertAnimals(Collections.singletonList(animal));
-
+                if (!isAnimalExist(animal.getDesertionNo())) {
+                    animalListRepository.save(animal);
                 }
             }
         }
     }
 
     public void deleteExpiredAnimals(String endDate) {
-        animalMapper.deleteExpiredAnimals(endDate);
+        animalListRepository.deleteAllByNoticeEdtBefore(endDate);
     }
 
-    public AnimalListDTO findByImage_Id(int image_id) {
+    public AnimalListDTO findByImageId(int imageId) {
         // ID를 기반으로 동물 정보를 데이터베이스에서 조회
-        return animalMapper.selectByImageNo(Integer.parseInt(String.valueOf(image_id)));
+        return animalListRepository.findByImageId(imageId);
     }
 
     // `notice_no`가 DB에 존재하는지 확인
-    private boolean isAnimalExist(String noticeNo) {
-        try {
-            int noticeNoInt = Integer.parseInt(noticeNo);
-            AnimalListDTO existingAnimal = animalMapper.selectByImageNo(noticeNoInt);
-            return existingAnimal != null;
-        } catch (NumberFormatException e) {
-            // 숫자로 변환할 수 없는 경우 처리
-            return false;
-        }
+    private boolean isAnimalExist(long desertionNo) {
+        return animalListRepository.findByDesertionNo(desertionNo) != null;
     }
 
-    public String allowBasic() {
+    public String callAnimalApi(LocalDate startDate, LocalDate endDate) {
         StringBuilder result = new StringBuilder();
+        DateTimeFormatter apiFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         try {
+            // URL 구성
             StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic");
             urlBuilder.append("?" + URLEncoder.encode("bgnde", "UTF-8") + "=" + URLEncoder.encode("20231001", "UTF-8")); // 시작일
             urlBuilder.append("&" + URLEncoder.encode("endde", "UTF-8") + "=" + URLEncoder.encode("20231030", "UTF-8")); // 종료일
