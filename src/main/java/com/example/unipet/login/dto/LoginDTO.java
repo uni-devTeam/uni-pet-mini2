@@ -1,4 +1,4 @@
-package com.example.unipet.login.model;
+package com.example.unipet.login.dto;
 
 import lombok.Getter;
 import lombok.Setter;
