@@ -1,12 +1,15 @@
 package com.example.unipet.mypage.controller;
 
-import com.example.unipet.mypage.dao.MyPetMapper;
 import com.example.unipet.mypage.domain.MypetDTO;
+import com.example.unipet.mypage.entity.Mypet;
+import com.example.unipet.mypage.repository.MyPetRepository;
+import com.example.unipet.mypage.service.MypetService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,134 +17,68 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
-@Controller
+@RestController
+@RequestMapping(value = "/mypet")
 @RequiredArgsConstructor
 @SessionAttributes({"userId", "myname"})
 public class MyPetController {
-    @Autowired
-    MyPetMapper dao;
 
-    @Autowired
-    private HttpSession session;
+    //    @Autowired
+//    private HttpSession session;
+    private final MypetService mypetService;
 
     // 펫 조회
-    @RequestMapping(value = "/mypet")
-    public String mypet(Model model, @ModelAttribute("userId") String userId) {
-        MypetDTO pet = dao.showMyPet(userId);
-
-        if(pet == null) {
-            model.addAttribute("nopet", "등록된 펫이 없습니다.");
-        } else {
-            // 년, 개월수 계산해서 전달
-            LocalDate now = LocalDate.now();
-            LocalDate petBirth = pet.getPet_birth();
-
-            long years = ChronoUnit.YEARS.between(petBirth, now);
-            long months = ChronoUnit.MONTHS.between(petBirth.plusYears(years), now);
-
-            String age = "(";
-            if(years == 0) {
-                age += months + "개월)";
-            } else if (months == 0) {
-                age += years + "년)";
-            } else {
-                age += years + "년 " + months + "개월)";
-            }
-            model.addAttribute("age", age);
-            model.addAttribute("mypet", pet);
-            String petpic = (String) session.getAttribute("petpic");
-            if (petpic != null) {
-                model.addAttribute("petpic", petpic);
-            }
-        }
-        return "mypage/mypet";
+    @GetMapping
+    public ResponseEntity<Map<String, Object>> getMyPet(@RequestParam("userId") String userId) {
+        Map<String, Object> response = mypetService.getMyPet(userId);
+        return ResponseEntity.ok()
+                .body(response);
     }
 
-    // 펫 정보 수정 페이지 이동
-    @RequestMapping(value = "/mypetchange")
-    public String petChangepage(Model model, @ModelAttribute("userId") String userId) {
-        model.addAttribute("mypet", dao.showMyPet(userId));
-        return "mypage/petChange";
+    // 펫 등록 - 프론트단 파일 테스트필요
+    @PutMapping("/add")
+    public ResponseEntity<String> addPet(@RequestParam MypetDTO mypetDTO, @RequestParam("attachFile") MultipartFile file) {
+        boolean saved = mypetService.addMyPet(mypetDTO, file);
+        if(saved) {
+            return ResponseEntity.ok()
+                    .body("펫 등록이 완료되었습니다.");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("펫 등록이 실패하였습니다.");
+        }
     }
 
     // 펫 정보 수정
-    @RequestMapping(value = "/petchanged")
-    public String petChange(Model model, @ModelAttribute("userId") String userId, @ModelAttribute MypetDTO dto,
-                            @RequestParam("attachFile") MultipartFile file, @ModelAttribute("petpic") String petpic) {
-        // 이미지 파일 업로드 처리
-        if (file.isEmpty()) {
-            // 파일이 선택되지 않은 경우, 기존 이미지 경로를 그대로 유지
-            MypetDTO originalPet = dao.showMyPet(userId);
-            dto.setPet_pic(originalPet.getPet_pic());
+    @RequestMapping("/change")
+    public ResponseEntity<String> petChange(@RequestParam MypetDTO mypetDTO, @RequestParam("attachFile") MultipartFile file) {
+        boolean saved = mypetService.changePetInfo(mypetDTO, file);
+        if(saved) {
+            return ResponseEntity.ok()
+                    .body("펫 수정이 완료되었습니다.");
         } else {
-            try {
-                uploadImg(dto, file, session);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return "redirect:/mypetchange"; // 업로드 실패 시 리다이렉트
-            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("펫 수정이 실패하였습니다.");
         }
-        dao.petInfoChange(dto, userId);
-
-        return "redirect:/mypet";
-    }
-
-    // 펫 등록 페이지 이동
-    @RequestMapping(value = "/myaddpet")
-    public String addpet(Model model, @ModelAttribute("userId") String userId) {
-        return "mypage/petAdd";
-    }
-
-    // 펫 등록
-    @RequestMapping(value = "/insertpet")
-    public String insertPet(Model model, @ModelAttribute("userId") String userId,
-                            @ModelAttribute MypetDTO dto, @RequestParam("attachFile") MultipartFile file) {
-        // 이미지 파일 업로드 처리
-        if (!file.isEmpty()) {
-            try {
-                uploadImg(dto, file, session);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return "redirect:/myaddpet"; // 업로드 실패 시 리다이렉트
-            }
-        }
-        dao.petInfoAdd(dto, userId);
-
-        return "redirect:/mypet";
     }
 
     // 펫 삭제
-    @RequestMapping(value = "/deletepet")
-    public String delpet(@ModelAttribute("userId") String userId) {
-        System.out.println(userId);
-        dao.deletePet(userId);
-        System.out.println(session.getAttribute("petpic") + " 세션 삭제");
-        session.removeAttribute("petpic");
-        return "redirect:/mypet";
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deletePet(@RequestParam("userId") String userId) {
+        boolean deleted = mypetService.deletePet(userId);
+//        System.out.println(session.getAttribute("petPic") + " 세션 삭제");
+//        session.removeAttribute("petPic");
+        if(deleted) {
+            return ResponseEntity.ok()
+                    .body("펫이 삭제되었습니다.");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("펫 삭제가 실패하였습니다.");
+        }
     }
-
-    // 이미지 업로드 메서드
-    private void uploadImg(MypetDTO dto, MultipartFile file, HttpSession session) throws IOException {
-        String fileName = file.getOriginalFilename();
-        System.out.println(fileName);
-        String currentDirectory = System.getProperty("user.dir");
-        System.out.println(currentDirectory);
-        String correctedPath = currentDirectory.replace("\\", "/");
-        UUID uuid = UUID.randomUUID();
-        String path = correctedPath + "/src/main/resources/static/img/mypage/upload/" + uuid.toString() + fileName;
-        System.out.println(path);
-        File destinationFile = new File(path);
-        file.transferTo(destinationFile);
-
-        String filePath = "/img/mypage/upload/" + uuid.toString() + fileName;
-        dto.setPet_pic(filePath);
-
-        // 세션에 새로운 petpic 값을 저장
-        session.setAttribute("petpic", filePath);
-        System.out.println("저장 성공");
-    }
-
 
 }

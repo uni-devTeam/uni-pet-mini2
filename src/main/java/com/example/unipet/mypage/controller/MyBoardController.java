@@ -1,60 +1,46 @@
 package com.example.unipet.mypage.controller;
 
-import com.example.unipet.mypage.dao.MyBoardMapper;
-import com.example.unipet.mypage.dao.MyMapper;
-import com.example.unipet.mypage.domain.BoardVO;
-import com.example.unipet.mypage.domain.MyWritingVO;
-import jakarta.servlet.http.HttpSession;
+import com.example.unipet.mypage.domain.BoardDTO;
+import com.example.unipet.mypage.domain.MyPagingDTO;
+import com.example.unipet.mypage.service.BoardsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
+@RequestMapping(value = "/mypage")
 @RequiredArgsConstructor
 @SessionAttributes({"userId", "myname"})
 public class MyBoardController {
 
-    @Autowired
-    MyBoardMapper dao;
+    private final BoardsService boardsService;
 
-    @RequestMapping(value = "/myshare")
-    public String myshare(@ModelAttribute("userId") String userId, Model model) {
-        model.addAttribute("share", dao.getMyShare(userId));
-        return "mypage/myshare";
-    }
-
-    @RequestMapping(value = "/mysharelikes")
-    public String mysharelikes(@ModelAttribute("userId") String userId, Model model) {
-        model.addAttribute("likes", dao.getShareLikes(userId));
-        return "mypage/mysharelikes";
-    }
-
-    // 나의 게시글 페이지
-    @RequestMapping(value = "/mywriting")
-    public String mywriting() {
-        return "mypage/mywriting";
-    }
-
-    @RequestMapping("/items")
-    @ResponseBody
-    public Map<String, Object> paging(@RequestParam("limit") int limit,
-                                      @RequestParam("page") int page,
-                                      @ModelAttribute("userId") String userId) {
-        int offset = (page - 1) * limit;
-        int count = dao.countWritings(userId);
-        List<MyWritingVO> items = dao.getPagingItems(limit, offset, userId);
-
+    @GetMapping("/mywritings")
+    public ResponseEntity<Map<String, Object>> mywritings(@RequestParam("userId") String userId,
+                                                          @RequestParam(value = "page", defaultValue = "0") int page,
+                                                          @RequestParam("boardId") int boardId) {
+        MyPagingDTO myPagingDTO = MyPagingDTO.builder()
+                .userId(userId)
+                .page(page)
+                .boardId(boardId)
+                .build();
+        List<BoardDTO> list = boardsService.getMyWritings(myPagingDTO);
         Map<String, Object> response = new HashMap<>();
-        response.put("count", count);
-        response.put("writings", items);
 
-        return response;
+        if(!list.isEmpty()) {
+            response.put("list", list);
+            return ResponseEntity.ok()
+                    .body(response);
+        } else {
+            response.put("noWritings", "작성된 글이 존재하지 않습니다.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(response);
+        }
     }
 
 }

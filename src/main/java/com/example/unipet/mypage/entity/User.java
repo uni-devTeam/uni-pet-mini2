@@ -1,17 +1,20 @@
-package com.example.unipet.mypage.domain;
+package com.example.unipet.mypage.entity;
 
-import com.example.unipet.mypage.entity.User;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.*;
 
 import java.time.LocalDate;
 
-@Getter
+@Entity
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Builder
-public class UserDTO {
+public class User {
+    @Id
     private String userId;
     private String password;
     private String email;
@@ -19,4 +22,5 @@ public class UserDTO {
     private LocalDate createdAt;
     private LocalDate modifiedAt;
     private String roles;
+
 }
