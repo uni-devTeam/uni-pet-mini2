@@ -1,6 +1,6 @@
 package com.example.unipet.signup.controller;
 
-import com.example.unipet.login.dao.LoginMapper;
+import com.example.unipet.login.repository.LoginRepository;
 import com.example.unipet.signup.dao.SignupMapper;
 import com.example.unipet.signup.model.SignupDTO;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ public class SignupController {
     @Autowired
     SignupMapper dao;
     @Autowired
-    LoginMapper loginDao;
+    LoginRepository loginDao;
 
     @GetMapping("/signup")
     public String signupMain() {
@@ -53,7 +53,7 @@ public class SignupController {
             mav.addObject("message", "아이디를 입력해주세요.");
             return false;
         }
-        if(loginDao.checkId(dto.getUser_id())){
+        if(loginDao.existsByUserId(dto.getUser_id())){
             mav.addObject("message", "아이디가 중복됩니다.");
             return false;
         }
