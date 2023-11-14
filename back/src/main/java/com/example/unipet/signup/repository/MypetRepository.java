@@ -1,11 +1,11 @@
 package com.example.unipet.signup.repository;
 
-import com.example.unipet.login.entity.User;
+import com.example.unipet.login.entity.LoginUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Mapper
-public interface MypetRepository extends JpaRepository<User, String> {
+public interface MypetRepository extends JpaRepository<LoginUser, String> {
 
     boolean existsByUserId(String userId);
     boolean existsByUserIdAndPassword(String userId, String password);

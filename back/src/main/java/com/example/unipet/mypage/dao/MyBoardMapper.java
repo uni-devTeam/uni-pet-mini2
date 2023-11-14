@@ -42,3 +42,4 @@ public interface MyBoardMapper {
     public List<MyWritingVO> getPagingItems(@Param("limit") int limit, @Param("offset") int offset,
                                             @Param("userId") String userId);
 }
+
