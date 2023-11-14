@@ -1,6 +1,6 @@
 package com.example.unipet.list.repository;
 
-import com.example.unipet.list.domain.AnimalListDTO;
+import com.example.unipet.list.entity.Animal;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -9,18 +9,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-    public interface  AnimalListRepository extends JpaRepository<AnimalListDTO, Integer> {
-    AnimalListDTO findByDesertionNo(long desertionNo);
-    List<AnimalListDTO> findByHappenDtGreaterThanEqualOrderByHappenDtDesc(String startDate);
+public interface AnimalListRepository extends JpaRepository<Animal, Integer> {
+    Animal findByDesertionNo(long desertionNo);
+    List<Animal> findByHappenDtGreaterThanEqualOrderByHappenDtDesc(String startDate);
+    List<Animal> findByHappenDtGreaterThanEqual(String startDate);
 
     @Transactional
     @Modifying
-    @Query(value = "DELETE FROM AnimalListDTO a WHERE a.noticeEdt < :endDate")
+    @Query("DELETE FROM Animal a WHERE a.noticeEdt < :endDate")
     void deleteAllByNoticeEdtBefore(@Param("endDate") String endDate);
+    boolean existsByNoticeNo(String noticeNo);
 
-    AnimalListDTO findByImageId(int imageId);
-
-    //    void deleteAllByNoticeEdtBefore(String noticeEdt);
-
-
-    }
+    Animal findByImageId(int imageId);
+}

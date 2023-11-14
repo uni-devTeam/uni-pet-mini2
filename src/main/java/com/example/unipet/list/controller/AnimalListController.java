@@ -3,7 +3,9 @@ package com.example.unipet.list.controller;
 import com.example.unipet.list.domain.AnimalListDTO;
 import com.example.unipet.list.service.AnimalListService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,5 +31,13 @@ public class AnimalListController {
         List<AnimalListDTO> animalList = animalService.getRecentAnimalList(startDateString);
 
         return animalList;
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<AnimalListDTO> getAnimalById(@PathVariable int id) {
+        AnimalListDTO animalDetail = animalService.getAnimalById(id);
+        if (animalDetail == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(animalDetail);
     }
 }

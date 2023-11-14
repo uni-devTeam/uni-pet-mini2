@@ -1,15 +1,16 @@
-package com.example.unipet.list.domain;
+package com.example.unipet.list.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
+@Entity
+@Table(name = "picture")
+@Data
 @ToString
-public class AnimalListDTO {
+public class Animal {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int imageId;
     private String happenDt;
     private long desertionNo;
@@ -30,6 +31,3 @@ public class AnimalListDTO {
     private String careAddr;
     private String noticeNo;
 }
-/*
-noticeNo, kindCd, processState, careNm, happenPlace, specialMark
- */
