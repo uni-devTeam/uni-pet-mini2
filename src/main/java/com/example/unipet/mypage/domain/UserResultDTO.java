@@ -1,11 +1,11 @@
 package com.example.unipet.mypage.domain;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Builder
 public class UserResultDTO {
-    private String user_id;
-    private String password;
+    private String userId;
     private String email;
     private String name;
 }

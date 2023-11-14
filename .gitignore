@@ -1,10 +1,10 @@
 HELP.md
+!java/com/example/unipet/UnipetApplication.java
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
-
 ### STS ###
 .apt_generated
 .classpath
@@ -36,3 +36,4 @@ out/
 .vscode/
 
 apikey.js
+/src/main/java/com/example/unipet/UnipetApplication.java
