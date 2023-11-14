@@ -1,118 +1,117 @@
 package com.example.unipet.mypage.controller;
 
-import com.example.unipet.mypage.dao.MyMapper;
-import com.example.unipet.mypage.dao.MyPetMapper;
-import jakarta.servlet.http.HttpSession;
+import com.example.unipet.mypage.domain.EmailDTO;
+import com.example.unipet.mypage.domain.UserResultDTO;
+import com.example.unipet.mypage.service.MyService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
-@Controller
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
+@RestController
+@RequestMapping(value = "/mypage")
 @RequiredArgsConstructor
 @SessionAttributes({"userId", "myname"})
 public class MyController {
 
-    @Autowired
-    MyMapper dao;
+    private final MyService myService;
 
-    @Autowired
-    MyPetMapper petdao;
-
-    // 메인
-    @RequestMapping(value = "/mypage")
-    public String mypage(Model model, HttpSession session, @ModelAttribute("userId") String userId) {
-        System.out.println(userId);
-        String myname = dao.getMyName(userId);
-        System.out.println(myname);
-        String petPic = petdao.getPetPicUrl(userId);
-        System.out.println(petPic + " 마이페이지 경로");
-        session.setAttribute("myname", myname);
-        session.setAttribute("petpic", petPic);
-        return "mypage/main";
-    }
+    // session 테스트 때문에 RequestParam 으로 받는거 ModelAttribute로 받아야함
 
     // 회원 정보
-    @RequestMapping(value = "/myprofile")
-    public String myprofile(Model model, @ModelAttribute("userId") String userId, @ModelAttribute("petpic") String petpic) {
-        System.out.println(userId);
-        model.addAttribute("me", dao.getMyInfo(userId));
-        return "mypage/profile";
+    @GetMapping(value = "/myprofile")
+    public ResponseEntity<Map<String, Object>> myprofile(@RequestParam("userId") String userId) {
+        Optional<UserResultDTO> optionalUser = myService.getUserResultDTO(userId);
+        Map<String, Object> response = new HashMap<>();
+
+        if(optionalUser.isPresent()) {
+            response.put("user", optionalUser.get());
+            return ResponseEntity.ok()
+                    .body(response);
+        } else {
+            response.put("error", "사용자 정보를 찾을 수 없습니다.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(response);
+        }
     }
+
 
     // 로그아웃
-    @RequestMapping(value = "/logout")
-    public String logout(SessionStatus sessionStatus) {
+    @PostMapping(value = "/logout")
+    public void logout(SessionStatus sessionStatus) {
         sessionStatus.setComplete();
-        return "/main";
-    }
-
-    // 이메일 변경 페이지
-    @RequestMapping(value = "/myemail")
-    public String myemail(Model model, @ModelAttribute("userId") String userId) {
-        model.addAttribute("me", dao.getMyInfo(userId));
-        return "mypage/myemail";
     }
 
     // 이메일 변경
-    @RequestMapping(value = "/changeemail")
-    public String emailchange(Model model, @ModelAttribute("userId") String userId, @RequestParam("email") String customEmail, @RequestParam("domain") String domain) {
-        String combinedEmail = customEmail + "@" + domain; // 이메일을 조합
-        dao.changeEmail(userId, combinedEmail);
-        return "redirect:/myprofile";
-    }
+    @PostMapping(value = "/changeemail")
+    public ResponseEntity<String> changeemail(@RequestParam("userId") String userId,
+                                              @RequestParam("email") String email,
+                                              @RequestParam("domain") String domain) {
+        EmailDTO emailDTO = EmailDTO.builder()
+                .userId(userId)
+                .email(email)
+                .domain(domain)
+                .build();
+        boolean emailChanged = myService.saveEmail(emailDTO);
 
-    // 비밀번호 확인 페이지
-    @RequestMapping(value = "/mypasswd")
-    public String passcheckPage(Model model, @ModelAttribute("userId") String userId, @RequestParam(value = "action", required = false) String action) {
-        System.out.println(action);
-        model.addAttribute("action", action);
-        return "mypage/mypasscheck";
+        if (emailChanged) {
+            return ResponseEntity.ok()
+                    .body("이메일이 성공적으로 변경되었습니다.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("사용자 정보를 찾을 수 없습니다.");
+        }
     }
 
     // 비밀번호 확인
     @RequestMapping(value = "/passcheck")
-    public String passcheck(Model model, @ModelAttribute("userId") String userId,
-                            @RequestParam("currentPass") String currentPass,
-                            @RequestParam(value = "action", required = false) String action) {
-        System.out.println(action);
-
-        if(currentPass.equals(dao.getPass(userId))) {
-            System.out.println("비밀번호 일치");
-            if ("changepwd".equals(action)) {
-                return "mypage/mypassChange";
-            } else {
-                return "redirect:/mydelaccount";
-            }
+    public ResponseEntity<String> passcheck(@RequestParam("userId") String userId,
+                            @RequestParam("inputPass") String inputPass) {
+        boolean checked = myService.getPass(userId, inputPass);
+        if(checked) {
+            return ResponseEntity.ok()
+                    .body("비밀번호 확인 완료");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("비밀번호가 일치하지 않습니다.");
         }
-        model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
-
-        return "mypage/myerror";
     }
 
     // 비밀번호 변경
     @RequestMapping(value = "/passchange")
-    public String passchange(Model model, @ModelAttribute("userId") String userId,
-                             @RequestParam("changedPass") String changedPass,
-                             @RequestParam("changedPassCheck") String changedPassCheck) {
+    public ResponseEntity<String> passchange(@RequestParam("userId") String userId,
+                                             @RequestParam("changedPass") String changedPass,
+                                             @RequestParam("changedPassCheck") String changedPassCheck) {
         if(changedPass.equals(changedPassCheck)) {
-            dao.changeMyPass(userId, changedPassCheck);
-            System.out.println("비밀번호 변경 완료");
-            return "redirect:/myprofile";
+            boolean pwChanged = myService.changeMyPass(userId, changedPass);
+            if (pwChanged) {
+                return ResponseEntity.ok()
+                        .body("비밀번호 변경이 성공적으로 변경되었습니다.");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("오류가 발생하였습니다.");
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("비밀번호가 일치하지 않습니다.");
         }
-        model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
-
-        return "mypage/myerror";
     }
 
-    // 회원 탈퇴
-    @RequestMapping(value = "/mydelaccount")
-    public String deleteAcc(SessionStatus sessionStatus, Model model, @ModelAttribute("userId") String userId) {
-        dao.setStatusOut(userId, "out");
-        sessionStatus.setComplete();
-        model.addAttribute("message", "회원탈퇴가 완료되었습니다.");
-        return "mypage/withdraw";
+    @PostMapping(value = "/delaccount")
+    public ResponseEntity<String> deleteAcc(/* SessionStatus sessionStatus, */ @RequestParam("userId") String userId) {
+        boolean success = myService.saveRolesOut(userId);
+        if (success) {
+            // sessionStatus.setComplete();
+            return ResponseEntity.ok("회원 탈퇴 성공");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("회원 탈퇴 실패"); // 실패 시 400 Bad Request 반환
+        }
     }
 }
