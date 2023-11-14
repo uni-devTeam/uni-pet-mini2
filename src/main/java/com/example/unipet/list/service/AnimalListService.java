@@ -87,6 +87,8 @@ public class AnimalListService {
                 .collect(Collectors.toList());
         animalDatabaseService.insertNewAnimals(newAnimalEntities); // 수정된 부분
 
+
+
         // 기존 데이터와 새로운 데이터를 합침
         existingAnimalsDto.addAll(nonDuplicateNewAnimals);
         return existingAnimalsDto;
