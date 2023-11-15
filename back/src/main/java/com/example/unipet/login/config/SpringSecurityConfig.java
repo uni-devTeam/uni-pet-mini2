@@ -54,7 +54,7 @@ public class SpringSecurityConfig {
 				.requestMatchers("/home", "/join","/login", "/logout").permitAll()
 				.requestMatchers("/manager/*").hasAnyAuthority("ROLE_MANAGER","ROLE_ADMIN")
 				.requestMatchers("/user/*").hasAuthority("ROLE_USER")
-				.anyRequest().authenticated();
+				.anyRequest().permitAll();
 		return http.build();
 	}
 

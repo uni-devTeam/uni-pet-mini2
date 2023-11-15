@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/mini2.iml" filepath="$PROJECT_DIR$/.idea/mini2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/unipet.main.iml" filepath="$PROJECT_DIR$/.idea/modules/unipet.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/unipet.test.iml" filepath="$PROJECT_DIR$/.idea/modules/unipet.test.iml" />
     </modules>
   </component>
 </project>
