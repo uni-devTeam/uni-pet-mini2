@@ -16,6 +16,7 @@ import java.util.Map;
 @RequestMapping(value = "/mypage")
 @RequiredArgsConstructor
 @SessionAttributes({"userId", "myname"})
+@CrossOrigin(originPatterns = {"http://localhost:5173"})
 public class MyBoardController {
 
     private final BoardsService boardsService;

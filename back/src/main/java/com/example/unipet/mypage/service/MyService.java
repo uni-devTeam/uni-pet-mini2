@@ -3,6 +3,7 @@ package com.example.unipet.mypage.service;
 import com.example.unipet.mypage.domain.EmailDTO;
 import com.example.unipet.mypage.domain.UserResultDTO;
 import com.example.unipet.mypage.entity.User;
+import com.example.unipet.mypage.repository.MyPetRepository;
 import com.example.unipet.mypage.repository.MyRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MyService {
     private final MyRepository myRepository;
+    private final MyPetRepository myPetRepository;
 
     // 유저 기본정보 불러오기
     public Optional<UserResultDTO> getUserResultDTO(String userId) {
@@ -21,10 +23,12 @@ public class MyService {
 
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
+            String petPic = myPetRepository.findPetPicByUserId(userId);
             UserResultDTO userResultDTO = UserResultDTO.builder()
                     .userId(user.getUserId())
                     .name(user.getName())
                     .email(user.getEmail())
+                    .petPic(petPic)
                     .build();
             return Optional.of(userResultDTO);
         } else {
