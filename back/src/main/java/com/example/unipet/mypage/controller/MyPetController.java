@@ -4,6 +4,7 @@ import com.example.unipet.mypage.domain.MypetDTO;
 import com.example.unipet.mypage.entity.Mypet;
 import com.example.unipet.mypage.repository.MyPetRepository;
 import com.example.unipet.mypage.service.MypetService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping(value = "/mypet")
 @RequiredArgsConstructor
-@SessionAttributes({"userId", "myname"})
+@SessionAttributes("userId")
+@CrossOrigin(originPatterns = {"http://localhost:5173"})
 public class MyPetController {
 
     //    @Autowired
@@ -34,7 +36,10 @@ public class MyPetController {
 
     // 펫 조회
     @GetMapping
-    public ResponseEntity<Map<String, Object>> getMyPet(@RequestParam("userId") String userId) {
+    public ResponseEntity<Map<String, Object>> getMyPet() {
+//        HttpSession session = request.getSession();
+//        String userId = (String) session.getAttribute("userId");
+        String userId = "user";
         Map<String, Object> response = mypetService.getMyPet(userId);
         return ResponseEntity.ok()
                 .body(response);
@@ -68,10 +73,11 @@ public class MyPetController {
 
     // 펫 삭제
     @DeleteMapping("/delete")
-    public ResponseEntity<String> deletePet(@RequestParam("userId") String userId) {
+    public ResponseEntity<String> deletePet(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("userId");
+
         boolean deleted = mypetService.deletePet(userId);
-//        System.out.println(session.getAttribute("petPic") + " 세션 삭제");
-//        session.removeAttribute("petPic");
         if(deleted) {
             return ResponseEntity.ok()
                     .body("펫이 삭제되었습니다.");
