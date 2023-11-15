@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import Mypage from '@/pages/Mypage.vue'
+import MainPage from '@/pages/MainPage.vue'
+import Mypage from '@/pages/MyPage.vue'
 
-const myrouter = createRouter({
+const index = createRouter({
     history: createWebHistory(),
     routes : [
-        { path: '/', component: Mypage },
+        { path: '/', component: MainPage },
         { path: '/mypage', component: Mypage },
         { path: '/myprofile', component: Mypage },
         { path: '/mypet', component: Mypage },
@@ -15,4 +16,4 @@ const myrouter = createRouter({
     ]
 })
 
-export default myrouter;
+export default index;
