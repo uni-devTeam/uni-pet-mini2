@@ -1,25 +1,48 @@
 package com.example.unipet.login.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Table(name = "user")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Getter
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Entity
+@Table(name = "user")
+@Setter
+@Getter
+@ToString
 public class LoginUser {
+
+    public LoginUser(){
+        this.createdAt = LocalDate.now();
+        this.modifiedAt = LocalDate.now();
+    }
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    String userId;
+    private String userId;
 
-    @Column(name = "password", nullable = false)
-    String password;
+    @Column(nullable = false)
+    private String password;
 
-    @Column(name = "email", nullable = false)
-    String email;
+    @Column(nullable = false)
+    private String name;
 
-    @Column(name = "name", nullable = false)
-    String name;
+    @Column(nullable = false)
+    private String roles;
+
+    @Column(nullable = false)
+    private String email;
+
+    private LocalDate createdAt;
+    private LocalDate modifiedAt;
+
+
+    public List<String> getRoleList(){
+        if(!this.roles.isEmpty()){
+            return Arrays.asList(this.roles.split(","));
+        }
+        return new ArrayList<>();
+    }
 }
