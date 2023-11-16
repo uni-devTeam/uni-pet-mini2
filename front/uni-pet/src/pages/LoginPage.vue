@@ -1,6 +1,9 @@
 <template>
   <Modal></Modal>
-  <TopBackground></TopBackground>
+  <TopBackground
+    :imageURL="loginBackgroundURL"
+    :titleText="loginTitleText"
+  ></TopBackground>
   <section class="sign_main_container">
     <h1>로그인</h1>
     <form method="post" action="/login">
@@ -21,6 +24,10 @@
 <script setup>
 import Modal from "../components/common/Modal.vue";
 import TopBackground from "../components/common/TopBackground.vue";
+import loginBackground from "../assets/images/topBackground/Login_bg.jpg";
+
+const loginBackgroundURL = loginBackground;
+const loginTitleText = "Login";
 </script>
 
 <style scoped>

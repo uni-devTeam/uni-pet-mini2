@@ -1,6 +1,9 @@
 <template>
   <Modal></Modal>
-  <TopBackground></TopBackground>
+  <TopBackground
+    :imageURL="signupBackgroundURL"
+    :titleText="signupTitleText"
+  ></TopBackground>
   <section class="sign_main_container">
     <h1>회원가입</h1>
     <form method="post" action="/signup">
@@ -141,7 +144,12 @@
 import Modal from "../components/common/Modal.vue";
 import TopBackground from "../components/common/TopBackground.vue";
 import useSignup from "../assets/js/signup";
+import signupBackground from "../assets/images/topBackground/Signup_bg.jpg";
 import { onMounted } from "vue";
+
+const signupBackgroundURL = signupBackground;
+const signupTitleText = "Signup";
+
 onMounted(() => {
   useSignup();
 });
