@@ -4,6 +4,8 @@ import MainPage from "@/pages/MainPage.vue";
 import Mypage from "@/pages/MyPage.vue";
 import LoginPage from "@/pages/LoginPage.vue";
 import SignupPage from "@/pages/SignupPage.vue";
+import HospitalInfoPage from "@/pages/HospitalInfoPage.vue";
+import TrailInfoPage from "@/pages/TrailInfoPage.vue";
 
 const index = createRouter({
   history: createWebHistory(),
@@ -11,6 +13,8 @@ const index = createRouter({
     { path: "/", component: MainPage },
     { path: "/login", component: LoginPage },
     { path: "/signup", component: SignupPage },
+    { path: "/hospinfo", component: HospitalInfoPage },
+    { path: "/trailinfo", component: TrailInfoPage },
     { path: "/mypage", component: Mypage },
     { path: "/myprofile", component: Mypage },
     { path: "/mypet", component: Mypage },
