@@ -1,15 +1,17 @@
 <template>
   <section
     class="signup_header"
-    style="
-      background-image: url(../../assets/images/topBackground/Login_bg.jpg);
-    "
+    :style="{ backgroundImage: `url(${imageURL})` }"
   >
-    <h1>Signup</h1>
+    <h1>{{ titleText }}</h1>
   </section>
 </template>
 
-<script setup></script>
+<script setup>
+import { defineProps } from "vue";
+
+const props = defineProps({ imageURL: String, titleText: String });
+</script>
 
 <style scoped>
 @import "../../assets/css/topBackground.css";
