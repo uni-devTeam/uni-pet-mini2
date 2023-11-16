@@ -11,7 +11,7 @@ export default function usePetInfo() {
     ".hospital_dataList_head_text"
   ).innerText;
 
-  const API_KEY = "664f746c5373657535347665537077";
+  const API_KEY = import.meta.env.VITE_API_KEY;
   const seoulGilWalkCourse = "SeoulGilWalkCourse";
   const animalHospital = "LOCALDATA_020301";
 
