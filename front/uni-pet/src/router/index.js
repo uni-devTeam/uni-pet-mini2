@@ -6,6 +6,8 @@ import LoginPage from "@/pages/LoginPage.vue";
 import SignupPage from "@/pages/SignupPage.vue";
 import HospitalInfoPage from "@/pages/HospitalInfoPage.vue";
 import TrailInfoPage from "@/pages/TrailInfoPage.vue";
+import AnimalListPage from "@/pages/AnimalListPage.vue";
+import AnimalListDetailPage from "@/pages/AnimalListDetailPage.vue";
 
 const index = createRouter({
   history: createWebHistory(),
@@ -21,6 +23,8 @@ const index = createRouter({
     { path: "/mywriting", component: Mypage },
     { path: "/myshare", component: Mypage },
     { path: "/mysharelikes", component: Mypage },
+    { path: '/animals/list', component: AnimalListPage },
+    { path: '/animals/:id', component: AnimalListDetailPage, props: true},
   ],
 });
 
