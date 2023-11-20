@@ -1,65 +1,80 @@
 <script setup>
-import { usePetStore } from "@/stores/mypage/mypetstore";
-import {onMounted} from "vue";
+import {onMounted, ref, watchEffect} from "vue";
+import { api } from "@/api/common";
+import TopBackground from "@/components/common/TopBackground.vue";
+import MyNav from "@/components/mypage/MyNav.vue";
+import mypageBackground from "@/assets/images/topBackground/Mypage_bg.jpg";
+import Pet from "@/components/mypage/Pet.vue";
+import PetChange from "@/components/mypage/PetChange.vue";
+import router from "@/router";
 
-const petStore = usePetStore()
+const mypageBackgroundURL = mypageBackground;
+const mypageTitleText = "Mypage";
+
+const age = ref('');
+const mypet = ref(null);
+const nopet = ref('');
+const isActive = ref(true);
+const changeForm = ref('');
+
+async function fetchPet() {
+  try {
+    const response = await api('http://localhost:8889/mypet', 'GET');
+    age.value = response.age;
+    mypet.value = response.mypet;
+    nopet.value = response.nopet;
+    console.log(response);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 onMounted(async () => {
-  await petStore.fetchPet();
-  console.log(petStore);
-})
+  await fetchPet();
+});
 
+const handleChangeForm = (change) => {
+  isActive.value = false;
+  changeForm.value = change;
+  if(change === 'changeInfo') {
+    router.push("/mypet/change")
+  } else if (change === 'add') {
+    router.push("/mypet/add")
+  }
+
+}
+
+watchEffect(() => {
+  const newPath = router.currentRoute.value.path;
+  if (newPath === '/mypet') {
+    isActive.value = true;
+  }
+});
 </script>
 
 <template>
+  <TopBackground
+      :imageURL="mypageBackgroundURL"
+      :titleText="mypageTitleText"
+  ></TopBackground>
   <div class="middle">
-    <div class="con_info">
-      <div class="con_info_wrapper">
-        <div class="con_title">나의 펫</div>
-        <div class="menu">
-          <div v-if="petStore">
-            <img class="circle_pet" :src="petStore.petPic ? petStore.petPic : '/src/assets/images/mypage/default-image.png'" alt="Pet Image"/>
-            <div class="pet_details">
-              <div class="infobox">
-                <span>이름 </span><span class="con_text">{{ petStore.petName }}</span>
-              </div>
-              <div class="infobox">
-                <span>생일 </span><span class="con_text">{{ petStore.petBirth }}</span>
-              </div>
-              <div class="infobox">
-                <span>성별 </span><span class="con_text">{{ petStore.petGender === 'm' ? '남아' : '여아' }}</span>
-              </div>
-              <div class="infobox">
-                <span>종류 </span><span class="con_text">{{ petStore.petKind }}</span>
-              </div>
-              <div class="infobox">
-                <span>중성화 여부 </span><span class="con_text">{{ petStore.petNeuter === 'y' ? '유' : '무' }}</span>
-              </div>
-              <div class="infobox">
-                <span>색상 </span><span class="con_text">{{ petStore.petColor }}</span>
-              </div>
-              <div class="infobox">
-                <span>체중 </span><span class="con_text">{{ petStore.petWeight ? petStore.petWeight + 'kg' : '0 kg' }}</span>
-              </div>
-              <div class="mypet_text_container">
-                <span class="memo_title_text">메모 </span>
-                <span class="con_text">{{ petStore.petTrait }}</span>
-              </div>
-            </div>
-            <button class="change_btn" @click="">수정</button>
-          </div>
-          <div v-else-if="!petStore">
-            <div class="none_pet_container">
-              <p>{{  }}</p>
-              <button class="change_btn" @click="">등록하러 가기</button>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="nav_wrapper">
+      <MyNav />
     </div>
+    <Pet v-if="isActive" :mypet="mypet" :age="age" :nopet="nopet" @changeForm="handleChangeForm" />
+    <PetChange v-if="!isActive && changeForm === 'changeInfo'" :mypet="mypet" />
+    <PetChange v-if="!isActive && changeForm === 'add'" />
   </div>
 </template>
 
 <style scoped>
-
+@import "./css/myPet.css";
+@import "./css/myPageLayout.css";
+.middle{
+  display: flex;
+}
+.nav_wrapper{
+  width: 200px;
+  min-height: 100%;
+}
 </style>

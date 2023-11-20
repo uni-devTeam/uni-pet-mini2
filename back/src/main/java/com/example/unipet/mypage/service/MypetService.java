@@ -138,12 +138,12 @@ public class MypetService {
         System.out.println(currentDirectory);
         String correctedPath = currentDirectory.replace("\\", "/");
         UUID uuid = UUID.randomUUID();
-        String path = correctedPath + "/src/main/resources/static/img/mypage/upload/" + uuid.toString() + fileName;
+        String path = correctedPath + "/src/assets/images/mypage/upload/" + uuid.toString() + fileName;
         System.out.println(path);
         File destinationFile = new File(path);
         file.transferTo(destinationFile);
 
-        String filePath = "/img/mypage/upload/" + uuid.toString() + fileName;
+        String filePath = "/images/mypage/upload/" + uuid.toString() + fileName;
         mypetDTO.setPetPic(filePath);
 
         // 세션에 새로운 petpic 값을 저장

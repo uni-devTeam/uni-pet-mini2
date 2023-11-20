@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <h2>mysharelikes</h2>
+  <h2>myshare</h2>
 </template>
 
 <style scoped>

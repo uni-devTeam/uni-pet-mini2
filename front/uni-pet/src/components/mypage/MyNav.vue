@@ -1,21 +1,27 @@
 <script setup>
-import {onMounted} from "vue";
-import { useUserStore } from '@/stores/mypage/myuserstore';
+import {api} from "@/api/common";
+import {onMounted, ref} from "vue";
 
-const userStore = useUserStore();
+const petPic = ref('');
+const name = ref('');
 
-onMounted(() => {
-  userStore.fetchUser();
-});
+  async function fetchUser() {
+    const response = await api(`http://localhost:8889/mypage/myprofile`, 'GET');
+    petPic.value = response.user.petPic;
+    name.value = response.user.name;
+  }
+
+  onMounted(() => {
+    fetchUser();
+  });
 </script>
 
 <template>
-
-  <div class="middle">
+  <div class="nav_wrapper">
     <div class="side_nav_container">
       <div class="container_user_name">
-        <div class="circle_petpic" :style="{ 'background-image': userStore.petPic ? 'url(' + userStore.petPic + ')' : 'url(/src/assets/images/mypage/default-image.png)' }"></div>
-        <span id="user_name">{{ userStore.name }}</span><span>님</span>
+        <div class="circle_petpic" :style="{ 'background-image': petPic ? 'url(' + petPic + ')' : 'url(/src/assets/images/mypage/default-image.png)' }"></div>
+        <span id="user_name">{{ name }}</span><span>님</span>
       </div>
       <nav class="nav flex-column">
           <router-link to="/myprofile" class="nav-link nav_act">회원 정보</router-link>
@@ -26,7 +32,6 @@ onMounted(() => {
       </nav>
     </div>
   </div>
-
 </template>
 
 <style scoped>

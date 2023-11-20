@@ -27,7 +27,6 @@ import java.util.UUID;
 @RequestMapping(value = "/mypet")
 @RequiredArgsConstructor
 @SessionAttributes("userId")
-@CrossOrigin(originPatterns = {"http://localhost:5173"})
 public class MyPetController {
 
     //    @Autowired
@@ -36,10 +35,10 @@ public class MyPetController {
 
     // 펫 조회
     @GetMapping
-    public ResponseEntity<Map<String, Object>> getMyPet() {
-//        HttpSession session = request.getSession();
-//        String userId = (String) session.getAttribute("userId");
-        String userId = "user";
+    public ResponseEntity<Map<String, Object>> getMyPet(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.setAttribute("userId", "111");
+        String userId = (String) session.getAttribute("userId");
         Map<String, Object> response = mypetService.getMyPet(userId);
         return ResponseEntity.ok()
                 .body(response);
@@ -47,7 +46,7 @@ public class MyPetController {
 
     // 펫 등록 - 프론트단 파일 테스트필요
     @PutMapping("/add")
-    public ResponseEntity<String> addPet(@RequestParam MypetDTO mypetDTO, @RequestParam("attachFile") MultipartFile file) {
+    public ResponseEntity<String> addPet(@RequestPart(value = "mypetDTO" ) MypetDTO mypetDTO, @RequestPart(value = "attachFile", required = false) MultipartFile file) {
         boolean saved = mypetService.addMyPet(mypetDTO, file);
         if(saved) {
             return ResponseEntity.ok()
@@ -59,8 +58,8 @@ public class MyPetController {
     }
 
     // 펫 정보 수정
-    @RequestMapping("/change")
-    public ResponseEntity<String> petChange(@RequestParam MypetDTO mypetDTO, @RequestParam("attachFile") MultipartFile file) {
+    @PutMapping("/change")
+    public ResponseEntity<String> petChange(@RequestPart MypetDTO mypetDTO, @RequestPart(value = "attachFile", required = false) MultipartFile file) {
         boolean saved = mypetService.changePetInfo(mypetDTO, file);
         if(saved) {
             return ResponseEntity.ok()
@@ -75,6 +74,7 @@ public class MyPetController {
     @DeleteMapping("/delete")
     public ResponseEntity<String> deletePet(HttpServletRequest request) {
         HttpSession session = request.getSession();
+        session.setAttribute("userId", "user");
         String userId = (String) session.getAttribute("userId");
 
         boolean deleted = mypetService.deletePet(userId);

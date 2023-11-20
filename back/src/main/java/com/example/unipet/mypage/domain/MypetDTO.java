@@ -11,6 +11,8 @@ import java.util.Date;
 @Setter
 @ToString
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class MypetDTO {
     private int petId;
     private String userId;

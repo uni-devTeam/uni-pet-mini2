@@ -4,6 +4,7 @@ import com.example.unipet.mypage.domain.BoardDTO;
 import com.example.unipet.mypage.domain.MyPagingDTO;
 import com.example.unipet.mypage.service.BoardsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,21 +17,22 @@ import java.util.Map;
 @RequestMapping(value = "/mypage")
 @RequiredArgsConstructor
 @SessionAttributes({"userId", "myname"})
-@CrossOrigin(originPatterns = {"http://localhost:5173"})
 public class MyBoardController {
 
     private final BoardsService boardsService;
 
     @GetMapping("/mywritings")
-    public ResponseEntity<Map<String, Object>> mywritings(@RequestParam("userId") String userId,
-                                                          @RequestParam(value = "page", defaultValue = "0") int page,
-                                                          @RequestParam("boardId") int boardId) {
+    public ResponseEntity<Map<String, Object>> mywritings(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                          @RequestParam("boardId") int boardId,
+                                                          @RequestParam(defaultValue = "10") int size) {
+        String userId = "user";
         MyPagingDTO myPagingDTO = MyPagingDTO.builder()
                 .userId(userId)
                 .page(page)
                 .boardId(boardId)
+                .size(size)
                 .build();
-        List<BoardDTO> list = boardsService.getMyWritings(myPagingDTO);
+        Page<BoardDTO> list = boardsService.getMyWritings(myPagingDTO);
         Map<String, Object> response = new HashMap<>();
 
         if(!list.isEmpty()) {

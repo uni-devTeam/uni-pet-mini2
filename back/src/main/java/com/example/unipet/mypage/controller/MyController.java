@@ -20,7 +20,6 @@ import java.util.Optional;
 @RequestMapping(value = "/mypage")
 @RequiredArgsConstructor
 @SessionAttributes("userId")
-@CrossOrigin(originPatterns = {"http://localhost:5173"})
 public class MyController {
 
     private final MyService myService;
@@ -63,6 +62,7 @@ public class MyController {
                                               @RequestParam("email") String email,
                                               @RequestParam("domain") String domain) {
         HttpSession session = request.getSession();
+        session.setAttribute("userId", "user");
         String userId = (String) session.getAttribute("userId");
 
         EmailDTO emailDTO = EmailDTO.builder()
@@ -82,9 +82,10 @@ public class MyController {
     }
 
     // 비밀번호 확인
-    @RequestMapping(value = "/passcheck")
+    @PostMapping(value = "/passcheck")
     public ResponseEntity<String> passcheck(HttpServletRequest request, @RequestParam("inputPass") String inputPass) {
         HttpSession session = request.getSession();
+        session.setAttribute("userId", "user");
         String userId = (String) session.getAttribute("userId");
 
         boolean checked = myService.getPass(userId, inputPass);
@@ -98,11 +99,12 @@ public class MyController {
     }
 
     // 비밀번호 변경
-    @RequestMapping(value = "/passchange")
+    @PostMapping(value = "/passchange")
     public ResponseEntity<String> passchange(HttpServletRequest request,
                                              @RequestParam("changedPass") String changedPass,
                                              @RequestParam("changedPassCheck") String changedPassCheck) {
         HttpSession session = request.getSession();
+        session.setAttribute("userId", "user");
         String userId = (String) session.getAttribute("userId");
 
         if(changedPass.equals(changedPassCheck)) {
@@ -123,12 +125,13 @@ public class MyController {
     @PostMapping(value = "/delaccount")
     public ResponseEntity<String> deleteAcc(HttpServletRequest request) {
         HttpSession session = request.getSession();
+        session.setAttribute("userId", "user");
         String userId = (String) session.getAttribute("userId");
         boolean success = myService.saveRolesOut(userId);
         if (success) {
             request.getSession(false);
             session.invalidate();
-            return ResponseEntity.ok("회원 탈퇴 성공");
+            return ResponseEntity.ok("탈퇴되었습니다. 이용해 주셔서 감사합니다.");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("회원 탈퇴 실패"); // 실패 시 400 Bad Request 반환

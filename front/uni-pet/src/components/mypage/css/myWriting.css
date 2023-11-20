@@ -23,17 +23,13 @@ th, .tb_title, .tb_num, .tb_date {
     text-align: center;
 }
 
-#items {
-    width: 700px;
-    height: 400px;
-    margin-bottom: 120px;
+#pagination {
+    bottom: 0;
+    margin: 70px 0 120px;
 }
 
-#pagination {
-    position: fixed;
-    bottom: 0;
-    padding: 10px;
-    margin-bottom: 50px;
+.title_link, #pagination {
+    cursor: pointer;
 }
 
 /* 페이지네이션의 배경색과 활성 페이지의 배경색 변경 */
