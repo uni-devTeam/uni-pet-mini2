@@ -25,9 +25,14 @@
 import Modal from "../components/common/Modal.vue";
 import TopBackground from "../components/common/TopBackground.vue";
 import loginBackground from "../assets/images/topBackground/Login_bg.jpg";
+import { onMounted } from "vue";
 
 const loginBackgroundURL = loginBackground;
 const loginTitleText = "Login";
+
+onMounted(() => {
+  window.scrollTo(0, 0);
+});
 </script>
 
 <style scoped>
