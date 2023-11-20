@@ -1,9 +1,6 @@
 package com.example.unipet.signup.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -37,7 +34,18 @@ public class SignupUser {
     private String email;
 
     private LocalDate createdAt;
+    @Column(nullable = true)
     private LocalDate modifiedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDate.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.modifiedAt = LocalDate.now();
+    }
 
     public List<String> getRoleList() {
         if (!this.roles.isEmpty()) {

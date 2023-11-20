@@ -189,7 +189,9 @@ import useHavePet from "../assets/js/havePetSignup";
 import signupBackground from "../assets/images/topBackground/Signup_bg.jpg";
 import { onMounted, ref } from "vue";
 import { signup } from "../api/common";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const signupBackgroundURL = signupBackground;
 const signupTitleText = "Signup";
 
@@ -217,7 +219,15 @@ const formData = ref({
 let message = ref("");
 const submitForm = () => {
   if (validateForm()) {
-    signup(formData.value);
+    signup(formData.value)
+      .then((res) => {
+        console.log("성공");
+        router.push("/login");
+      })
+      .catch((error) => {
+        console.log("에러발생");
+        console.log(error.response.data);
+      });
   }
 };
 
