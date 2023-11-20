@@ -1,25 +1,27 @@
 package com.example.unipet.signup.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter
 @ToString
 public class SignupDTO {
-    private String user_id;
-    private String email;
+    private String userId;
     private String password;
     private String rePassword;
+    private String email;
     private String name;
+    private String roles;
+
     private String havePet;
     private String petName;
-    private String petBirthday;
+    private LocalDate petBirth;
     private String petGender;
-    private String petType;
-    private String doNeutering;
+    private String petKind;
+    private String petNeuter;
     private String petColor;
-    private String petChar;
-    private String petWeight;
+    private double petWeight;
+    private String petTrait;
 }

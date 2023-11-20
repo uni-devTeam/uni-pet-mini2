@@ -8,13 +8,13 @@
     <h1>회원가입</h1>
     <form @submit.prevent="submitForm">
       <div class="info_container">
-        <label class="input_lable_text" for="id">아아디</label>
+        <label class="input_lable_text" for="userId">아아디</label>
         <input
-          v-model="formData.user_id"
+          v-model="formData.userId"
           class="inputTag"
-          id="id"
+          id="userId"
           type="text"
-          name="user_id"
+          name="userId"
         />
 
         <label class="input_lable_text" for="password">비밀번호</label>
@@ -86,13 +86,13 @@
           name="petName"
         />
 
-        <label class="input_lable_text" for="petBirthday">생일 </label>
+        <label class="input_lable_text" for="petBirth">생일 </label>
         <input
-          v-model="formData.petBirthday"
+          v-model="formData.petBirth"
           class="inputTag disable_toggle"
           type="datetime-local"
-          id="petBirthday"
-          name="petBirthday"
+          id="petBirth"
+          name="petBirth"
         />
 
         <span class="input_lable_text">암 / 수</span>
@@ -117,31 +117,31 @@
           <label for="petGenderW">남아</label>
         </div>
 
-        <label class="input_lable_text" for="petType">종류</label>
+        <label class="input_lable_text" for="petKind">종류</label>
         <input
-          v-model="formData.petType"
+          v-model="formData.petKind"
           class="inputTag disable_toggle"
-          id="petType"
+          id="petKind"
           type="text"
-          name="petType"
+          name="petKind"
         />
 
         <span class="input_lable_text">중성화 여부</span>
         <div class="radio_container">
           <input
-            v-model="formData.doNeutering"
+            v-model="formData.petNeuter"
             id="doNeuteringTrue"
             type="radio"
-            name="doNeutering"
+            name="petNeuter"
             value="y"
             class="disable_toggle"
           />
           <label class="margin90" for="doNeuteringTrue">⭕</label>
           <input
-            v-model="formData.doNeutering"
+            v-model="formData.petNeuter"
             id="doNeuteringFalse"
             type="radio"
-            name="doNeutering"
+            name="petNeuter"
             value="n"
             class="disable_toggle"
           />
@@ -167,12 +167,12 @@
           name="petWeight"
         />
 
-        <label class="input_lable_text" for="petChar">펫 특징</label>
+        <label class="input_lable_text" for="petTrait">펫 특징</label>
         <textarea
-          v-model="formData.petChar"
+          v-model="formData.petTrait"
           class="textarea_tag disable_toggle"
-          id="petChar"
-          name="petChar"
+          id="petTrait"
+          name="petTrait"
           cols="30"
           rows="10"
         ></textarea>
@@ -188,6 +188,7 @@ import TopBackground from "../components/common/TopBackground.vue";
 import useHavePet from "../assets/js/havePetSignup";
 import signupBackground from "../assets/images/topBackground/Signup_bg.jpg";
 import { onMounted, ref } from "vue";
+import { signup } from "../api/common";
 
 const signupBackgroundURL = signupBackground;
 const signupTitleText = "Signup";
@@ -197,49 +198,49 @@ onMounted(() => {
 });
 
 const formData = ref({
-  user_id: "",
+  userId: "",
   password: "",
   rePassword: "",
   email: "",
   name: "",
   havePet: false,
   petName: "",
-  petBirthday: "",
+  petBirth: "",
   petGender: "",
-  petType: "",
-  doNeutering: "",
+  petKind: "",
+  petNeuter: "",
   petColor: "",
   petWeight: "",
-  petChar: "",
+  petTrait: "",
 });
 
 let message = ref("");
 const submitForm = () => {
   if (validateForm()) {
-    // 폼이 유효한 경우에만 서버로 데이터를 전송
-    // useSignup(formData);
+    signup(formData.value);
   }
 };
 
 const validateForm = () => {
   const {
-    user_id,
+    userId,
     password,
     rePassword,
     email,
     name,
     havePet,
     petName,
-    petBirthday,
+    petBirth,
     petGender,
-    petType,
-    doNeutering,
+    petKind,
+    petNeuter,
     petColor,
     petWeight,
-    petChar,
+    petTrait,
   } = formData.value;
+  console.log(formData.value);
   if (
-    user_id.trim() === "" ||
+    userId.trim() === "" ||
     password.trim() === "" ||
     rePassword.trim() === "" ||
     email.trim() === "" ||
@@ -249,16 +250,21 @@ const validateForm = () => {
     window.scrollTo(0, 0);
     return false;
   }
+  if (password !== rePassword) {
+    message.value = "비밀번호가 일치하지 않습니다.";
+    window.scrollTo(0, 0);
+    return false;
+  }
   if (havePet) {
     if (
       petName.trim() === "" ||
-      petBirthday.trim() === "" ||
+      petBirth.trim() === "" ||
       petGender.trim() === "" ||
-      petType.trim() === "" ||
-      doNeutering.trim() === "" ||
+      petKind.trim() === "" ||
+      petNeuter.trim() === "" ||
       petColor.trim() === "" ||
       petWeight.trim() === "" ||
-      petChar.trim() === ""
+      petTrait.trim() === ""
     ) {
       message.value = "펫 항목을 작성하세요.";
       window.scrollTo(0, 0);
