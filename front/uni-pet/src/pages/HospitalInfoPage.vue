@@ -20,6 +20,7 @@ const convenienceBackgroundURL = convenienceBackground;
 const hospitalTitleText = "Hospital";
 const hospitalTitleKo = "동물 병원 리스트";
 const hospitalClassName = "hospital_dataList_warpper";
+window.scrollTo(0, 0);
 </script>
 
 <style scoped></style>
