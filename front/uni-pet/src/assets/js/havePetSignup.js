@@ -1,4 +1,5 @@
 export default function useHavePet() {
+  window.scrollTo(0, 0);
   function toggleInputs() {
     const havePetFalse = document.getElementById("havePetFalse");
     const inputFields = document.querySelectorAll(".disable_toggle");

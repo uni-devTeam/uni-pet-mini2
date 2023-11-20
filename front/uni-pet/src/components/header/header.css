@@ -21,6 +21,7 @@ body {
   user-select: none;
 }
 .menu_text {
+  cursor: pointer;
   text-decoration: none;
   color: white;
   font-weight: 100;
@@ -140,15 +141,15 @@ video {
   height: 100%;
 }
 
-.sideMenu_name{
-      margin-bottom: 10px;
+.sideMenu_name {
+  margin-bottom: 10px;
 }
 
-.right_margin_20{
-       margin-right: 20px;
+.right_margin_20 {
+  margin-right: 20px;
 }
 
-.weather_container{
+.weather_container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -156,7 +157,7 @@ video {
   gap: 6px;
 }
 
-.header_sideMenu_container{
+.header_sideMenu_container {
   display: flex;
   align-items: center;
 }

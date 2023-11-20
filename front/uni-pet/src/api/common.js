@@ -1,5 +1,5 @@
 import axios from "axios";
-import { apiInstance } from "./config";
+import { apiInstance, authApi } from "./config";
 
 const api = async (url, method, data) => {
   return (
@@ -15,8 +15,17 @@ const api = async (url, method, data) => {
 
 export { api };
 
-export const signup = async (formData) => {
+export const signupReq = async (formData) => {
   const response = await apiInstance.post("/signup", formData);
-  console.log(response);
+  return response;
+};
+
+export const loginReq = async (loginData) => {
+  const response = await apiInstance.post("/login", loginData);
+  return response;
+};
+
+export const headerTestReq = async () => {
+  const response = await authApi.get("/");
   return response;
 };
