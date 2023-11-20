@@ -1,10 +1,9 @@
-export default function useSignup() {
+export default function useHavePet() {
   function toggleInputs() {
-    var havePetTrue = document.getElementById("havePetTrue");
-    var havePetFalse = document.getElementById("havePetFalse");
-    var inputFields = document.querySelectorAll(".disable_toggle");
+    const havePetFalse = document.getElementById("havePetFalse");
+    const inputFields = document.querySelectorAll(".disable_toggle");
 
-    for (var i = 0; i < inputFields.length; i++) {
+    for (let i = 0; i < inputFields.length; i++) {
       inputFields[i].disabled = havePetFalse.checked;
     }
   }

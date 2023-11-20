@@ -17,12 +17,12 @@ public class CorsConfig {
       CorsConfiguration config = new CorsConfiguration();
 
       config.setAllowCredentials(true); // 인증 정보를 허용하도록 설정합니다.
-      config.addAllowedOrigin("*"); // 모든 origin(도메인)을 허용합니다.
+      config.addAllowedOriginPattern("*"); // 모든 origin(도메인)을 허용합니다.
       config.addAllowedHeader("*"); // 모든 헤더를 허용합니다.
       config.addAllowedMethod("*"); // 모든 HTTP 메서드를 허용합니다.
 
       // "/api/" 패턴의 URL에 대해서만 위에서 설정한 CORS 구성을 적용하도록 등록합니다.
-      source.registerCorsConfiguration("/api/**", config);
+      source.registerCorsConfiguration("/*", config);
       // 설정한 source를 사용하여 CorsFilter 객체를 생성하고 반환합니다.
       return new CorsFilter(source);
    }
