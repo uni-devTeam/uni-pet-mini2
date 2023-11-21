@@ -26,7 +26,7 @@ import { ref, onMounted, onBeforeUnmount } from 'vue';
 import axios from 'axios';
 import TopBackground from "@/components/common/TopBackground.vue";
 import boardBackground from "../assets/images/topBackground/Board_bg.jpg";
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const boardBackgroundURL = boardBackground;
 const boardTitleText = "Board";
