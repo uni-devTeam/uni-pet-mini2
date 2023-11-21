@@ -1,109 +1,121 @@
 package com.example.unipet.signup.controller;
 
-import com.example.unipet.login.repository.LoginRepository;
-import com.example.unipet.signup.dao.SignupMapper;
+import com.example.unipet.signup.entity.SignupMypet;
+import com.example.unipet.signup.entity.SignupUser;
 import com.example.unipet.signup.model.SignupDTO;
+import com.example.unipet.signup.repository.SignupPetRepository;
+import com.example.unipet.signup.repository.SignupUserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class SignupController {
-    @Autowired
-    SignupMapper dao;
-    @Autowired
-    LoginRepository loginDao;
 
-    @GetMapping("/signup")
-    public String signupMain() {
-        return "signup";
-    }
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final SignupUserRepository signupUserRepository;
+    private final SignupPetRepository signupPetRepository;
 
     @PostMapping("/signup")
-    public ModelAndView signupReq(SignupDTO dto) {
-        ModelAndView mav = new ModelAndView();
-        if(!validationDto(dto, mav)){
-            mav.setViewName("signup");
-            return mav;
-        }
-        if(dao.insertUserInfo(dto)){
+    public ResponseEntity<String> signupReq(@RequestBody SignupDTO dto) {
+        StringBuilder message = new StringBuilder();
+
+        if (!validationDto(dto, message)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message.toString());
+        } else {
+            dto.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
+            dto.setRoles("ROLE_USER");
+
+            SignupUser signupUserEntity = SignupUser.builder()
+                    .userId(dto.getUserId())
+                    .password(dto.getPassword())
+                    .name(dto.getName())
+                    .email(dto.getEmail())
+                    .roles(dto.getRoles())
+                    .build();
+            signupUserRepository.save(signupUserEntity);
+
             if(dto.getHavePet().equals("true")){
-                if(dao.insertPetInfo(dto)){
-                    mav.setViewName("login");
-                }else{
-                    mav.addObject("message", "펫 정보 저장에 실패하였습니다.");
-                    mav.setViewName("signup");
-                }
-                return mav;
+                SignupMypet signupMypetEntity = SignupMypet.builder()
+                        .userId(dto.getUserId())
+                        .petName(dto.getPetName())
+                        .petBirth(dto.getPetBirth())
+                        .petGender(dto.getPetGender())
+                        .petKind(dto.getPetKind())
+                        .petNeuter(dto.getPetNeuter())
+                        .petColor(dto.getPetColor())
+                        .petWeight(dto.getPetWeight())
+                        .petTrait(dto.getPetTrait()).build();
+
+                signupPetRepository.save(signupMypetEntity);
             }
-            mav.setViewName("login");
-        }else{
-            mav.addObject("message", "회원 등록에 실패하였습니다.");
-            mav.setViewName("signup");
+            return ResponseEntity.ok("successful");
         }
-        return mav;
     }
 
-    public boolean validationDto(SignupDTO dto, ModelAndView mav) {
-        if(dto.getUser_id().isEmpty()){
-            mav.addObject("message", "아이디를 입력해주세요.");
+    public boolean validationDto(SignupDTO dto, StringBuilder message) {
+        if (dto.getUserId().isEmpty()) {
+            message.append("아이디를 입력해주세요.");
             return false;
         }
-        if(loginDao.existsByUserId(dto.getUser_id())){
-            mav.addObject("message", "아이디가 중복됩니다.");
+        if (signupUserRepository.existsByuserId(dto.getUserId())) {
+            message.append("아이디가 중복됩니다.");
             return false;
         }
         if (dto.getPassword().isEmpty()) {
-            mav.addObject("message", "패스워드를 입력해주세요.");
+            message.append("패스워드를 입력해주세요.");
             return false;
         }
         if (dto.getRePassword().isEmpty()) {
-            mav.addObject("message", "패스워드 확인을 입력해주세요.");
+            message.append("패스워드 확인을 입력해주세요.");
             return false;
         }
-        if(!dto.getPassword().equals(dto.getRePassword())){
-            mav.addObject("message", "패스워드가 일치하지 않습니다.");
+        if (!dto.getPassword().equals(dto.getRePassword())) {
+            message.append("패스워드가 일치하지 않습니다.");
             return false;
         }
-        if (dto.getEmail().isEmpty())  {
-            mav.addObject("message", "이메일을 입력해주세요.");
+        if (dto.getEmail().isEmpty()) {
+            message.append("이메일을 입력해주세요.");
             return false;
         }
         if (dto.getName().isEmpty()) {
-            mav.addObject("message", "이름을 입력해주세요.");
+            message.append("이름을 입력해주세요.");
             return false;
         }
         if (dto.getHavePet().equals("true")) {
             if (dto.getPetName().isEmpty()) {
-                mav.addObject("message", "펫 이름을 입력해주세요.");
+                message.append("펫 이름을 입력해주세요.");
                 return false;
             }
-            if (dto.getPetBirthday().isEmpty()) {
-                mav.addObject("message", "펫 생일을 입력해주세요.");
+            if (dto.getPetBirth() == null) {
+                message.append("펫 생일을 입력해주세요.");
                 return false;
             }
             if (dto.getPetGender().isEmpty()) {
-                mav.addObject("message", "펫 성별을 입력해주세요.");
+                message.append("펫 성별을 입력해주세요.");
                 return false;
             }
-            if (dto.getPetType().isEmpty()) {
-                mav.addObject("message", "펫 종류을 입력해주세요.");
+            if (dto.getPetKind().isEmpty()) {
+                message.append("펫 종류을 입력해주세요.");
                 return false;
             }
-            if (dto.getDoNeutering() == null) {
-                mav.addObject("message", "펫 중성화여부를 입력해주세요.");
+            if (dto.getPetNeuter() == null) {
+                message.append("펫 중성화여부를 입력해주세요.");
                 return false;
             }
             if (dto.getPetColor().isEmpty()) {
-                mav.addObject("message", "펫 색상을 입력해주세요.");
+                message.append("펫 색상을 입력해주세요.");
                 return false;
             }
-            if (dto.getPetChar().isEmpty()) {
-                mav.addObject("message", "펫 특징을 입력해주세요.");
+            if (dto.getPetTrait().isEmpty()) {
+                message.append("펫 특징을 입력해주세요.");
                 return false;
             }
         }

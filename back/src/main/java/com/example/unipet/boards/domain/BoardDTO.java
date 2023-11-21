@@ -8,13 +8,13 @@ import lombok.Setter;
 @Setter
 @Data
 public class BoardDTO {
-    int board_no;
-    String user_id;
-    int board_id;
-    String title;
-    String content;
-    String posting_date;
-    int views;
-    int like_counting;
-    String img_path;
+    private int boardNo;
+    private String userId;
+    private int boardId;
+    private String title;
+    private String content;
+    private String postingDate;
+    private int views;
+    private int likeCounting;
+    private String imgPath;
 }
