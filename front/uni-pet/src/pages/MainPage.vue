@@ -35,15 +35,24 @@
         <h1>Service</h1>
         <div class="service_container hidden">
           <div class="service_cotainer_item">
-            <div class="service_cotainer_item_img photo1"></div>
+            <router-link
+              to="/animalList"
+              class="service_cotainer_item_img photo1"
+            ></router-link>
             <h2>유기동물 리스트 제공</h2>
           </div>
           <div class="service_cotainer_item">
-            <div class="service_cotainer_item_img photo2"></div>
+            <router-link
+              to="/board/list2"
+              class="service_cotainer_item_img photo2"
+            ></router-link>
             <h2>반려동물 커뮤니티 서비스</h2>
           </div>
           <div class="service_cotainer_item">
-            <div class="service_cotainer_item_img photo3"></div>
+            <router-link
+              to="/hospinfo"
+              class="service_cotainer_item_img photo3"
+            ></router-link>
             <h2>동물 관련 유용한 정보 제공</h2>
           </div>
         </div>
@@ -57,6 +66,9 @@
 <script setup>
 import useMain from "../assets/js/main";
 import { onMounted } from "vue";
+import { headerTestReq } from "../api/common";
+
+headerTestReq();
 onMounted(() => {
   useMain();
 });

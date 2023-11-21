@@ -1,5 +1,9 @@
 <template>
-  <Modal :errorMessage="message"></Modal>
+  <Modal
+    v-if="showModal"
+    :errorMessage="message"
+    :closeModal="closeModal"
+  ></Modal>
   <TopBackground
     :imageURL="signupBackgroundURL"
     :titleText="signupTitleText"
@@ -188,8 +192,10 @@ import TopBackground from "../components/common/TopBackground.vue";
 import useHavePet from "../assets/js/havePetSignup";
 import signupBackground from "../assets/images/topBackground/Signup_bg.jpg";
 import { onMounted, ref } from "vue";
-import { signup } from "../api/common";
+import { signupReq } from "../api/common";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const signupBackgroundURL = signupBackground;
 const signupTitleText = "Signup";
 
@@ -215,9 +221,27 @@ const formData = ref({
 });
 
 let message = ref("");
+const showModal = ref(false);
+const closeModal = () => {
+  showModal.value = false;
+};
+
+const openModal = () => {
+  window.scrollTo(0, 0);
+  showModal.value = true;
+};
+
 const submitForm = () => {
   if (validateForm()) {
-    signup(formData.value);
+    signupReq(formData.value)
+      .then((res) => {
+        console.log("성공");
+        router.push("/login");
+      })
+      .catch((error) => {
+        console.log("에러발생");
+        console.log(error.response.data);
+      });
   }
 };
 
@@ -238,7 +262,6 @@ const validateForm = () => {
     petWeight,
     petTrait,
   } = formData.value;
-  console.log(formData.value);
   if (
     userId.trim() === "" ||
     password.trim() === "" ||
@@ -246,11 +269,13 @@ const validateForm = () => {
     email.trim() === "" ||
     name.trim() === ""
   ) {
+    openModal();
     message.value = "빈 항목을 작성하세요.";
     window.scrollTo(0, 0);
     return false;
   }
   if (password !== rePassword) {
+    openModal();
     message.value = "비밀번호가 일치하지 않습니다.";
     window.scrollTo(0, 0);
     return false;
@@ -266,6 +291,7 @@ const validateForm = () => {
       petWeight.trim() === "" ||
       petTrait.trim() === ""
     ) {
+      openModal();
       message.value = "펫 항목을 작성하세요.";
       window.scrollTo(0, 0);
       return false;

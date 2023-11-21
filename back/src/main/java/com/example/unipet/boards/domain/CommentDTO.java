@@ -5,15 +5,16 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Data
 @ToString
 public class CommentDTO {
-    private int comment_id;
-    private String user_id;
-    private int board_no;
+    private int commentId;
+    private String userId;
+    private int boardNo;
     private String content;
-    private String comment_date;
-    private String petPicUrl;
+    private LocalDateTime commentDate;
 }
