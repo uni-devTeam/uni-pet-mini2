@@ -5,8 +5,10 @@ import com.example.unipet.list.domain.AnimalListDTO;
 import com.example.unipet.list.entity.Animal;
 import com.example.unipet.list.repository.AnimalListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import org.springframework.data.domain.Pageable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -40,9 +42,7 @@ public class AnimalDbService {
         }
         return null;
     }
-    private boolean isAnimalExist(long desertionNo) {
-        return animalListRepository.findByDesertionNo(desertionNo) != null;
-    }
+
     public List<Animal> getAnimalsAfterDate(LocalDate startDate) {
         return animalListRepository.findByHappenDtGreaterThanEqual(startDate.format(DateTimeFormatter.ofPattern("yyyyMMdd")));
     }
@@ -50,4 +50,17 @@ public class AnimalDbService {
         return animalListRepository.findById(id).orElse(null);
     }
 
+    public void insertNewAnimal(Animal animal) {
+        animalListRepository.save(animal);
+    }
+
+    public boolean isAnimalExist(long desertionNo) {
+        return animalListRepository.findByDesertionNo(desertionNo) != null;
+    }
+
+    public Page<Animal> getFilteredAnimals(String kind, LocalDate startDate, Pageable pageable) {
+        return animalListRepository.findByKindCdContainingAndHappenDtGreaterThanEqual(kind, startDate.format(DateTimeFormatter.ofPattern("yyyyMMdd")), pageable);
+
+
+    }
 }
