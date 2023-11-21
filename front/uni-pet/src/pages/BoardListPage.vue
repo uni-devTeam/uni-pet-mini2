@@ -88,6 +88,6 @@ const goToPosting = () => {
 };
 </script>
 
-<style>
+<style scoped>
 @import '@/assets/css/board.css';
 </style>
