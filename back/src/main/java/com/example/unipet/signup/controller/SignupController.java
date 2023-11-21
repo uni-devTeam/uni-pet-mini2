@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
 public class SignupController {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
