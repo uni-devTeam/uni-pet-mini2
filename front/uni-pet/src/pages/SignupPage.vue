@@ -239,8 +239,10 @@ const submitForm = () => {
         router.push("/login");
       })
       .catch((error) => {
+        window.scrollTo(0, 0);
+        openModal();
+        message.value = error.response.data;
         console.log("에러발생");
-        console.log(error.response.data);
       });
   }
 };
