@@ -16,6 +16,7 @@ const mypet = ref(null);
 const nopet = ref('');
 const isActive = ref(true);
 const changeForm = ref('');
+let userId = '';
 
 async function fetchPet() {
   try {
@@ -23,6 +24,8 @@ async function fetchPet() {
     age.value = response.age;
     mypet.value = response.mypet;
     nopet.value = response.nopet;
+    userId = response.userId;
+
     console.log(response);
   } catch (error) {
     console.error(error);
@@ -63,13 +66,14 @@ watchEffect(() => {
     </div>
     <Pet v-if="isActive" :mypet="mypet" :age="age" :nopet="nopet" @changeForm="handleChangeForm" />
     <PetChange v-if="!isActive && changeForm === 'changeInfo'" :mypet="mypet" />
-    <PetChange v-if="!isActive && changeForm === 'add'" />
+    <PetChange v-if="!isActive && changeForm === 'add'" :userId="userId" />
   </div>
 </template>
 
 <style scoped>
 @import "./css/myPet.css";
 @import "./css/myPageLayout.css";
+@import "bootstrap/dist/css/bootstrap.min.css";
 .middle{
   display: flex;
 }

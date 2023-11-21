@@ -37,7 +37,7 @@ public class MyPetController {
     @GetMapping
     public ResponseEntity<Map<String, Object>> getMyPet(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        session.setAttribute("userId", "111");
+        session.setAttribute("userId", "user");
         String userId = (String) session.getAttribute("userId");
         Map<String, Object> response = mypetService.getMyPet(userId);
         return ResponseEntity.ok()

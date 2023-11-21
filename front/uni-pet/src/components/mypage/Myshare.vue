@@ -70,4 +70,5 @@ const loadMoreItems = async () => {
 <style scoped>
 @import "./css/myShare.css";
 @import "./css/myPageLayout.css";
+@import "bootstrap/dist/css/bootstrap.min.css";
 </style>

@@ -29,8 +29,11 @@ const goToEditProfile = (kind) => {
 
 // 로그아웃
 const logout = async () => {
-  await api('http://localhost:8889/logout', 'POST');
-  console.log("로그아웃")
+  if (confirm("로그아웃 하시겠습니까?")) {
+    await api('http://localhost:8889/logout', 'POST');
+    console.log("로그아웃")
+    location.href = 'http://localhost:5173/';
+  }
 }
 
 const deleteAccount = async () => {
@@ -64,4 +67,5 @@ const deleteAccount = async () => {
 <style scoped>
 @import "./css/myProfile.css";
 @import "./css/myPageLayout.css";
+@import "bootstrap/dist/css/bootstrap.min.css";
 </style>

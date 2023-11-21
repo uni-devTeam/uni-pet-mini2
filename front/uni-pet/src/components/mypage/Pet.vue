@@ -17,8 +17,9 @@ const goToRegisterPet = () => {
   <div class="con_info">
     <div class="con_info_wrapper">
       <div class="con_title">나의 펫</div>
+      <input type="hidden" >
       <div class="menu" v-if="mypet">
-        <img class="circle_pet" :src="mypet.petPic ? mypet.petPic : '/src/assets/images/mypage/default-image.png'" alt="Pet Image"/>
+        <img class="circle_pet" :src="mypet.petPic ? 'http://localhost:8889' + mypet.petPic : '/src/assets/images/mypage/default-image.png'" alt="Pet Image"/>
         <div class="pet_details">
           <div class="infobox">
             <span>이름 </span><span class="con_text">{{ mypet.petName }}</span>
@@ -59,4 +60,5 @@ const goToRegisterPet = () => {
 <style scoped>
 @import "./css/myPageLayout.css";
 @import "./css/myPet.css";
+@import "bootstrap/dist/css/bootstrap.min.css";
 </style>

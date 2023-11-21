@@ -3,7 +3,7 @@ import {ref} from "vue";
 import {api} from "@/api/common";
 import axios from "axios";
 
-const props = defineProps([ "mypet" ])
+const props = defineProps([ "mypet", "userId" ])
 const modifiedPet = { ...props.mypet };
 const selectedFile = ref(undefined);
 const preview = ref(undefined);
@@ -26,17 +26,16 @@ const submit = async (buttonType) => {
   const confirmationMessage = buttonType === 'modify' ? "수정하시겠습니까?" : "등록하시겠습니까?";
   if (confirm(confirmationMessage)) {
     let formData = new FormData();
-
     if (selectedFile.value) {
       formData.append("attachFile", selectedFile.value);
+    }
+    if(!modifiedPet.userId) {
+      modifiedPet.userId = props.userId;
     }
     formData.append("mypetDTO",
         new Blob([JSON.stringify(modifiedPet)],
         { type: "application/json" }));
 
-    for (let key of formData.keys()) {
-      console.log(key, ":", formData.get(key));
-    }
     let response;
 
     const url = buttonType === 'modify' ? 'http://localhost:8889/mypet/change' : 'http://localhost:8889/mypet/add';
@@ -53,6 +52,7 @@ const submit = async (buttonType) => {
       });
 
       alert(response.data);
+      location.href = 'http://localhost:5173/mypet';
     } catch (error) {
       console.error(error);
     }
@@ -80,7 +80,7 @@ const deletePet = async () => {
             <label class="con_petchangepic_container" for="attach">
               <div class="image-container">
                 <img class="circle_petchange" v-if="modifiedPet.petPic"
-                     :src="modifiedPet.petPic"
+                     :src="'http://localhost:8889' + modifiedPet.petPic"
                      alt="Pet Image"/>
                 <img class="circle_petchange" v-else
                      src="/src/assets/images/mypage/default-image.png" alt="No Image"/>
@@ -159,7 +159,7 @@ const deletePet = async () => {
               <label for="pet_weight" class="col-sm-2 col-form-label">체중</label>
               <div class="col-sm-10">
                 <div class="input-group">
-                  <input v-model.number="modifiedPet.petWeight" class="form-control" step="0.01" id="pet_weight"
+                  <input v-model.number.trim="modifiedPet.petWeight" class="form-control" step="0.01" id="pet_weight"
                          name="pet_weight" min="0" max="100">
                   <div class="input-group-append">
                     <span class="input-group-text">kg</span>
@@ -171,7 +171,7 @@ const deletePet = async () => {
             <div class="infobox row mb-3">
               <label class="col-sm-2 col-form-label">메모</label>
               <div class="col-sm-10">
-                <input v-model="modifiedPet.petTrait" type="text" class="form-control" name="pet_trait">
+                <input v-model="modifiedPet.petTrait" type="text" class="form-control" name="pet_trait" id="pet_trait">
               </div>
             </div>
           </div>
@@ -189,4 +189,5 @@ const deletePet = async () => {
 <style scoped>
 @import "./css/myPageLayout.css";
 @import "./css/myPetChange.css";
+@import "bootstrap/dist/css/bootstrap.min.css";
 </style>

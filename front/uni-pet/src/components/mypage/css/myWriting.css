@@ -33,23 +33,36 @@ th, .tb_title, .tb_num, .tb_date {
 }
 
 /* 페이지네이션의 배경색과 활성 페이지의 배경색 변경 */
-.page-link {
+.page-item {
   color: #000;
   background-color: #fff;
   border: 1px solid #ccc;
 }
 
-.page-item.active .page-link {
+.page-item:hover .page-link {
  z-index: 1;
  color: #555;
  font-weight:bold;
  background-color: #f1f1f1;
- border-color: #ccc;
-
+ /*border-color: #ccc;*/
 }
 
-.page-link:focus, .page-link:hover {
+.pagination:focus {
   color: #000;
   background-color: #fafafa;
   border-color: #ccc;
+}
+
+.table>:not(caption)>*>*[data-v-b179ea8b] {
+    border-bottom: thin solid lightgrey;
+    text-align: center;
+}
+
+.title_link[data-v-b179ea8b], #pagination[data-v-b179ea8b] {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
 }

@@ -66,6 +66,7 @@ watchEffect(() => {
 
 <style scoped>
 @import "../mypage/css/myPageLayout.css";
+@import "bootstrap/dist/css/bootstrap.min.css";
 .middle{
   display: flex;
 }

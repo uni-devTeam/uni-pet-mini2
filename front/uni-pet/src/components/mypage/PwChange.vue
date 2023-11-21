@@ -45,4 +45,5 @@ async function submit() {
 <style scoped>
 @import "./css/myEmail.css";
 @import "./css/myPageLayout.css";
+@import "bootstrap/dist/css/bootstrap.min.css";
 </style>

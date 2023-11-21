@@ -41,4 +41,5 @@ async function submit() {
 <style scoped>
 @import "./css/myPasscheck.css";
 @import "./css/myPageLayout.css";
+@import "bootstrap/dist/css/bootstrap.min.css";
 </style>

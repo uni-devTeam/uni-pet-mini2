@@ -25,7 +25,7 @@ public class MyBoardController {
     public ResponseEntity<Map<String, Object>> mywritings(@RequestParam(value = "page", defaultValue = "0") int page,
                                                           @RequestParam("boardId") int boardId,
                                                           @RequestParam(defaultValue = "10") int size) {
-        String userId = "user";
+        String userId = "user1";
         MyPagingDTO myPagingDTO = MyPagingDTO.builder()
                 .userId(userId)
                 .page(page)
