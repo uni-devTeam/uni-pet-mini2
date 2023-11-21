@@ -23,7 +23,7 @@ const index = createRouter({
     { path: "/mywriting", component: Mypage },
     { path: "/myshare", component: Mypage },
     { path: "/mysharelikes", component: Mypage },
-    { path: '/animals/list', component: AnimalListPage },
+    { path: '/animallist', component: AnimalListPage },
     { path: '/animals/:id', component: AnimalListDetailPage, props: true},
   ],
 });
