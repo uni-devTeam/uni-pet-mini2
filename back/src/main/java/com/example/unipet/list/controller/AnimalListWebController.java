@@ -5,14 +5,16 @@ import com.example.unipet.list.service.AnimalDbService;
 import com.example.unipet.list.service.AnimalListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 @Controller
 public class AnimalListWebController {
@@ -26,19 +28,20 @@ public class AnimalListWebController {
     private AnimalListService animalListService; // AnimalListService 인스턴스 추가
 
     @GetMapping("/animalList")
-    public String getAnimalList(Model model) {
+    public String getAnimalList(
+            @RequestParam(required = false, defaultValue = "") String kind,
+            Model model,
+            Pageable pageable) {
         LocalDate today = LocalDate.now();
-        LocalDate startDate = today.minusDays(30); // 최근 30일 이내의 데이터를 조회
+        LocalDate startDate = today.minusDays(30);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         String startDateString = startDate.format(formatter);
 
-        List<AnimalListDTO> animalList = animalListService.getRecentAnimalList(startDateString); // animalListService 사용
+        Page<AnimalListDTO> animalList = animalListService.getFilteredAnimalList(kind, startDateString, pageable);
         model.addAttribute("animalList", animalList);
-        System.out.println(animalList);
         return "animalList";
     }
 
-    // ... 나머지 메서드들 ...
 
 
 
@@ -57,7 +60,6 @@ public class AnimalListWebController {
         }
         model.addAttribute("API_KEY", API_KEY);
         model.addAttribute("animal", animal);
-        System.out.println(animal);
         return "animalDetail";
     }
 

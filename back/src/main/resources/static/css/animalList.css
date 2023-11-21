@@ -14,5 +14,12 @@
 #animalList_img{
     height: 220px;
     weight: 250px;
-
 }
+
+
+    #pagination{
+        justify-content: center;
+        display: flex;
+        flex-wrap: wrap;
+        margin: 8px auto;
+    }
