@@ -14,19 +14,19 @@ import java.util.List;
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "board_no")
+//    @Column(name = "board_no")
     private int boardNo;
 
-    @Column(name = "user_id")
+//    @Column(name = "user_id")
     private String userId;
 
-    @Column(name = "board_id")
+//    @Column(name = "board_id")
     private int boardId;
 
     private String title;
     private String content;
 
-    @Column(name = "posting_date", nullable = false)
+//    @Column(name = "posting_date", nullable = false)
     private LocalDateTime postingDate;
 
     @PrePersist
@@ -36,10 +36,10 @@ public class Board {
 
     private int views;
 
-    @Column(name = "like_counting")
+//    @Column(name = "like_counting")
     private int likeCounting;
 
-    @Column(name = "img_path")
+//    @Column(name = "img_path")
     private String imgPath;
 
     //Board 엔터티가 삭제될 때 연결된 Comment 엔터티도 함께 삭제
