@@ -2,7 +2,7 @@
   <Modal
     v-if="showModal"
     :errorMessage="modalMessage"
-    @closeModal="closeModal"
+    :closeModal="closeModal"
   ></Modal>
   <TopBackground
     :imageURL="loginBackgroundURL"
@@ -41,7 +41,6 @@
 import Modal from "../components/common/Modal.vue";
 import TopBackground from "../components/common/TopBackground.vue";
 import loginBackground from "../assets/images/topBackground/Login_bg.jpg";
-import { useRouter } from "vue-router";
 import { onMounted, ref } from "vue";
 import { loginReq } from "../api/common";
 
@@ -50,6 +49,7 @@ const loginTitleText = "Login";
 
 const showModal = ref(false);
 const modalMessage = ref("");
+
 const formData = ref({
   userId: "",
   password: "",
@@ -61,6 +61,11 @@ onMounted(() => {
 
 const closeModal = () => {
   showModal.value = false;
+};
+
+const openModal = () => {
+  window.scrollTo(0, 0);
+  showModal.value = true;
 };
 
 const submitForm = () => {
@@ -77,10 +82,8 @@ const submitForm = () => {
       }
     })
     .catch((error) => {
-      showModal.value = true;
-      modalMessage.value =
-        "로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.";
-      console.log(showModal.value);
+      openModal();
+      modalMessage.value = "아이디와 비밀번호를 확인해주세요.";
     });
 
   // 실패 시
