@@ -8,5 +8,7 @@ import lombok.Getter;
 public class MyPagingDTO {
     private String userId;
     private int page;
+    private int size;
     private int boardId;
+
 }

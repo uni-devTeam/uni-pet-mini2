@@ -70,3 +70,17 @@
     justify-content: right;
 
 }
+
+#petBirthPicker, #pet_name, #pet_kind, #pet_color, #pet_weight, #pet_trait {
+    height: 1.9em;
+    border: 1px darkgrey solid;
+    border-radius: 0.4em;
+}
+
+#pet_weight {
+    text-align: right;
+}
+
+#genderMale, #genderFemale, #neuterYes, #neuterNo {
+    border: 1px darkgrey solid;
+}

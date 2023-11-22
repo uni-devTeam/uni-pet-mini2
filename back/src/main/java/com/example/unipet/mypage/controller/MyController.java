@@ -1,16 +1,15 @@
 package com.example.unipet.mypage.controller;
 
+import com.example.unipet.login.config.auth.MyUserDetails;
 import com.example.unipet.mypage.domain.EmailDTO;
 import com.example.unipet.mypage.domain.UserResultDTO;
 import com.example.unipet.mypage.service.MyService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,22 +18,14 @@ import java.util.Optional;
 @RestController
 @RequestMapping(value = "/mypage")
 @RequiredArgsConstructor
-@SessionAttributes("userId")
-@CrossOrigin(originPatterns = {"http://localhost:5173"})
 public class MyController {
 
     private final MyService myService;
 
-    // session 테스트 때문에 RequestParam 으로 받는거 ModelAttribute로 받아야함
-
     // 회원 정보
     @GetMapping(value = "/myprofile")
-    public ResponseEntity<Map<String, Object>> myprofile(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        // 세션에서 가져오기 때문에 나중에 삭제 필요
-        session.setAttribute("userId", "user");
-        String userId = (String) session.getAttribute("userId");
-
+    public ResponseEntity<Map<String, Object>> myprofile(@AuthenticationPrincipal MyUserDetails userDetails) {
+        String userId = userDetails.getUser().getUserId();
         Optional<UserResultDTO> optionalUser = myService.getUserResultDTO(userId);
         Map<String, Object> response = new HashMap<>();
 
@@ -50,21 +41,19 @@ public class MyController {
     }
 
 
-    // 로그아웃
-    @PostMapping(value = "/logout")
-    public void logout(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        session.invalidate();
-    }
+    // 로그아웃 - Vue 에서 처리(토큰)
+//    @PostMapping(value = "/logout")
+//    public void logout(HttpServletRequest request) {
+//        HttpSession session = request.getSession(false);
+//        session.invalidate();
+//    }
 
     // 이메일 변경
     @PostMapping(value = "/changeemail")
-    public ResponseEntity<String> changeemail(HttpServletRequest request,
+    public ResponseEntity<String> changeemail(@AuthenticationPrincipal MyUserDetails userDetails,
                                               @RequestParam("email") String email,
                                               @RequestParam("domain") String domain) {
-        HttpSession session = request.getSession();
-        String userId = (String) session.getAttribute("userId");
-
+        String userId = userDetails.getUser().getUserId();
         EmailDTO emailDTO = EmailDTO.builder()
                 .userId(userId)
                 .email(email)
@@ -82,11 +71,12 @@ public class MyController {
     }
 
     // 비밀번호 확인
-    @RequestMapping(value = "/passcheck")
-    public ResponseEntity<String> passcheck(HttpServletRequest request, @RequestParam("inputPass") String inputPass) {
-        HttpSession session = request.getSession();
-        String userId = (String) session.getAttribute("userId");
-
+    @PostMapping(value = "/passcheck")
+    public ResponseEntity<String> passcheck(@AuthenticationPrincipal MyUserDetails userDetails,
+                                            @RequestParam("inputPass") String inputPass,HttpServletRequest request) {
+        String userId = userDetails.getUser().getUserId();
+        String password = userDetails.getPassword();
+        System.out.println("비밀번호 : " + password);
         boolean checked = myService.getPass(userId, inputPass);
         if(checked) {
             return ResponseEntity.ok()
@@ -98,12 +88,11 @@ public class MyController {
     }
 
     // 비밀번호 변경
-    @RequestMapping(value = "/passchange")
-    public ResponseEntity<String> passchange(HttpServletRequest request,
+    @PostMapping(value = "/passchange")
+    public ResponseEntity<String> passchange(@AuthenticationPrincipal MyUserDetails userDetails,
                                              @RequestParam("changedPass") String changedPass,
                                              @RequestParam("changedPassCheck") String changedPassCheck) {
-        HttpSession session = request.getSession();
-        String userId = (String) session.getAttribute("userId");
+        String userId = userDetails.getUser().getUserId();
 
         if(changedPass.equals(changedPassCheck)) {
             boolean pwChanged = myService.changeMyPass(userId, changedPass);
@@ -121,14 +110,11 @@ public class MyController {
     }
 
     @PostMapping(value = "/delaccount")
-    public ResponseEntity<String> deleteAcc(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        String userId = (String) session.getAttribute("userId");
+    public ResponseEntity<String> deleteAcc(@AuthenticationPrincipal MyUserDetails userDetails) {
+        String userId = userDetails.getUser().getUserId();
         boolean success = myService.saveRolesOut(userId);
         if (success) {
-            request.getSession(false);
-            session.invalidate();
-            return ResponseEntity.ok("회원 탈퇴 성공");
+            return ResponseEntity.ok("탈퇴되었습니다. 이용해 주셔서 감사합니다.");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("회원 탈퇴 실패"); // 실패 시 400 Bad Request 반환

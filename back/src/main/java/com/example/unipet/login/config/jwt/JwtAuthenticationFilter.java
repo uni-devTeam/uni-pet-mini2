@@ -48,7 +48,7 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 			e.printStackTrace();
 		}
 		
-		System.out.println("JwtAuthenticationFilter : "+loginRequestDto);
+		System.out.println("JwtAuthenticationFilter1111 : "+loginRequestDto);
 		
 		// 유저네임패스워드 토큰 생성
 		UsernamePasswordAuthenticationToken authenticationToken = 

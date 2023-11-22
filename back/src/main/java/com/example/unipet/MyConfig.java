@@ -1,7 +1,7 @@
 package com.example.unipet;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -11,7 +11,7 @@ public class MyConfig implements WebMvcConfigurer {
     String currentDirectory = System.getProperty("user.dir");
     // String location="file:///c:/kosastudy/springedu/src/main/resources/static/images/";
     String correctedPath = currentDirectory.replace("\\", "/");
-    String location = "file:///" + correctedPath + "/src/main/resources/static/img/mypage/upload/";
+    String location = "file:///" + correctedPath + "/back/src/main/resources/static/img/mypage/upload/";
 
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
@@ -19,5 +19,6 @@ public class MyConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/img/mypage/upload/**").addResourceLocations(location);
     }
 }
+
 
 //Hospital information
