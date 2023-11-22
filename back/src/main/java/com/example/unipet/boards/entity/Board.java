@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -27,7 +26,8 @@ public class Board {
     private String title;
     private String content;
 
-//    @Column(name = "posting_date", nullable = false)
+
+    @Column( nullable = false)
     private LocalDateTime postingDate;
 
     @PrePersist

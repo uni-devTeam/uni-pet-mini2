@@ -1,6 +1,5 @@
 package com.example.unipet.boards.repository;
 
-
 import com.example.unipet.boards.entity.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -18,4 +17,3 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
     // 특정 필드에 대한 조건을 가진 쿼리는 기본 내장 쿼리에 포함되어 있지 않다.
     // 이런 경우에는 쿼리 메소드를 작성하여 사용해야한다.
 }
-

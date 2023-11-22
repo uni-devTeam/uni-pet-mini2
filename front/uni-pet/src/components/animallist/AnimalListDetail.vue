@@ -150,7 +150,6 @@ export default {
               map: map,
               position: coords
             });
-            console.log(geocoder);
             const infowindow = new kakao.maps.InfoWindow({
               content: '<div style="width:150px;text-align:center;padding:6px 0;">보호소 위치</div>'
             });
@@ -165,6 +164,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+@import 'bootstrap/dist/css/bootstrap.min.css';
 @import "./css/animalDetail.css";
 </style>

@@ -5,10 +5,10 @@ import com.example.unipet.boards.repository.CommentRepository;
 import com.example.unipet.boards.domain.CommentDTO;
 import com.example.unipet.boards.entity.Board;
 import com.example.unipet.boards.entity.Comment;
-import com.example.unipet.boards.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/board")
 public class BoardController {

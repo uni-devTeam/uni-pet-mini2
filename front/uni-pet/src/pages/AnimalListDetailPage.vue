@@ -1,14 +1,18 @@
 <script setup>
 import AnimalListDetail from '../components/animallist/AnimalListDetail.vue';
+import TopBackground from "@/components/common/TopBackground.vue";
+import loginBackground from "@/assets/images/topBackground/List_bg.jpg";
+
+
+const listBackgroundURL = loginBackground;
+const listTitleText = "List";
 </script>
 
 <template>
-  <div>
-    <AnimalListDetail/>
-  </div>
+  <TopBackground :imageURL="listBackgroundURL"  :titleText="listTitleText"></TopBackground>
+  <AnimalListDetail/>
 </template>
 
 <style scoped>
 </style>
-
 

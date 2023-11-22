@@ -10,6 +10,8 @@ import HospitalInfoPage from "@/pages/HospitalInfoPage.vue";
 import TrailInfoPage from "@/pages/TrailInfoPage.vue";
 import AnimalListPage from "@/pages/AnimalListPage.vue";
 import AnimalListDetailPage from "@/pages/AnimalListDetailPage.vue";
+import BoardListPage from "@/pages/BoardListPage.vue";
+import BoardWritePage from '@/pages/BoardWritePage.vue';
 
 const index = createRouter({
   history: createWebHistory(),
@@ -27,9 +29,10 @@ const index = createRouter({
     { path: "/myshare", component: Mypage },
     { path: "/myprofile/:kind", name: 'Edit', component: Profile },
     { path: "/mypet/:kind", component: Mypet },
-
     { path: "/animalList", component: AnimalListPage },
-    { path: "/animals/:id", component: AnimalListDetailPage, props: true }
+    { path: "/animals/:id", component: AnimalListDetailPage, props: true },
+    { path: "/board/list", component: BoardListPage },
+    { path: "/write", component: BoardWritePage },
   ],
 });
 
