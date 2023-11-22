@@ -1,6 +1,6 @@
 <script setup>
 import {onMounted, ref} from "vue";
-import {api} from "@/api/common";
+import {api, mywritingsReq} from "@/api/common";
 
 const currentPage = ref(0);
 const shareList = ref([]);
@@ -9,18 +9,27 @@ const pageNumber = ref(0);
 const totalPages = ref(0);
 const first = ref(null);
 const last = ref(null);
+const userName = ref('');
+const petPic = ref('');
+const nav = ref({
+  userName: userName,
+  petPic: petPic
+})
+
+const emits = defineEmits(['navInfo'])
 
 async function fetchWritings(boarId, currentPage) {
   const boardId = parseInt(boarId);
-  const response = await api(
-      'http://localhost:8889/mypage/mywritings?boardId=' + boardId
-      + '&page=' + currentPage + "&size=" + pageSize, 'GET');
-  shareList.value = shareList.value = [...shareList.value, ...response.list.content];
-  pageNumber.value = response.list.pageable.pageNumber;
-  totalPages.value = response.list.totalPages;
-  first.value = response.list.first;
-  last.value = response.list.last;
-  console.log(response)
+  const response = await mywritingsReq(currentPage, boardId);
+  shareList.value = shareList.value = [...shareList.value, ...response.data.list.content];
+  pageNumber.value = response.data.list.pageable.pageNumber;
+  totalPages.value = response.data.list.totalPages;
+  first.value = response.data.list.first;
+  last.value = response.data.list.last;
+  userName.value = response.data.userName;
+  petPic.value = response.data.petPic;
+
+  emits('navInfo', nav.value);
 }
 
 onMounted(async () => {

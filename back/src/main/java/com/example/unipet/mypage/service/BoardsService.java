@@ -4,6 +4,7 @@ import com.example.unipet.mypage.domain.BoardDTO;
 import com.example.unipet.mypage.domain.MyPagingDTO;
 import com.example.unipet.mypage.entity.Boards;
 import com.example.unipet.mypage.repository.MyBoardRepository;
+import com.example.unipet.mypage.repository.MyPetRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BoardsService {
     private final MyBoardRepository myBoardRepository;
+    private final MyPetRepository myPetRepository;
     public Page<BoardDTO> getMyWritings(MyPagingDTO myPagingDTO) {
 
         Pageable pageable = PageRequest.of(myPagingDTO.getPage(), myPagingDTO.getSize(),
@@ -29,5 +31,9 @@ public class BoardsService {
         return myBoardRepository.findByUserIdAndBoardId(myPagingDTO.getUserId(),
                 myPagingDTO.getBoardId(), pageable)
                 .map(BoardDTO::toBoardDTO);
+    }
+
+    public String getPetPic(String userId) {
+        return myPetRepository.findPetPicByUserId(userId);
     }
 }

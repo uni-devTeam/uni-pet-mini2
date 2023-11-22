@@ -1,19 +1,5 @@
 <script setup>
-import {api} from "@/api/common";
-import {onMounted, ref} from "vue";
-
-const petPic = ref('');
-const name = ref('');
-
-  async function fetchUser() {
-    const response = await api(`http://localhost:8889/mypage/myprofile`, 'GET');
-    petPic.value = response.user.petPic;
-    name.value = response.user.name;
-  }
-
-  onMounted(() => {
-    fetchUser();
-  });
+const props = defineProps(['name', 'petPic'])
 </script>
 
 <template>

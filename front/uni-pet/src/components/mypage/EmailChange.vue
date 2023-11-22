@@ -1,6 +1,6 @@
 <script setup>
 import {ref, watchEffect} from "vue";
-import {api} from "@/api/common";
+import {api, changeEmailReq} from "@/api/common";
 import router from "@/router";
 
 const props = defineProps(['currentEmail']);
@@ -9,6 +9,7 @@ const newEmail = ref('');
 const selected = ref('gmail.com');
 const customEmail = ref('');
 const customBox = ref(false);
+const domain = ref('');
 
 function returnSelectBox() {
   customBox.value = false;
@@ -22,20 +23,16 @@ watchEffect(() => {
 })
 
 async function submit() {
-  const params = new URLSearchParams();
-  params.append('email', newEmail.value);
-
   if (customBox.value !== true) {
-    params.append('domain', selected.value);
+    domain.value = selected.value;
   } else {
-    params.append('domain', customEmail.value);
+    domain.value = customEmail.value;
   }
 
-  const url = 'http://localhost:8889/mypage/changeemail?' + params.toString();
-  console.log(url)
   try {
-    const response = await api(url, 'POST');
-    alert(response)
+    const response = await changeEmailReq(newEmail.value, domain.value);
+    console.log(response)
+    alert(response.data)
     await router.push('/myprofile');
   } catch (e) {
     alert("에러가 발생하였습니다.")

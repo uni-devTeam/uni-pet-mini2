@@ -7,6 +7,7 @@ import com.example.unipet.mypage.repository.MyPetRepository;
 import com.example.unipet.mypage.repository.MyRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -55,17 +56,20 @@ public class MyService {
     // 비밀번호 확인
     public boolean getPass(String userId, String inputPass) {
         String pw = myRepository.findPasswordByUserId(userId);
-        return inputPass.equals(pw);
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        return bCryptPasswordEncoder.matches(inputPass, pw);
     }
 
     // 비밀번호 변경
     @Transactional
     public boolean changeMyPass(String userId, String newPw) {
         Optional<User> optionalUser = Optional.ofNullable(myRepository.findUserByUserId(userId));
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String changedPw = bCryptPasswordEncoder.encode(newPw);
 
         if(optionalUser.isPresent()) {
             User user = optionalUser.get();
-            user.setPassword(newPw);
+            user.setPassword(changedPw);
             return true;
         } else {
             return false;

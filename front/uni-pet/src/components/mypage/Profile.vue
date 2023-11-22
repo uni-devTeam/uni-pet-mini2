@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, ref, watch, watchEffect} from "vue";
+import {onMounted, reactive, ref, watch, watchEffect} from "vue";
 import PwCheck from "@/components/mypage/PwCheck.vue";
 import EmailChange from "@/components/mypage/EmailChange.vue";
 import MyProfile from "@/components/mypage/MyProfile.vue";
@@ -7,6 +7,7 @@ import router from "@/router";
 import TopBackground from "@/components/common/TopBackground.vue";
 import MyNav from "@/components/mypage/MyNav.vue";
 import mypageBackground from "@/assets/images/topBackground/Mypage_bg.jpg";
+import {myPageProfileReq} from "@/api/common";
 
 const mypageBackgroundURL = mypageBackground;
 const mypageTitleText = "Mypage";
@@ -17,7 +18,12 @@ const showPwEditForm = ref(false);
 const currentEmail = ref('');
 const checkKind = ref('');
 
+const name= ref('');
+const email= ref('');
+const petPic= ref('');
+
 const handleCurrentEmail = (email) => {
+  console.log(email)
   currentEmail.value = email;
 };
 
@@ -28,6 +34,9 @@ const handleEditProfile = (kind) => {
       showEmailEditForm.value = true;
       break;
     case 'pw':
+      showPwEditForm.value = true;
+      break;
+    case 'del':
       showPwEditForm.value = true;
       break;
   }
@@ -43,6 +52,21 @@ watchEffect(() => {
   }
 });
 
+
+async function fetchUser() {
+  try {
+    const response = await myPageProfileReq();
+    name.value = response.data.user.name;
+    email.value = response.data.user.email;
+    petPic.value = response.data.user.petPic;
+  } catch (error) {
+    console.error('Error fetching user:', error);
+  }
+}
+onMounted(() => {
+  fetchUser();
+})
+
 </script>
 
 <template>
@@ -52,7 +76,7 @@ watchEffect(() => {
   ></TopBackground>
   <div class="middle">
     <div class="nav_wrapper">
-      <MyNav />
+      <MyNav :name="name" :petPic="petPic"/>
     </div>
     <div class="con_info" >
       <MyProfile v-if="showProfile"

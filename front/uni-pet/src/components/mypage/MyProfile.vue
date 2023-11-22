@@ -1,65 +1,69 @@
 <script setup>
-import { api } from "@/api/common";
-import {onMounted, reactive, defineEmits} from "vue";
+import {myPageProfileReq} from "@/api/common";
+import {onMounted, defineEmits, ref} from "vue";
 import router from "@/router";
 
-const state = reactive({
-  petPic: '',
-  name: '',
-  email: ''
-});
-
-async function fetchUser() {
-  const response = await api(`http://localhost:8889/mypage/myprofile`, 'GET');
-  state.petPic = response.user.petPic;
-  state.name = response.user.name;
-  state.email = response.user.email;
-}
-
-onMounted(() => {
-  fetchUser();
-});
-
 const emits = defineEmits(["editProfile", "currentEmail"]);
+const props = defineProps(['name', 'email']);
+
+const name = ref('');
+const email = ref('');
+const petPic = ref('');
+
 const goToEditProfile = (kind) => {
     router.push({ name: 'Edit', params: { kind: kind } });
     emits("editProfile", kind);
-    emits("currentEmail", state.email);
+    emits("currentEmail", email.value);
 };
 
 // 로그아웃
 const logout = async () => {
   if (confirm("로그아웃 하시겠습니까?")) {
-    await api('http://localhost:8889/logout', 'POST');
+    const accessToken = ref(localStorage.getItem("accessToken"));
+    localStorage.removeItem("accessToken");
+    window.location.href = "http://localhost:5173/";
     console.log("로그아웃")
-    location.href = 'http://localhost:5173/';
+
   }
 }
 
-const deleteAccount = async () => {
+const deleteAccount = async (kind) => {
   if(confirm("정말 탈퇴하시겠습니까?")){
-    const response = await api('http://localhost:8889/mypage/delaccount', 'POST');
-    alert(response)
-    window.location.href = 'http://localhost:5173/';
+    emits("editProfile", kind);
+    await router.push({name: 'Edit', params: {kind: kind}});
   }
-
 }
+
+async function fetchUser() {
+  try {
+    const response = await myPageProfileReq();
+    name.value = response.data.user.name;
+    email.value = response.data.user.email;
+    petPic.value = response.data.user.petPic;
+  } catch (error) {
+    console.error('Error fetching user:', error);
+  }
+}
+
+onMounted(() => {
+  fetchUser();
+})
 </script>
 
 <template>
     <div class="con_info_wrapper">
       <div class="con_title">회원 정보</div>
       <div class="infobox">
-        <p>이름 </p><span class="con_name">{{ state.name }}</span>
+        <p>이름 </p><span class="con_name">{{ name }}</span>
       </div>
       <div class="infobox">
-        <p>이메일 </p><a class="con_link" @click="goToEditProfile('email')">{{ state.email }} &gt;</a>
+        <p>이메일 </p><a class="con_link" @click="goToEditProfile('email')">{{ email }} &gt;</a>
       </div>
       <div class="infobox">
         <p>비밀번호 변경</p><a class="con_link" @click="goToEditProfile('pw')">&gt;</a>
       </div>
       <div class="con_bottom">
-        <a class="con_link_bottom" @click="logout()">로그아웃</a> | <a class="con_link_bottom" @click="deleteAccount()">회원탈퇴</a>
+        <a class="con_link_bottom" @click="logout()">로그아웃</a> | <a class="con_link_bottom" @click="deleteAccount('del')">회원탈퇴</a>
       </div>
     </div>
 </template>

@@ -1,7 +1,8 @@
 <script setup>
 import {ref} from "vue";
-import {api} from "@/api/common";
+import {addMyPetReq, api, changeMyPetReq, deleteMyPetReq} from "@/api/common";
 import axios from "axios";
+import router from "@/router";
 
 const props = defineProps([ "mypet", "userId" ])
 const modifiedPet = { ...props.mypet };
@@ -37,22 +38,17 @@ const submit = async (buttonType) => {
         { type: "application/json" }));
 
     let response;
-
-    const url = buttonType === 'modify' ? 'http://localhost:8889/mypet/change' : 'http://localhost:8889/mypet/add';
-
     try {
-      response = await axios({
-        method: 'PUT',
-        url: url,
-        data: formData,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          accept: 'application/json'
+      if(buttonType === 'modify') {
+        response = await changeMyPetReq(formData);
+      } else {
+        for (let key of formData.keys()) {
+          console.log(key, ":", formData.get(key));
         }
-      });
-
+        response = await addMyPetReq(formData);
+      }
       alert(response.data);
-      location.href = 'http://localhost:5173/mypet';
+      await router.push('/mypet');
     } catch (error) {
       console.error(error);
     }
@@ -62,8 +58,8 @@ const submit = async (buttonType) => {
 // 삭제
 const deletePet = async () => {
   if(confirm("정말 삭제하시겠습니까?")) {
-    const response = await api('http://localhost:8889/mypet/delete', 'DELETE');
-    alert(response)
+    const response = await deleteMyPetReq();
+    alert(response.data)
     location.href = 'http://localhost:5173/mypet';
   }
 }

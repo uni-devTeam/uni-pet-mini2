@@ -23,34 +23,8 @@ th, .tb_title, .tb_num, .tb_date {
     text-align: center;
 }
 
-#pagination {
-    bottom: 0;
-    margin: 70px 0 120px;
-}
-
-.title_link, #pagination {
+.title_link {
     cursor: pointer;
-}
-
-/* 페이지네이션의 배경색과 활성 페이지의 배경색 변경 */
-.page-item {
-  color: #000;
-  background-color: #fff;
-  border: 1px solid #ccc;
-}
-
-.page-item:hover .page-link {
- z-index: 1;
- color: #555;
- font-weight:bold;
- background-color: #f1f1f1;
- /*border-color: #ccc;*/
-}
-
-.pagination:focus {
-  color: #000;
-  background-color: #fafafa;
-  border-color: #ccc;
 }
 
 .table>:not(caption)>*>*[data-v-b179ea8b] {
@@ -63,6 +37,6 @@ th, .tb_title, .tb_num, .tb_date {
     text-decoration: none;
 }
 
-tr:hover {
+tr[data-v-b179ea8b]:hover {
     background-color: #f1f1f1;
 }

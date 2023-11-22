@@ -1,22 +1,16 @@
 <script setup>
 
 import {ref} from "vue";
-import {api} from "@/api/common";
+import {pwChangeReq} from "@/api/common";
 import router from "@/router";
 
 const pw = ref('')
 const checkPw = ref('')
 
 async function submit() {
-  const params = new URLSearchParams();
-  params.append('changedPass', pw.value);
-  params.append('changedPassCheck', checkPw.value);
-
-  const url = 'http://localhost:8889/mypage/passchange?' + params.toString();
-  console.log(url)
   try {
-    const response = await api(url, 'POST');
-    alert(response)
+    const response = await pwChangeReq(pw.value, checkPw.value);
+    alert(response.data)
     await router.push('/myprofile');
   } catch (e) {
     console.log(e)
