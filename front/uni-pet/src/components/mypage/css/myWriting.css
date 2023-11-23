@@ -23,37 +23,20 @@ th, .tb_title, .tb_num, .tb_date {
     text-align: center;
 }
 
-#items {
-    width: 700px;
-    height: 400px;
-    margin-bottom: 120px;
+.title_link {
+    cursor: pointer;
 }
 
-#pagination {
-    position: fixed;
-    bottom: 0;
-    padding: 10px;
-    margin-bottom: 50px;
+.table>:not(caption)>*>*[data-v-b179ea8b] {
+    border-bottom: thin solid lightgrey;
+    text-align: center;
 }
 
-/* 페이지네이션의 배경색과 활성 페이지의 배경색 변경 */
-.page-link {
-  color: #000;
-  background-color: #fff;
-  border: 1px solid #ccc;
+.title_link[data-v-b179ea8b], #pagination[data-v-b179ea8b] {
+    cursor: pointer;
+    text-decoration: none;
 }
 
-.page-item.active .page-link {
- z-index: 1;
- color: #555;
- font-weight:bold;
- background-color: #f1f1f1;
- border-color: #ccc;
-
-}
-
-.page-link:focus, .page-link:hover {
-  color: #000;
-  background-color: #fafafa;
-  border-color: #ccc;
+tr[data-v-b179ea8b]:hover {
+    background-color: #f1f1f1;
 }

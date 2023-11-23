@@ -15,7 +15,6 @@ public class CorsConfig {
       UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
       // 실제 CORS 구성을 담고 있는 객체입니다. 여기서는 모든 origin, 헤더, 메서드를 허용하는 간단한 설정이 이루어져 있습니다.
       CorsConfiguration config = new CorsConfiguration();
-
       config.setAllowCredentials(true); // 인증 정보를 허용하도록 설정합니다.
       config.addAllowedOrigin("http://localhost:5173/"); // 모든 origin(도메인)을 허용합니다.
       config.addAllowedHeader("*"); // 모든 헤더를 허용합니다.

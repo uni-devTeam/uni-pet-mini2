@@ -28,6 +28,7 @@ public class Board {
     private String title;
     private String content;
 
+
     @Column( nullable = false)
     private ZonedDateTime postingDate;
 

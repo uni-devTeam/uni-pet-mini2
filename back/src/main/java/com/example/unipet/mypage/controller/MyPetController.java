@@ -1,5 +1,6 @@
 package com.example.unipet.mypage.controller;
 
+import com.example.unipet.login.config.auth.MyUserDetails;
 import com.example.unipet.mypage.domain.MypetDTO;
 import com.example.unipet.mypage.entity.Mypet;
 import com.example.unipet.mypage.repository.MyPetRepository;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,8 +28,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping(value = "/mypet")
 @RequiredArgsConstructor
-@SessionAttributes("userId")
-@CrossOrigin(originPatterns = {"http://localhost:5173"})
 public class MyPetController {
 
     //    @Autowired
@@ -36,18 +36,18 @@ public class MyPetController {
 
     // 펫 조회
     @GetMapping
-    public ResponseEntity<Map<String, Object>> getMyPet() {
-//        HttpSession session = request.getSession();
-//        String userId = (String) session.getAttribute("userId");
-        String userId = "user";
+    public ResponseEntity<Map<String, Object>> getMyPet(@AuthenticationPrincipal MyUserDetails userDetails) {
+        String userId = userDetails.getUser().getUserId();
+        String userName = userDetails.getUsername();
         Map<String, Object> response = mypetService.getMyPet(userId);
+        response.put("userName", userName);
         return ResponseEntity.ok()
                 .body(response);
     }
 
     // 펫 등록 - 프론트단 파일 테스트필요
     @PutMapping("/add")
-    public ResponseEntity<String> addPet(@RequestParam MypetDTO mypetDTO, @RequestParam("attachFile") MultipartFile file) {
+    public ResponseEntity<String> addPet(@RequestPart MypetDTO mypetDTO, @RequestPart(value = "attachFile", required = false) MultipartFile file) {
         boolean saved = mypetService.addMyPet(mypetDTO, file);
         if(saved) {
             return ResponseEntity.ok()
@@ -59,8 +59,8 @@ public class MyPetController {
     }
 
     // 펫 정보 수정
-    @RequestMapping("/change")
-    public ResponseEntity<String> petChange(@RequestParam MypetDTO mypetDTO, @RequestParam("attachFile") MultipartFile file) {
+    @PutMapping("/change")
+    public ResponseEntity<String> petChange(@RequestPart MypetDTO mypetDTO, @RequestPart(value = "attachFile", required = false) MultipartFile file) {
         boolean saved = mypetService.changePetInfo(mypetDTO, file);
         if(saved) {
             return ResponseEntity.ok()
@@ -73,9 +73,8 @@ public class MyPetController {
 
     // 펫 삭제
     @DeleteMapping("/delete")
-    public ResponseEntity<String> deletePet(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        String userId = (String) session.getAttribute("userId");
+    public ResponseEntity<String> deletePet(@AuthenticationPrincipal MyUserDetails userDetails) {
+        String userId = userDetails.getUser().getUserId();
 
         boolean deleted = mypetService.deletePet(userId);
         if(deleted) {

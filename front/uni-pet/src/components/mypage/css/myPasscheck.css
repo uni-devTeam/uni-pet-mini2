@@ -3,6 +3,12 @@
     margin-bottom: 10px;
 }
 
+.customInput {
+    height: 1.9em;
+    border: 1px darkgrey solid;
+    border-radius: 0.4em;
+}
+
 #e_btn{
     margin-top: 30px;
     width: 30%;

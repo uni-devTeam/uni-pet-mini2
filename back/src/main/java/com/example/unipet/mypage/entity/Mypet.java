@@ -51,6 +51,9 @@ public class Mypet {
         if (updatedPet.getPetName() != null) {
             this.petName = updatedPet.getPetName();
         }
+        if (updatedPet.getPetPic() != null) {
+            this.petPic = updatedPet.getPetPic();
+        }
         if (updatedPet.getPetBirth() != null) {
             this.petBirth = updatedPet.getPetBirth();
         }

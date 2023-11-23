@@ -29,6 +29,7 @@ public class MypetService {
     public Map<String, Object> getMyPet(String userId) {
         Optional<Mypet> mypetOptional = myPetRepository.findMyPetByUserId(userId);
         Map<String, Object> response = new HashMap<>();
+        response.put("userId", userId);
         if (mypetOptional.isPresent()) {
             Mypet mypet = mypetOptional.get();
             String age = calculatePetAge(mypet.getPetBirth());
@@ -69,7 +70,7 @@ public class MypetService {
             // 이미지 파일 업로드 처리
             if (!file.isEmpty()) {
                 try {
-                    uploadImg(mypetDTO, file); // session 추가해야함
+                    uploadImg(mypetDTO, file);
                 } catch (IOException e) {
                     e.printStackTrace();
 //                    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -89,6 +90,7 @@ public class MypetService {
                     .petWeight(mypetDTO.getPetWeight())
                     .petTrait(mypetDTO.getPetTrait())
                     .build();
+            System.out.println(mypetDTO);
             myPetRepository.save(mypet);
             return true;  // 성공한 경우
         } catch (Exception e) {
@@ -101,11 +103,9 @@ public class MypetService {
     @Transactional
     public boolean changePetInfo(MypetDTO mypetDTO, MultipartFile file) {
         Optional<Mypet> optionalMypet = myPetRepository.findMyPetByUserId("user");
-
         if(optionalMypet.isPresent()) {
             // 이미지 파일 업로드 처리
-            // dto로 받아서 mypet 엔티티에 저장하고 이미지 경로만 따로 빼기
-            if (file.isEmpty()) {
+            if (file == null||file.isEmpty()) {
                 // 파일이 선택되지 않은 경우, 기존 이미지 경로를 그대로 유지
                 String originalPath = myPetRepository.findPetPicByUserId(mypetDTO.getUserId());
                 mypetDTO.setPetPic(originalPath);
@@ -138,7 +138,7 @@ public class MypetService {
         System.out.println(currentDirectory);
         String correctedPath = currentDirectory.replace("\\", "/");
         UUID uuid = UUID.randomUUID();
-        String path = correctedPath + "/src/main/resources/static/img/mypage/upload/" + uuid.toString() + fileName;
+        String path = correctedPath + "/back/src/main/resources/static/img/mypage/upload/" + uuid.toString() + fileName;
         System.out.println(path);
         File destinationFile = new File(path);
         file.transferTo(destinationFile);

@@ -22,6 +22,12 @@
     margin-bottom: 10px;
 }
 
+.customInput {
+    height: 1.9em;
+    border: 1px darkgrey solid;
+    border-radius: 0.4em;
+}
+
 .con_email{
     display: flex;
     align-items: center;
@@ -30,10 +36,15 @@
 
 .new_email{
     width: 60%;
+    height: 1.9em;
+    border: 1px lightgrey solid;
+    border-radius: 0.4em;
 }
 
 #emailSelect{
     width: 40%;
+    border: 1px lightgrey solid;
+    border-radius: 0.5em;
 }
 
  #e_btn{

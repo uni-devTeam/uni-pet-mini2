@@ -7,8 +7,18 @@ const apiConfig = {
   },
 };
 
+const apiFileConfig = {
+  baseURL: "http://localhost:8889/",
+  headers: {
+    'Content-Type': 'multipart/form-data',
+    accept: 'application/json'
+  },
+};
+
 export const authApi = axios.create(apiConfig);
 export const apiInstance = axios.create(apiConfig);
+
+export const authFileApi = axios.create(apiFileConfig);
 
 // 인터 셉터
 authApi.interceptors.request.use((config) => {
