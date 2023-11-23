@@ -48,7 +48,8 @@ public class MyPetController {
     // 펫 등록 - 프론트단 파일 테스트필요
     @PutMapping("/add")
     public ResponseEntity<String> addPet(@RequestPart MypetDTO mypetDTO, @RequestPart(value = "attachFile", required = false) MultipartFile file) {
-        boolean saved = mypetService.addMyPet(mypetDTO, file);
+        mypetDTO.setAttachFile(file);
+        boolean saved = mypetService.addMyPet(mypetDTO);
         if(saved) {
             return ResponseEntity.ok()
                     .body("펫 등록이 완료되었습니다.");
@@ -61,7 +62,8 @@ public class MyPetController {
     // 펫 정보 수정
     @PutMapping("/change")
     public ResponseEntity<String> petChange(@RequestPart MypetDTO mypetDTO, @RequestPart(value = "attachFile", required = false) MultipartFile file) {
-        boolean saved = mypetService.changePetInfo(mypetDTO, file);
+        mypetDTO.setAttachFile(file);
+        boolean saved = mypetService.changePetInfo(mypetDTO);
         if(saved) {
             return ResponseEntity.ok()
                     .body("펫 수정이 완료되었습니다.");

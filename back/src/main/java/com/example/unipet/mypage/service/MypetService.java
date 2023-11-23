@@ -65,16 +65,15 @@ public class MypetService {
 
     // 펫 등록
     @Transactional
-    public boolean addMyPet(MypetDTO mypetDTO, MultipartFile file) {
+    public boolean addMyPet(MypetDTO mypetDTO) {
         try {
             // 이미지 파일 업로드 처리
-            if (!file.isEmpty()) {
+            if (mypetDTO.getAttachFile() != null) {
+                System.out.println("널값이 아닐때");
                 try {
-                    uploadImg(mypetDTO, file);
+                    uploadImg(mypetDTO, mypetDTO.getAttachFile());
                 } catch (IOException e) {
                     e.printStackTrace();
-//                    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-//                            .body("이미지 등록에 실패하였습니다.");
                     return false;
                 }
             }
@@ -101,22 +100,19 @@ public class MypetService {
 
     // 펫 수정
     @Transactional
-    public boolean changePetInfo(MypetDTO mypetDTO, MultipartFile file) {
+    public boolean changePetInfo(MypetDTO mypetDTO) {
         Optional<Mypet> optionalMypet = myPetRepository.findMyPetByUserId("user");
         if(optionalMypet.isPresent()) {
             // 이미지 파일 업로드 처리
-            if (file == null||file.isEmpty()) {
+            if (mypetDTO.getAttachFile() == null||mypetDTO.getAttachFile().isEmpty()) {
                 // 파일이 선택되지 않은 경우, 기존 이미지 경로를 그대로 유지
                 String originalPath = myPetRepository.findPetPicByUserId(mypetDTO.getUserId());
                 mypetDTO.setPetPic(originalPath);
             } else {
                 try {
-                    uploadImg(mypetDTO, file); // session 추가해야함
+                    uploadImg(mypetDTO, mypetDTO.getAttachFile());
                 } catch (IOException e) {
                     e.printStackTrace();
-                    // 실패시 처리 필요
-//                    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-//                            .body("이미지 등록에 실패하였습니다.");
                     return false;
                 }
             }
