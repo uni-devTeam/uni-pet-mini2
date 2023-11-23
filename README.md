@@ -4,8 +4,8 @@
 ![배너](https://github.com/uni-devTeam/uni-pet/assets/115906460/513a7c0e-a3d2-4507-9399-85376128d679)
 
 - **`팀 명` :**  유니팀
-- **`프로젝트 기간` :** 2023.10.13 - 2023.10.23
-- **`한줄 소개` :** 유기동물 커뮤니티 서비스
+- **`프로젝트 기간` :** 2023.11.11 - 2023.11.23
+- **`한줄 소개` :** 유기동물 커뮤니티 서비스 (SSR -> CSR 변환 프로젝트)
 - **`팀원` :** 하인성, 김민지, 노인수, 한승완
 
 팀원 소개
@@ -41,14 +41,15 @@
 ---
 
 ### 백엔드
-|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/dd8cd9db-2e45-4b37-bb50-2be7c036d73e" width="60">|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/b4f50915-64b6-4e2b-a192-9f11b2a17f91" width="60"/>|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/4caccb38-c0dd-4269-a23c-6bd0a63eee88" width="60"/>|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/b3478fa5-fb29-44b3-b3de-62aa104c8029" width="60"/>|
+|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/dd8cd9db-2e45-4b37-bb50-2be7c036d73e" width="60">|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/b4f50915-64b6-4e2b-a192-9f11b2a17f91" width="60"/>|<img src="https://github.com/uni-devTeam/uni-pet-mini2/assets/78472822/2cdf6708-3f40-4334-9dd1-5ef7fe2cde9d" width="60"/>|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/b3478fa5-fb29-44b3-b3de-62aa104c8029" width="60"/>|
 |:---:|:---:|:---:|:---:|
-|`Java`|`Spring Boot`|`MyBatis`|`MySQL`|
+|`Java`|`Spring Boot`|`JPA Hibernate`|`MySQL`|
 
 ### 프론트엔드
-|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/325b6e44-fa47-46d8-a5fd-0802ab809cc9" width="60"/>|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/5368f991-80d8-4181-826e-95b0390f5b6e" width="60"/>|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/a725b7dd-13c7-450f-94fd-b28fc41eac59" width="60"/>|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/e2df7841-01fe-44f5-a2db-22e42f8371c3" width="60"/>|
+
+|<img src="https://github.com/uni-devTeam/uni-pet-mini2/assets/78472822/64c2f0e4-6fab-479f-9ae8-76013c96e546" width="60"/>|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/5368f991-80d8-4181-826e-95b0390f5b6e" width="60"/>|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/a725b7dd-13c7-450f-94fd-b28fc41eac59" width="60"/>|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/e2df7841-01fe-44f5-a2db-22e42f8371c3" width="60"/>|
 |:---:|:---:|:---:|:---:|
-|`Thymeleaf`|`JavaScript`|`HTML`|`CSS`|
+|`VueJS`|`JavaScript`|`HTML`|`CSS`|
 
 ### 기타
 |<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/6b33fe28-faaf-4710-a092-b92f45ee8252" width="60"/>|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/ddb42da1-1a7a-4fa4-b10b-012d990a9f1a" width="60"/>|
