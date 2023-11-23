@@ -9,7 +9,7 @@ import lombok.Setter;
 @Data
 public class BoardDTO {
     private int boardNo;
-    private String userId;
+//    private String userId; 서버에서 토큰 생성 후 엔터티 필드로 직접 전달
     private int boardId;
     private String title;
     private String content;

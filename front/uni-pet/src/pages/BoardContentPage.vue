@@ -26,7 +26,6 @@
         </div>
         <div class="posting_info2">{{ formatDate(board.postingDate) }} &nbsp; 조회 {{ board.views }}</div>
         <hr>
-        <h2>게시글 내용</h2>
         <br>
         <div id="content" v-html="board.content" style="font-size: larger"></div>
       </div>
@@ -98,6 +97,7 @@ const boardNo = new URLSearchParams(window.location.search).get('boardNo');
 const comment = reactive({ content: '', boardNo });
 
 onMounted(async () => {
+  window.scrollTo(0,0);
   const boardNo = new URLSearchParams(window.location.search).get('boardNo');
   const response = await axios.get(`http://localhost:8889/board/content/${boardNo}`);
   board.value = response.data;

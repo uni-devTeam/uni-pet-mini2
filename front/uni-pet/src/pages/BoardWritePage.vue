@@ -51,6 +51,7 @@ let editorInstance = null;
 let editor = ref(null);
 
 onMounted(async () => {
+  window.scrollTo(0,0);
   board.value.boardId = Number(route.params.boardId);
   editorInstance = await ClassicEditor.create(editor.value);
   editorInstance.model.document.on('change:data', () => {
