@@ -20,10 +20,6 @@
       <img class="my_icon" src="@/assets/images/mypage/share.png" alt="나눔 물품">
       <span>나눔 물품</span>
     </button>
-    <button class="selbox selbox5" @click="$router.push('/mysharelikes')">
-      <img class="my_icon" src="@/assets/images/mypage/heart.png" alt="나눔 좋아요">
-      <span>나눔 좋아요</span>
-    </button>
   </div>
 </template>
 
