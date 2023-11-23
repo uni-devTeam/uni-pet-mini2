@@ -10,6 +10,8 @@ import AnimalListPage from "@/pages/AnimalListPage.vue";
 import AnimalListDetailPage from "@/pages/AnimalListDetailPage.vue";
 import BoardListPage from "@/pages/BoardListPage.vue";
 import BoardWritePage from '@/pages/BoardWritePage.vue';
+import BoardContentPage from '@/pages/BoardContentPage.vue';
+
 
 const index = createRouter({
   history: createWebHistory(),
@@ -27,8 +29,9 @@ const index = createRouter({
     { path: "/mysharelikes", component: Mypage },
     { path: "/animalList", component: AnimalListPage },
     { path: "/animals/:id", component: AnimalListDetailPage, props: true },
-    { path: "/board/list", component: BoardListPage },
-    { path: "/write", component: BoardWritePage },
+    { path: "/board/list/:boardId", name: 'BoardList', component: BoardListPage, props: route => ({ boardId: Number(route.params.boardId) }) },
+    { path: "/write/:boardId", name: 'BoardWrite', component: BoardWritePage, props: route => ({ boardId: Number(route.params.boardId) }) },
+    { path: '/board/content', name: 'BoardContentPage', component: BoardContentPage },
   ],
 });
 

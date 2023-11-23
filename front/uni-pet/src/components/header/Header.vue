@@ -51,20 +51,20 @@
           </div>
           <div class="drop_down_menu_container">
             <router-link
-              to="/board/list"
-              class="drop_down_menu_text display_none"
-              >공지 게시판</router-link
-            >
+                :to="{ name: 'BoardList', params: { boardId: 0 } }"
+                class="drop_down_menu_text display_none"
+            >공지 게시판</router-link>
+
             <router-link
-              to="/board/list"
-              class="drop_down_menu_text display_none"
-              >나눔 게시판</router-link
-            >
+                :to="{ name: 'BoardList', params: { boardId: 1 } }"
+                class="drop_down_menu_text display_none"
+            >나눔 게시판</router-link>
+
             <router-link
-              to="/board/list"
-              class="drop_down_menu_text display_none"
-              >자유 게시판</router-link
-            >
+                :to="{ name: 'BoardList', params: { boardId: 2 } }"
+                class="drop_down_menu_text display_none"
+            >자유 게시판</router-link>
+
           </div>
           <div class="drop_down_menu_container">
             <router-link to="/hospinfo" class="drop_down_menu_text display_none"
