@@ -1,6 +1,7 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import {api, mywritingsReq} from "@/api/common";
+import router from "@/router";
 
 const isActive = ref(false);
 const noWritings = ref('');
@@ -50,6 +51,11 @@ const loadMoreItems = async () => {
   await fetchWritings(1, currentPage.value)
 }
 
+const goToMyShareItem = (shareId) => {
+  const url = '/board/content?boardNo=' + parseInt(shareId);
+  location.href = 'http://localhost:5173' + url;
+}
+
 </script>
 
 <template>
@@ -65,7 +71,7 @@ const loadMoreItems = async () => {
                 </div>
                 <div class="col-md-8">
                   <div class="card-body">
-                    <a id="card_atag" href="#">
+                    <a id="card_atag" @click="goToMyShareItem(item.boardNo)">
                       <h5 class="card-title">{{ item.title }}</h5>
                       <p class="card-text">{{ item.content }}</p>
                       <p class="card-text">{{ item.postingDate }}<small

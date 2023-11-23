@@ -43,6 +43,11 @@ const onClickHandler = (page) => {
   fetchWritings(currentPage.value, 2);
 };
 
+const goToMyWritingItem = (writingId) => {
+  const url = '/board/content?boardNo=' + parseInt(writingId);
+  location.href = 'http://localhost:5173' + url;
+}
+
 </script>
 
 <template>
@@ -59,11 +64,10 @@ const onClickHandler = (page) => {
             </tr>
           </thead>
           <tbody class="table-group-divider">
-            <tr v-for="item in writingList" :key="item.boardNo">
-              <input type="hidden" value="item.boardNo">
+            <tr v-for="item in writingList" :key="item.boardNo" >
               <td class="tb_num">{{ item.boardNo }}</td>
               <td class="tb_title">
-                <a class="title_link" href="">{{ item.title }}</a>
+                <a class="title_link" @click="goToMyWritingItem(item.boardNo)">{{ item.title }}</a>
                 </td>
               <td>{{ item.postingDate }}</td>
             </tr>
