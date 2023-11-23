@@ -52,10 +52,6 @@ td {
 }
 
 
-
-
-
-
 #ref_btn {
     width: 30%;
     border: none;
@@ -86,7 +82,16 @@ td {
 
 }
 #posting_btn1 {
-    display: inline-block;
+    text-decoration: none;
+    border: none;
+    padding: 10px;
+
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 18px;
+    /* background-color: #494949;*/
+    margin-top: 20px;
+    order: 0;
 }
 #posting_btn2 {
     display: inline-block;
