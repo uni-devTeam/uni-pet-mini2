@@ -8,7 +8,6 @@ import com.example.unipet.boards.entity.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/board")
 public class BoardController {

@@ -33,7 +33,7 @@
 <!--        </form>-->
         <br />
         <br />
-        <div class="table" v-if="boardList.length > 0">
+        <div class="table">
           <table class="table">
             <thead>
             <tr class="table-dark">
