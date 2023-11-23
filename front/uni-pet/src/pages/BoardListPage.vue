@@ -61,15 +61,15 @@
             글쓰기
           </button>
         </div>
-<!--        <div v-if="boardList.length === 0">-->
-<!--          <h3>{{ msg }}</h3>-->
-<!--          <router-link to="/">-->
-<!--            <button class="btn btn-dark">메인으로 돌아가기</button>-->
-<!--          </router-link>-->
-<!--          <button id="posting_btn2" class="btn btn-dark" @click="goToPosting">-->
-<!--            글쓰기-->
-<!--          </button>-->
-<!--        </div>-->
+        <div v-if="boardList.length === 0">
+          <h3>{{ msg }}</h3>
+          <router-link to="/">
+            <button class="btn btn-dark">메인으로 돌아가기</button>
+          </router-link>
+          <button id="posting_btn2" class="btn btn-dark" @click="goToPosting">
+            글쓰기
+          </button>
+        </div>
       </div>
     </section>
   </div>
