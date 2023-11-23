@@ -1,5 +1,4 @@
 <template>
-  <Modal></Modal>
   <TopBackground
     :imageURL="convenienceBackgroundURL"
     :titleText="trailTitleText"
