@@ -13,6 +13,6 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     Board findByBoardNo(int boardNo);
     List<Board> findByTitleContaining(String title);
     void deleteByBoardNo(int boardNo);
-
+    List<Board> findByBoardId(int boardId);
 
 }
