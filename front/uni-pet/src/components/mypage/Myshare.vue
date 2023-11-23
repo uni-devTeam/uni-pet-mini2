@@ -2,6 +2,8 @@
 import {onMounted, ref} from "vue";
 import {api, mywritingsReq} from "@/api/common";
 
+const isActive = ref(false);
+const noWritings = ref('');
 const currentPage = ref(0);
 const shareList = ref([]);
 const pageSize = 6;
@@ -20,14 +22,21 @@ const emits = defineEmits(['navInfo'])
 
 async function fetchWritings(boarId, currentPage) {
   const boardId = parseInt(boarId);
-  const response = await mywritingsReq(currentPage, boardId);
-  shareList.value = shareList.value = [...shareList.value, ...response.data.list.content];
-  pageNumber.value = response.data.list.pageable.pageNumber;
-  totalPages.value = response.data.list.totalPages;
-  first.value = response.data.list.first;
-  last.value = response.data.list.last;
-  userName.value = response.data.userName;
-  petPic.value = response.data.petPic;
+  try {
+    const response = await mywritingsReq(currentPage, boardId);
+    isActive.value = true;
+    shareList.value = shareList.value = [...shareList.value, ...response.data.list.content];
+    pageNumber.value = response.data.list.pageable.pageNumber;
+    totalPages.value = response.data.list.totalPages;
+    first.value = response.data.list.first;
+    last.value = response.data.list.last;
+    userName.value = response.data.userName;
+    petPic.value = response.data.petPic;
+  } catch (e) {
+    userName.value = e.response.data.userName;
+    petPic.value = e.response.data.petPic;
+    noWritings.value = e.response.data.noWritings;
+  }
 
   emits('navInfo', nav.value);
 }
@@ -47,7 +56,7 @@ const loadMoreItems = async () => {
     <div class="con_info">
       <div class="con_info_wrapper">
         <div class="con_title">나눔 물품</div>
-        <div class="cardbox" v-if="shareList">
+        <div class="cardbox" v-if="isActive">
           <div v-for="item in shareList" :key="item.boardNo" class="sharecard">
             <div class="card mb-3">
               <div class="row g-0">
@@ -68,8 +77,10 @@ const loadMoreItems = async () => {
             </div>
           </div>
         </div>
-          <div v-else>나눔한 항목이 존재하지 않습니다.</div>
-        <div>
+          <div v-else>
+            {{ noWritings }}
+          </div>
+        <div v-if="isActive">
           <button id="load-more" v-if="!last" @click="loadMoreItems()">더 보기</button>
         </div>
       </div>
