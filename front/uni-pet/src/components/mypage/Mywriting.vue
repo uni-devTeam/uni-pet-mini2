@@ -72,7 +72,7 @@ const onClickHandler = (page) => {
 
         <!-- paginate next Library -->
         <paginate
-            :page-range="10"
+            :page-range="3"
             :page-count="totalPages"
             :click-handler="onClickHandler"
             :prev-text="'이전'"
@@ -92,15 +92,14 @@ const onClickHandler = (page) => {
 @import "./css/myWriting.css";
 @import "./css/myPageLayout.css";
 @import "bootstrap/dist/css/bootstrap.min.css";
-</style>
 
-<style lang="css">
 .pagination {
-  width: 65%;
+  width: 53%;
   height: 28px;
   position: absolute;
   justify-content: center;
   bottom: 28%;
+  line-height: 28px;
 }
 .pagination li {
   min-width: 32px;
@@ -127,3 +126,4 @@ const onClickHandler = (page) => {
   color:#fff;
 }
 </style>
+
