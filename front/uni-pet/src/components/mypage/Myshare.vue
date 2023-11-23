@@ -68,7 +68,7 @@ const loadMoreItems = async () => {
             </div>
           </div>
         </div>
-          <div v-if="!shareList">나눔한 항목이 존재하지 않습니다.</div>
+          <div v-else>나눔한 항목이 존재하지 않습니다.</div>
         <div>
           <button id="load-more" v-if="!last" @click="loadMoreItems()">더 보기</button>
         </div>

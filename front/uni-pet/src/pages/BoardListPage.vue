@@ -118,7 +118,7 @@ const fetchData = async () => {
 
 // 컴포넌트가 마운트될 때 fetchData 함수를 실행합니다.
 onMounted(fetchData);
-
+window.scrollTo(0,0);
 // boardId prop이 변경될 때마다 fetchData 함수를 실행합니다.
 watch(() => props.boardId, fetchData);
 

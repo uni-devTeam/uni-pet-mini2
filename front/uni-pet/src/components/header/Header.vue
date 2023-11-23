@@ -44,7 +44,7 @@
         <div class="drop_down_wrapper">
           <div class="drop_down_menu_container">
             <router-link
-              to="/animalList"
+              to="/animallist"
               class="drop_down_menu_text display_none"
               >유기동물 리스트</router-link
             >
