@@ -101,8 +101,10 @@ public class MypetService {
     // 펫 수정
     @Transactional
     public boolean changePetInfo(MypetDTO mypetDTO) {
-        Optional<Mypet> optionalMypet = myPetRepository.findMyPetByUserId("user");
+        Optional<Mypet> optionalMypet = myPetRepository.findMyPetByUserId(mypetDTO.getUserId());
+
         if(optionalMypet.isPresent()) {
+            System.out.println(optionalMypet.get());
             // 이미지 파일 업로드 처리
             if (mypetDTO.getAttachFile() == null||mypetDTO.getAttachFile().isEmpty()) {
                 // 파일이 선택되지 않은 경우, 기존 이미지 경로를 그대로 유지

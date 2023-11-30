@@ -76,7 +76,6 @@
             type="radio"
             name="havePet"
             value="false"
-            checked="checked"
           />
           <label for="havePetFalse">미보유</label>
         </div>
@@ -264,6 +263,7 @@ const validateForm = () => {
     petWeight,
     petTrait,
   } = formData.value;
+  console.log(havePet);
   if (
     userId.trim() === "" ||
     password.trim() === "" ||
@@ -282,7 +282,9 @@ const validateForm = () => {
     window.scrollTo(0, 0);
     return false;
   }
-  if (havePet) {
+
+  if (havePet == "true") {
+    console.log(havePet);
     if (
       petName.trim() === "" ||
       petBirth.trim() === "" ||
@@ -290,7 +292,7 @@ const validateForm = () => {
       petKind.trim() === "" ||
       petNeuter.trim() === "" ||
       petColor.trim() === "" ||
-      petWeight.trim() === "" ||
+      petWeight === null ||
       petTrait.trim() === ""
     ) {
       openModal();

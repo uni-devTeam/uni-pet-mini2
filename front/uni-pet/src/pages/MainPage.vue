@@ -36,14 +36,14 @@
         <div class="service_container hidden">
           <div class="service_cotainer_item">
             <router-link
-              to="/animalList"
+              to="/animallist"
               class="service_cotainer_item_img photo1"
             ></router-link>
             <h2>유기동물 리스트 제공</h2>
           </div>
           <div class="service_cotainer_item">
             <router-link
-              to="/board/list2"
+              to="/board/list/0"
               class="service_cotainer_item_img photo2"
             ></router-link>
             <h2>반려동물 커뮤니티 서비스</h2>
