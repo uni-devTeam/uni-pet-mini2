@@ -1,4 +1,3 @@
-/*
 package com.example.unipet.list.service;
 
 import com.example.unipet.list.domain.AnimalListDTO;
@@ -41,4 +40,3 @@ public class AnimalDataParser {
         return animalList;
     }
 }
-*/
