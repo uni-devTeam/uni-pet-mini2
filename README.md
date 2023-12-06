@@ -41,9 +41,9 @@
 ---
 
 ### 백엔드
-|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/dd8cd9db-2e45-4b37-bb50-2be7c036d73e" width="60">|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/b4f50915-64b6-4e2b-a192-9f11b2a17f91" width="60"/>|<img src="https://github.com/uni-devTeam/uni-pet-mini2/assets/78472822/2cdf6708-3f40-4334-9dd1-5ef7fe2cde9d" width="60"/>|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/b3478fa5-fb29-44b3-b3de-62aa104c8029" width="60"/>|
-|:---:|:---:|:---:|:---:|
-|`Java`|`Spring Boot`|`JPA Hibernate`|`MySQL`|
+|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/dd8cd9db-2e45-4b37-bb50-2be7c036d73e" width="60">|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/b4f50915-64b6-4e2b-a192-9f11b2a17f91" width="60"/>|<img src="https://github.com/uni-devTeam/uni-pet-mini2/assets/78472822/2cdf6708-3f40-4334-9dd1-5ef7fe2cde9d" width="60"/>|<img src="https://github.com/uni-devTeam/uni-pet/assets/115906460/b3478fa5-fb29-44b3-b3de-62aa104c8029" width="60"/>|<img src="https://github.com/uni-devTeam/uni-pet-mini2/assets/115906460/94965cb3-8a69-49bf-ba00-d6b19d87cba4" width="60"/>|
+|:---:|:---:|:---:|:---:|:---:|
+|`Java`|`Spring Boot`|`JPA Hibernate`|`MySQL`|`Spring Security`|
 
 ### 프론트엔드
 
